@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'LaravelItalia\Events\SomeEvent' => [
-            'LaravelItalia\Listeners\EventListener',
+        'LaravelItalia\Events\UserHasSignedUp' => [
+            'LaravelItalia\Listeners\SendWelcomeEmail',
         ],
     ];
 

@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Entities\Services;
 
+use LaravelItalia\Events\UserHasSignedUp;
 use LaravelItalia\Jobs\Job;
 use LaravelItalia\Entities\User;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -34,5 +35,7 @@ class UserSignup extends Job implements SelfHandling
     public function handle(UserRepository $userRepository)
     {
         $userRepository->save($this->user);
+
+        event(new UserHasSignedUp($this->user));
     }
 }
