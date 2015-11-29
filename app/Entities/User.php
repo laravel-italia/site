@@ -33,4 +33,12 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function confirm()
+    {
+        if($this->is_confirmed)
+            throw new \Exception('already_confirmed');
+
+        $this->is_confirmed = true;
+    }
 }

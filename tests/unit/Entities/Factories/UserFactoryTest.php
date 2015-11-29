@@ -14,5 +14,7 @@ class UserFactoryTest extends TestCase
         $this->assertEquals('Francesco', $user->name);
         $this->assertEquals('hey@hellofrancesco.com', $user->email);
         $this->assertEquals(60, strlen($user->password));
+        $this->assertEquals(false, $user->is_confirmed);
+        $this->assertEquals(40, strlen($user->confirmation_code));
     }
 }

@@ -19,6 +19,24 @@ class UserRepositoryTest extends TestCase
         $this->assertCount(1, $users);
     }
 
+    public function testCanFindFirst()
+    {
+        $this->prepareTestUserSeed();
+
+        $userRepository = new \LaravelItalia\Entities\Repositories\UserRepository();
+
+        $existingUser = $userRepository->findFirstBy([
+            'email' => 'hey@hellofrancesco.com'
+        ]);
+
+        $notExistingUser = $userRepository->findFirstBy([
+            'name' => 'John Doe'
+        ]);
+
+        $this->assertNotNull($existingUser);
+        $this->assertNull($notExistingUser);
+    }
+
     private function prepareTestUser()
     {
         $user = new \LaravelItalia\Entities\User();
@@ -28,5 +46,11 @@ class UserRepositoryTest extends TestCase
         $user->password = bcrypt('123456');
 
         return $user;
+    }
+
+    private function prepareTestUserSeed()
+    {
+        $user = $this->prepareTestUser();
+        $user->save();
     }
 }

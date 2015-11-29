@@ -20,4 +20,15 @@ class UserRepository
     {
         $user->save();
     }
+
+    public function findFirstBy(array $criteria)
+    {
+        $users = User::query();
+
+        foreach($criteria as $fieldName => $fieldValue){
+            $users->where($fieldName, '=', $fieldValue);
+        }
+
+        return $users->first();
+    }
 }
