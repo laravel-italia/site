@@ -17,4 +17,22 @@ class UserFactoryTest extends TestCase
         $this->assertEquals(false, $user->is_confirmed);
         $this->assertEquals(40, strlen($user->confirmation_code));
     }
+
+    /**
+     * Test if the factory is able to create a User in the right way.
+     *
+     * @return void
+     */
+    public function testCanCreateSocialUser()
+    {
+        $user = \LaravelItalia\Entities\Factories\UserFactory::createUserFromSocialNetwork('Francesco', 'hey@hellofrancesco.com', 'facebook', 'FACEBOOK_ID');
+
+        $this->assertEquals('Francesco', $user->name);
+        $this->assertEquals('hey@hellofrancesco.com', $user->email);
+        $this->assertEquals(0, strlen($user->password));
+        $this->assertEquals(true, $user->is_confirmed);
+        $this->assertEquals(0, strlen($user->confirmation_code));
+        $this->assertEquals('facebook', $user->provider);
+        $this->assertEquals('FACEBOOK_ID', $user->provider_id);
+    }
 }
