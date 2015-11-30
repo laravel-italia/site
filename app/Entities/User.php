@@ -41,4 +41,9 @@ class User extends Model implements AuthenticatableContract,
 
         $this->is_confirmed = true;
     }
+
+    public function getAuthenticationProvider()
+    {
+        return $this->provider;
+    }
 }
