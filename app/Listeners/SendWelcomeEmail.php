@@ -27,10 +27,12 @@ class SendWelcomeEmail
     {
         $user = $event->getUser();
 
-        Mail::send('emails.user_welcome', ['user' => $user], function ($m) use ($user) {
-            $m->to($user->email, $user->name)
-                ->subject('Benvenuto! :: Laravel-Italia.it')
-            ;
-        });
+        if(is_null($user->getAuthenticationProvider())){
+            Mail::send('emails.user_welcome', ['user' => $user], function ($m) use ($user) {
+                $m->to($user->email, $user->name)
+                    ->subject('Benvenuto! :: Laravel-Italia.it')
+                ;
+            });
+        }
     }
 }
