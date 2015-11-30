@@ -3,6 +3,7 @@
 use LaravelItalia\Entities\User;
 use LaravelItalia\Entities\Services\UserSignup;
 use LaravelItalia\Entities\Repositories\UserRepository;
+use LaravelItalia\Events\UserHasSignedUp;
 
 class UserSignupTest extends TestCase
 {
@@ -24,6 +25,7 @@ class UserSignupTest extends TestCase
     public function __construct()
     {
         $this->userMock = $this->getMock(\LaravelItalia\Entities\User::class);
+
         $this->repositoryMock = $this->getMock(UserRepository::class);
 
         $this->userSignupService = new UserSignup($this->userMock);
@@ -34,6 +36,8 @@ class UserSignupTest extends TestCase
         $this->repositoryMock
             ->expects($this->once())
             ->method('save');
+
+        $this->expectsEvents(UserHasSignedUp::class);
 
         $this->userSignupService->handle($this->repositoryMock);
     }
