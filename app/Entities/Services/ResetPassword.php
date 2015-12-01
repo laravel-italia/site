@@ -9,7 +9,7 @@ use LaravelItalia\Jobs\Job;
 use LaravelItalia\Entities\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class UserPasswordReset extends Job implements SelfHandling
+class ResetPassword extends Job implements SelfHandling
 {
     /**
      * @var User

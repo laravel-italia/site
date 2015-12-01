@@ -2,13 +2,13 @@
 
 use LaravelItalia\Entities\User;
 use LaravelItalia\Events\UserHasRecoveredPassword;
-use LaravelItalia\Entities\Services\UserPasswordRecovery;
+use LaravelItalia\Entities\Services\RecoveryPassword;
 use LaravelItalia\Entities\Repositories\PasswordResetRepository;
 
-class UserPasswordRecoveryTest extends TestCase
+class RecoveryPasswordTest extends TestCase
 {
     /**
-     * @var UserPasswordRecovery
+     * @var RecoveryPassword
      */
     private $service;
 
@@ -27,7 +27,7 @@ class UserPasswordRecoveryTest extends TestCase
         $this->userMock = $this->getMock(\LaravelItalia\Entities\User::class);
         $this->repositoryMock = $this->getMock(PasswordResetRepository::class);
 
-        $this->userConfirmationService = new UserPasswordRecovery($this->userMock, 'TEST_TOKEN');
+        parent::__construct();
     }
 
     public function testExecutesCorrectly()
@@ -45,7 +45,7 @@ class UserPasswordRecoveryTest extends TestCase
 
         $this->expectsEvents(UserHasRecoveredPassword::class);
 
-        $this->service = new UserPasswordRecovery($this->userMock);
+        $this->service = new RecoveryPassword($this->userMock);
         $this->service->handle($this->repositoryMock);
     }
 
@@ -59,7 +59,7 @@ class UserPasswordRecoveryTest extends TestCase
             ->method('getAuthenticationProvider')
             ->willReturn('facebook');
 
-        $this->service = new UserPasswordRecovery($this->userMock);
+        $this->service = new RecoveryPassword($this->userMock);
         $this->service->handle($this->repositoryMock);
     }
 }

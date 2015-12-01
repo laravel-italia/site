@@ -8,7 +8,7 @@ use LaravelItalia\Jobs\Job;
 use LaravelItalia\Entities\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class UserPasswordRecovery extends Job implements SelfHandling
+class RecoveryPassword extends Job implements SelfHandling
 {
     /**
      * @var User

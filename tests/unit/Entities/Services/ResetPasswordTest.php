@@ -1,15 +1,14 @@
 <?php
 
 use LaravelItalia\Entities\User;
-use LaravelItalia\Events\UserHasRecoveredPassword;
-use LaravelItalia\Entities\Services\UserPasswordReset;
+use LaravelItalia\Entities\Services\ResetPassword;
 use LaravelItalia\Entities\Repositories\UserRepository;
 use LaravelItalia\Entities\Repositories\PasswordResetRepository;
 
-class UserPasswordResetTest extends TestCase
+class ResetPasswordTest extends TestCase
 {
     /**
-     * @var UserPasswordReset
+     * @var ResetPassword
      */
     private $service;
 
@@ -50,7 +49,7 @@ class UserPasswordResetTest extends TestCase
         $this->passwordRepositoryMock->expects($this->once())
             ->method('removeByEmail');
 
-        $this->service = new UserPasswordReset($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
+        $this->service = new ResetPassword($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
         $this->service->handle($this->userRepositoryMock, $this->passwordRepositoryMock);
     }
 
@@ -73,7 +72,7 @@ class UserPasswordResetTest extends TestCase
         $this->passwordRepositoryMock->expects($this->never())
             ->method('removeByEmail');
 
-        $this->service = new UserPasswordReset($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
+        $this->service = new ResetPassword($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
         $this->service->handle($this->userRepositoryMock, $this->passwordRepositoryMock);
     }
 }
