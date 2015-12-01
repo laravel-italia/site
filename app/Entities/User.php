@@ -42,6 +42,11 @@ class User extends Model implements AuthenticatableContract,
         $this->is_confirmed = true;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     public function getAuthenticationProvider()
     {
         return $this->provider;
