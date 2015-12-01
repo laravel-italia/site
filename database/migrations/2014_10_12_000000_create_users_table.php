@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_code');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable()->unique();
+            $table->integer('role_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });
