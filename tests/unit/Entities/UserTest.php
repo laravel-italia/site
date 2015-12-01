@@ -11,6 +11,19 @@ class UserTest extends TestCase
         $this->assertEquals(true, $user->is_confirmed);
     }
 
+    public function testSetNewPassword()
+    {
+        $user = $this->prepareTestUser(false);
+
+        $user->setNewPassword('123456');
+
+        $this->assertNotEquals('', $user->password);
+        $this->assertTrue(Hash::check(
+            '123456',
+            $user->password
+        ));
+    }
+
     /**
      * @expectedException           \Exception
      * @expectedExceptionMessage    already_confirmed

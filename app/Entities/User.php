@@ -51,4 +51,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->provider;
     }
+
+    public function setNewPassword($newPassword)
+    {
+        $this->password = bcrypt($newPassword);
+    }
 }
