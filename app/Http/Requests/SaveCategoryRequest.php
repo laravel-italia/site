@@ -3,7 +3,7 @@
 namespace LaravelItalia\Http\Requests;
 
 
-class CreateCategoryRequest extends Request
+class SaveCategoryRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
