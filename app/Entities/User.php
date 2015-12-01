@@ -56,4 +56,10 @@ class User extends Model implements AuthenticatableContract,
     {
         $this->password = bcrypt($newPassword);
     }
+
+    /* Relationships Methods */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
