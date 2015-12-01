@@ -3,6 +3,7 @@
 namespace LaravelItalia\Entities\Repositories;
 
 
+use Illuminate\Support\Facades\Hash;
 use LaravelItalia\Entities\User;
 
 /**
@@ -30,5 +31,15 @@ class UserRepository
         }
 
         return $users->first();
+    }
+
+    public function findForLogin($emailAddress, $password)
+    {
+        $user = $this->findFirstBy([
+            'email' => $emailAddress,
+            'is_confirmed' => true
+        ]);
+
+        return ($user && Hash::check($password, $user->password)) ? $user : null;
     }
 }
