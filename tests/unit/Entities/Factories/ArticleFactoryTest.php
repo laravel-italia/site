@@ -23,7 +23,6 @@ class ArticleFactoryTest extends TestCase
 
         $this->assertEquals('Article Title', $article->title);
         $this->assertEquals('article-title', $article->slug);
-        $this->assertFalse($article->is_published);
         $this->assertNull($article->published_at);
     }
 }

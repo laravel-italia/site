@@ -37,7 +37,6 @@ class ArticleFactory
 
         $article->metadescription = $metaDescription;
 
-        $article->is_published = false;
         $article->published_at = null;
 
         $article->user()->associate($user);
