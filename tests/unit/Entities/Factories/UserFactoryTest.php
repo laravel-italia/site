@@ -12,6 +12,7 @@ class UserFactoryTest extends TestCase
         $user = \LaravelItalia\Entities\Factories\UserFactory::createUser('Francesco', 'hey@hellofrancesco.com', '123456');
 
         $this->assertEquals('Francesco', $user->name);
+        $this->assertEquals('francesco', $user->slug);
         $this->assertEquals('hey@hellofrancesco.com', $user->email);
         $this->assertEquals(60, strlen($user->password));
         $this->assertEquals(false, $user->is_confirmed);
