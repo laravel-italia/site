@@ -41,6 +41,11 @@ class Article extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function series()
+    {
+        return $this->belongsTo(Series::class);
+    }
+
     /* Relationship Utility Methods */
     public function setUser(User $user)
     {
@@ -53,5 +58,10 @@ class Article extends Model
             throw new \Exception('record_not_exists');
 
         $this->categories()->sync($categories);
+    }
+
+    public function isPartOfSeries()
+    {
+        return ($this->series_id !== null);
     }
 }
