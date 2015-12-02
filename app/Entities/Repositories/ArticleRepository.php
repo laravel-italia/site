@@ -30,7 +30,7 @@ class ArticleRepository
             );
     }
 
-    public function getByCategory(Category $category, $page)
+    public function findByCategory(Category $category, $page)
     {
         $category->articles()
             ->getQuery()
@@ -43,7 +43,7 @@ class ArticleRepository
             );
     }
 
-    public function getByUser(User $user, $page)
+    public function findByUser(User $user, $page)
     {
         $user->articles()
             ->getQuery()
@@ -54,6 +54,16 @@ class ArticleRepository
                 'page',
                 $page
             );
+    }
+
+    public function findBySlug($slug)
+    {
+        return Article::with(['user', 'categories'])->where('slug', '=', $slug)->first();
+    }
+
+    public function findById($id)
+    {
+        return Article::find($id);
     }
 
     public function save(Article $article)

@@ -52,6 +52,24 @@ class ArticleRepositoryTest extends TestCase
         ]);
     }
 
+    public function testFindBySlug()
+    {
+        $expectedArticle = $this->saveTestArticle();
+
+        $article = $this->repository->findBySlug($expectedArticle->slug);
+
+        $this->assertEquals($expectedArticle->id, $article->id);
+    }
+
+    public function testFindById()
+    {
+        $expectedArticle = $this->saveTestArticle();
+
+        $article = $this->repository->findById($expectedArticle->id);
+
+        $this->assertEquals($expectedArticle->id, $article->id);
+    }
+
     public function prepareTestArticle()
     {
         $article = new Article;
