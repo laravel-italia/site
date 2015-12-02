@@ -58,8 +58,14 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /* Relationships Methods */
+
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }
