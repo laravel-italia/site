@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->string('metadescription');
 
             $table->boolean('is_published');
-            $table->dateTime('published_at');
+            $table->dateTime('published_at')->nullable();
 
             $table->integer('user_id')->unsigned();
 
