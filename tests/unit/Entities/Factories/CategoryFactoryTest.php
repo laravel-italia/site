@@ -1,5 +1,6 @@
 <?php
 
+use LaravelItalia\Entities\Category;
 use LaravelItalia\Entities\Factories\CategoryFactory;
 
 class CategoryFactoryTest extends TestCase
@@ -13,6 +14,7 @@ class CategoryFactoryTest extends TestCase
     {
         $category = CategoryFactory::createCategory('Test Category');
 
+        $this->assertInstanceOf(Category::class, $category);
         $this->assertEquals('Test Category', $category->name);
         $this->assertEquals('test-category', $category->slug);
     }

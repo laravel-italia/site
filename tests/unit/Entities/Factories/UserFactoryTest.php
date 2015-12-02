@@ -1,5 +1,7 @@
 <?php
 
+use LaravelItalia\Entities\User;
+
 class UserFactoryTest extends TestCase
 {
     /**
@@ -11,6 +13,7 @@ class UserFactoryTest extends TestCase
     {
         $user = \LaravelItalia\Entities\Factories\UserFactory::createUser('Francesco', 'hey@hellofrancesco.com', '123456');
 
+        $this->assertInstanceOf(User::class, $user);
         $this->assertEquals('Francesco', $user->name);
         $this->assertEquals('francesco', $user->slug);
         $this->assertEquals('hey@hellofrancesco.com', $user->email);
@@ -28,6 +31,7 @@ class UserFactoryTest extends TestCase
     {
         $user = \LaravelItalia\Entities\Factories\UserFactory::createUserFromSocialNetwork('Francesco', 'hey@hellofrancesco.com', 'facebook', 'FACEBOOK_ID');
 
+        $this->assertInstanceOf(User::class, $user);
         $this->assertEquals('Francesco', $user->name);
         $this->assertEquals('hey@hellofrancesco.com', $user->email);
         $this->assertEquals(0, strlen($user->password));
