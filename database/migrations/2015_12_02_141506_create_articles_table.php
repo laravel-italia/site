@@ -30,6 +30,15 @@ class CreateArticlesTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('article_category', function(Blueprint $table){
+            $table->increments('id');
+
+            $table->integer('article_id')->unsigned();
+            $table->integer('category_id')->unsigned();
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -40,5 +49,6 @@ class CreateArticlesTable extends Migration
     public function down()
     {
         Schema::drop('articles');
+        Schema::drop('article_category');
     }
 }
