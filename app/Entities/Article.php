@@ -52,6 +52,11 @@ class Article extends Model
         $this->user()->associate($user);
     }
 
+    public function setSeries(Series $series)
+    {
+        $this->series()->associate($series);
+    }
+
     public function syncCategories(Collection $categories)
     {
         if(!$this->exists)
