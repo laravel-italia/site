@@ -25,7 +25,7 @@ class ArticleFactory
      *
      * @return Article
      */
-    public static function createArticleForUser(User $user, $title, $digest, $body, $metaDescription)
+    public static function createArticle($title, $digest, $body, $metaDescription)
     {
         $article = new Article;
 
@@ -38,8 +38,6 @@ class ArticleFactory
         $article->metadescription = $metaDescription;
 
         $article->published_at = null;
-
-        $article->user()->associate($user);
 
         return $article;
     }

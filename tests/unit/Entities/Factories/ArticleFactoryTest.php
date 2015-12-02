@@ -11,10 +11,7 @@ class ArticleFactoryTest extends TestCase
      */
     public function testCanCreateArticle()
     {
-        $userMock = $this->getMock(\LaravelItalia\Entities\User::class);
-
-        $article = ArticleFactory::createArticleForUser(
-            $userMock,
+        $article = ArticleFactory::createArticle(
             'Article Title',
             'Digest here...',
             'Body...',
