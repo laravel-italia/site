@@ -26,6 +26,7 @@ class CreateArticlesTable extends Migration
             $table->dateTime('published_at')->nullable();
 
             $table->integer('user_id')->unsigned();
+            $table->integer('series_id')->unsigned()->nullable();
 
             $table->timestamps();
         });
