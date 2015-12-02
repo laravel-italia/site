@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Entities;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -38,5 +39,19 @@ class Article extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /* Relationship Utility Methods */
+    public function setUser(User $user)
+    {
+        $this->user()->associate($user);
+    }
+
+    public function syncCategories(Collection $categories)
+    {
+        if(!$this->exists)
+            throw new \Exception('record_not_exists');
+
+        $this->categories()->sync($categories);
     }
 }
