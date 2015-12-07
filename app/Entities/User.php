@@ -68,4 +68,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Article::class);
     }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
 }
