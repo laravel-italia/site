@@ -19,14 +19,18 @@ class Article extends Model
 
     public function publish($publicationDate)
     {
-        $this->is_published = true;
         $this->published_at = $publicationDate;
     }
 
     public function unpublish()
     {
-        $this->is_published = false;
         $this->published_at = null;
+    }
+
+    /* Eloquent Scopes */
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at');
     }
 
     /* Relationship Methods */

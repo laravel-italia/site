@@ -26,10 +26,10 @@ class ArticleRepositoryTest extends TestCase
         $this->assertCount(0, $articles);
 
         $this->saveTestArticle();
+        $this->saveTestArticle(true);
 
-        $articles = $this->repository->getAll(1);
-
-        $this->assertCount(1, $articles);
+        $this->assertCount(2, $this->repository->getAll(1));
+        $this->assertCount(1, $this->repository->getAll(1, true));
     }
 
     public function testCanSave()
@@ -59,6 +59,10 @@ class ArticleRepositoryTest extends TestCase
         $article = $this->repository->findBySlug($expectedArticle->slug);
 
         $this->assertEquals($expectedArticle->id, $article->id);
+
+        $article = $this->repository->findBySlug($expectedArticle->slug, true);
+
+        $this->assertNull($article);
     }
 
     public function testFindById()
@@ -68,9 +72,13 @@ class ArticleRepositoryTest extends TestCase
         $article = $this->repository->findById($expectedArticle->id);
 
         $this->assertEquals($expectedArticle->id, $article->id);
+
+        $article = $this->repository->findById($expectedArticle->id, true);
+
+        $this->assertNull($article);
     }
 
-    public function prepareTestArticle()
+    public function prepareTestArticle($published = false)
     {
         $article = new Article;
 
@@ -82,16 +90,19 @@ class ArticleRepositoryTest extends TestCase
 
         $article->metadescription = '...';
 
-        $article->published_at = null;
+        if($published)
+            $article->publish(\Carbon\Carbon::now());
+        else
+            $article->unpublish();
 
         $article->user_id = 1;
 
         return $article;
     }
 
-    public function saveTestArticle()
+    public function saveTestArticle($published = false)
     {
-        $article = $this->prepareTestArticle();
+        $article = $this->prepareTestArticle($published);
         $article->save();
 
         return $article;

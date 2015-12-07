@@ -14,56 +14,69 @@ use \Config;
  */
 class ArticleRepository
 {
-    /**
-     * @param $page int
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function getAll($page)
+    public function getAll($page, $onlyPublished = false)
     {
-        return Article::with(['user', 'categories'])
-            ->paginate(
+        $query = Article::with(['user', 'categories']);
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->paginate(
                 Config::get('publications.articles_per_page'),
                 ['*'],
                 'page',
                 $page
-            );
+        );
     }
 
-    public function findByCategory(Category $category, $page)
+    public function findByCategory(Category $category, $page, $onlyPublished = false)
     {
-        $category->articles()
-            ->getQuery()
-            ->with(['user', 'categories'])
-            ->paginate(
-                Config::get('publications.articles_per_page'),
-                ['*'],
-                'page',
-                $page
-            );
+        $query = $category->articles()->getQuery()->with(['user', 'categories']);
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->paginate(
+            Config::get('publications.articles_per_page'),
+            ['*'],
+            'page',
+            $page
+        );
     }
 
-    public function findByUser(User $user, $page)
+    public function findByUser(User $user, $page, $onlyPublished = false)
     {
-        $user->articles()
-            ->getQuery()
-            ->with(['user', 'categories'])
-            ->paginate(
-                Config::get('publications.articles_per_page'),
-                ['*'],
-                'page',
-                $page
-            );
+        $query = $user->articles()->getQuery()->with(['user', 'categories']);
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->paginate(
+            Config::get('publications.articles_per_page'),
+            ['*'],
+            'page',
+            $page
+        );
     }
 
-    public function findBySlug($slug)
+    public function findBySlug($slug, $onlyPublished = false)
     {
-        return Article::with(['user', 'categories'])->where('slug', '=', $slug)->first();
+        $query = Article::with(['user', 'categories']);
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->where('slug', '=', $slug)->first();
     }
 
-    public function findById($id)
+    public function findById($id, $onlyPublished = false)
     {
-        return Article::find($id);
+        $query = Article::with(['user', 'categories']);
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->find($id);
     }
 
     public function save(Article $article)
