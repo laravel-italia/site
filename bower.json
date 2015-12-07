@@ -1,0 +1,7 @@
+{
+  "name": "Laravel-Italia.it",
+  "version": "3.0.0",
+  "dependencies": {
+    "startbootstrap-sb-admin-2": "*"
+  }
+}
