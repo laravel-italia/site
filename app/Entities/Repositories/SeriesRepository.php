@@ -16,19 +16,34 @@ class SeriesRepository
         $series->save();
     }
 
-    public function findBySlug($slug)
+    public function findBySlug($slug, $onlyPublished = false)
     {
-        return Series::where('slug', '=', $slug)->first();
+        $query = Series::with('articles');
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->where('slug', '=', $slug)->first();
     }
 
-    public function findByid($id)
+    public function findByid($id, $onlyPublished = false)
     {
-        return Series::find($id);
+        $query = Series::with('articles');
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->find($id);
     }
 
-    public function getAll()
+    public function getAll($onlyPublished = false)
     {
-        return Series::all();
+        $query = Series::with('articles');
+
+        if($onlyPublished)
+            $query->published();
+
+        return $query->get();
     }
 
     public function delete(Series $series)

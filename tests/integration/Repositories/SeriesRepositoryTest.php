@@ -35,6 +35,7 @@ class SeriesRepositoryTest extends TestCase
 
         $existingSeries = $this->repository->findBySlug('title');
         $notExistingSeries = $this->repository->findBySlug('i-did-it-for-teh-lulz');
+        $notExistingSeries2 = $this->repository->findBySlug('title', true);
 
         $this->assertNotNull($existingSeries);
         $this->assertNull($notExistingSeries);
@@ -45,8 +46,10 @@ class SeriesRepositoryTest extends TestCase
         $this->assertEmpty($this->repository->getAll());
 
         $this->saveTestSeries();
+        $this->saveTestSeries(true);
 
-        $this->assertCount(1, $this->repository->getAll());
+        $this->assertCount(2, $this->repository->getAll());
+        $this->assertCount(1, $this->repository->getAll(true));
     }
 
     public function testCanDelete()
@@ -61,22 +64,22 @@ class SeriesRepositoryTest extends TestCase
         ]);
     }
 
-    private function prepareTestSeries()
+    private function prepareTestSeries($published = false)
     {
         $series = new Series;
 
         $series->title = 'Title';
         $series->slug = 'title';
 
-        $series->is_published = true;
+        $series->is_published = $published;
         $series->is_completed = true;
 
         return $series;
     }
 
-    private function saveTestSeries()
+    private function saveTestSeries($published = false)
     {
-        $testSeries = $this->prepareTestSeries();
+        $testSeries = $this->prepareTestSeries($published);
         $testSeries->save();
         return $testSeries;
     }
