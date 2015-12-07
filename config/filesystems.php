@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 'media',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +42,11 @@ return [
     */
 
     'disks' => [
+
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path('uploads')
+        ],
 
         'local' => [
             'driver' => 'local',
