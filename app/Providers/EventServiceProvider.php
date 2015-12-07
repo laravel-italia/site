@@ -4,6 +4,8 @@ namespace LaravelItalia\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use LaravelItalia\Entities\Media;
+use LaravelItalia\Entities\Observers\MediaUploader;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        Media::observe(MediaUploader::class);
     }
 }
