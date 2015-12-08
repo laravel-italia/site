@@ -49,6 +49,9 @@
         <script src="{{ url('assets') }}/metisMenu/dist/metisMenu.min.js"></script>
         <script src="{{ url('assets') }}/raphael/raphael-min.js"></script>
         <script src="{{ url('assets') }}/morrisjs/morris.min.js"></script>
+
+        @yield('scripts')
+
         <script src="{{ url('assets') }}/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js"></script>
 
     </body>
