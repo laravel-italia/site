@@ -4,11 +4,14 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-use LaravelItalia\Entities\Repositories\ArticleRepository;
-use LaravelItalia\Entities\Repositories\CategoryRepository;
-use LaravelItalia\Entities\Repositories\SeriesRepository;
+use Auth;
 use LaravelItalia\Http\Requests;
 use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Http\Requests\ArticleAddRequest;
+use LaravelItalia\Entities\Factories\ArticleFactory;
+use LaravelItalia\Entities\Repositories\SeriesRepository;
+use LaravelItalia\Entities\Repositories\ArticleRepository;
+use LaravelItalia\Entities\Repositories\CategoryRepository;
 
 class ArticleController extends Controller
 {
@@ -27,28 +30,22 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function postAdd()
+    public function postAdd(Request $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
     {
+        $article = ArticleFactory::createArticle(
+            $request->get('title'),
+            $request->get('digest'),
+            $request->get('body'),
+            $request->get('metadescription')
+        );
 
-    }
+        if($request->get('series_id') != 0)
+            $article->setSeries($request->get('series_id'));
 
-    public function getEdit($articleId)
-    {
+        $article->setUser(Auth::user());
 
-    }
+        $articleRepository->save($article);
 
-    public function postEdit($articleId)
-    {
-
-    }
-
-    public function getPublish($articleId)
-    {
-
-    }
-
-    public function getUnpublish($articleId)
-    {
-
+        $article->categories()->sync($request->get('categories'));
     }
 }

@@ -8,6 +8,8 @@
     <hr>
 
     <form action="" method="post">
+        {!! csrf_field() !!}
+
         <div class="row">
             <div class="col-md-12">
                 <input type="text" class="form-control" placeholder="Titolo..." name="title" />
@@ -44,6 +46,18 @@
                     <option value="{{ $singleSeries->id }}">{{ $singleSeries->title }}</option>
                     @endforeach
                 </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p><input type="text" class="form-control" placeholder="Estratto..." name="digest" /></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p><input type="text" class="form-control" placeholder="Metadescription..." name="metadescription" /></p>
             </div>
         </div>
     </form>
