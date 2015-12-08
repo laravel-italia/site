@@ -1,6 +1,8 @@
 <?php
 
 use LaravelItalia\Entities\Media;
+use Illuminate\Foundation\Testing\WithoutEvents;
+use LaravelItalia\Entities\Observers\MediaUploader;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Entities\Repositories\MediaRepository;
 
@@ -21,6 +23,10 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanGetAll()
     {
+        $this->app->bind(MediaUploader::class, function(){
+            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        });
+
         $emptyMediaResults = $this->repository->getAll(1);
 
         $this->assertEmpty($emptyMediaResults);
@@ -34,6 +40,10 @@ class MediaRepositoryTest extends TestCase
 
     public function testFindById()
     {
+        $this->app->bind(MediaUploader::class, function(){
+            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        });
+
         $expectedMedia = $this->saveTestMedia();
 
         $media = $this->repository->findById($expectedMedia->id);
@@ -43,6 +53,10 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanSave()
     {
+        $this->app->bind(MediaUploader::class, function(){
+            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        });
+
         $media = $this->prepareTestMedia();
 
         $this->repository->save($media);
@@ -54,6 +68,10 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanDelete()
     {
+        $this->app->bind(MediaUploader::class, function(){
+            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        });
+
         $media = $this->saveTestMedia();
 
         $this->seeInDatabase('media', [
