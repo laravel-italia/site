@@ -1,3 +1,21 @@
+@if(Session::has('errors'))
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <p><b>Attenzione!</b></p>
+                <p>
+                    <ul>
+                        @foreach(Session::get('errors')->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+@endif
+
 @if(Session::has('success_message'))
     <div class="row">
         <div class="col-md-12">
@@ -30,6 +48,7 @@
         </div>
     </div>
 @endif
+
 
 @if(Session::has('error_message'))
     <div class="row">
