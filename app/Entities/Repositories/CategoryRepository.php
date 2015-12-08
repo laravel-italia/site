@@ -16,6 +16,11 @@ class CategoryRepository
         $category->save();
     }
 
+    public function findById($id)
+    {
+        return Category::find($id);
+    }
+
     public function findBySlug($slug)
     {
         return Category::where('slug', '=', $slug)->first();

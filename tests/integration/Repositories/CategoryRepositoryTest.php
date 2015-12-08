@@ -29,6 +29,17 @@ class CategoryRepositoryTest extends TestCase
         ]);
     }
 
+    public function testCanFindById()
+    {
+        $expectedCategory = $this->saveTestCategory();
+
+        $existingCategory = $this->repository->findById($expectedCategory->id);
+        $notExistingCategory = $this->repository->findById($expectedCategory->id + 1);
+
+        $this->assertNotNull($existingCategory);
+        $this->assertNull($notExistingCategory);
+    }
+
     public function testCanFindBySlug()
     {
         $this->saveTestCategory();
