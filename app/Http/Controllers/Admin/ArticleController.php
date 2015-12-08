@@ -30,7 +30,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function postAdd(Request $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
+    public function postAdd(ArticleAddRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
     {
         $article = ArticleFactory::createArticle(
             $request->get('title'),
@@ -47,5 +47,7 @@ class ArticleController extends Controller
         $articleRepository->save($article);
 
         $article->categories()->sync($request->get('categories'));
+
+        return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
     }
 }
