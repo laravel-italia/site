@@ -41,6 +41,8 @@
                         </div>
                     </div>
 
+                    @include('admin.includes.errors')
+
                     @yield('content')
                 </div>
             </div>
