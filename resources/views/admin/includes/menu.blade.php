@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url('admin') }}">Amministrazione :: Laravel-Italia.it</a>
+        <a class="navbar-brand" href="{{ url('admin/dashboard') }}">Amministrazione :: Laravel-Italia.it</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -34,16 +34,16 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="{{ url('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Pagina Principale</a>
+                    <a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Pagina Principale</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-pencil fa-fw"></i> Articoli<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Scrivi Nuovo</a>
+                            <a href="{{ url('admin/articles/add') }}">Scrivi Nuovo</a>
                         </li>
                         <li>
-                            <a href="#">Elenco</a>
+                            <a href="{{ url('admin/articles') }}">Elenco</a>
                         </li>
                     </ul>
                 </li>
