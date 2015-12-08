@@ -21,7 +21,10 @@ class ArticleController extends Controller
 
     public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
     {
-        
+        return view('admin.articles_add', [
+            'categories' => $categoryRepository->getAll(),
+            'series' => $seriesRepository->getAll()
+        ]);
     }
 
     public function postAdd()
