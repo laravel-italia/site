@@ -1,7 +1,6 @@
 <?php
 
 use LaravelItalia\Entities\Media;
-use Illuminate\Foundation\Testing\WithoutEvents;
 use LaravelItalia\Entities\Observers\MediaUploader;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Entities\Repositories\MediaRepository;
