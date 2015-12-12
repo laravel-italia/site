@@ -37,7 +37,11 @@
                                 <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
                             @endif
                         @endif
-                        <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
+
+                        @if(Auth::user()->isAdministrator() || Auth::user()->isAuthorOf($article))
+                            <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
+                        @endif
+                        
                         <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
                     </td>
                 </tr>
