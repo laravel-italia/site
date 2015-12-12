@@ -13,10 +13,14 @@ use LaravelItalia\Entities\Factories\ArticleFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 use LaravelItalia\Entities\Repositories\ArticleRepository;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
-use LaravelItalia\Http\Requests\ArticlePublishRequest;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:administrator', ['only' => ['postPublish']]);
+    }
+
     public function getIndex(Request $request, ArticleRepository $articleRepository)
     {
         return view('admin.articles_index', [
