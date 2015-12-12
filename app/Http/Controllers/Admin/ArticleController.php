@@ -13,6 +13,7 @@ use LaravelItalia\Entities\Factories\ArticleFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 use LaravelItalia\Entities\Repositories\ArticleRepository;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
+use LaravelItalia\Http\Requests\ArticlePublishRequest;
 
 class ArticleController extends Controller
 {
@@ -61,7 +62,7 @@ class ArticleController extends Controller
         return redirect('admin/articles')->withInput()->with('success_message', 'Articolo aggiunto correttamente.');
     }
 
-    public function postPublish(Request $request, ArticleRepository $articleRepository, $articleId)
+    public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
     {
         /* @var $article Article */
         $article = $articleRepository->findById($articleId);
