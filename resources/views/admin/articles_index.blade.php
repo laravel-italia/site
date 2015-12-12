@@ -69,7 +69,7 @@
                     {!! csrf_field() !!}
                     <div class="modal-body">
                         <p>Scegli la data e l'ora di pubblicazione dell'articolo.</p>
-                        <p><input type="text" class="form-control" name="published_at" placeholder="gg/mm/aaaa oo:mm" /></p>
+                        <p><input type="text" class="form-control" name="published_at" id="published_at" placeholder="gg/mm/aaaa oo:mm" /></p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Conferma Pubblicazione</button>
@@ -87,6 +87,7 @@
 
         $('#publish_button').click(function(){
             $('#article_publish_form').prop('action', '{{ url('admin/articles/publish') }}/' + $(this).data('id'));
+            $('#published_at').val(getCurrentDateString());
             $('#publishModal').modal('toggle');
         });
 
@@ -95,6 +96,12 @@
                 window.location.href = "{{ url('admin/articles/delete') }}/" + $(this).data('id');
             }
         });
+
+        function getCurrentDateString()
+        {
+            var today = new Date();
+            return today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes();
+        }
     });
 </script>
 @endsection
