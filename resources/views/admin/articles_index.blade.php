@@ -28,13 +28,13 @@
                     <td>{{ $article->user->name }}</td>
                     <td>@if($article->isPartOfSeries()) $article->series->title @else Nessuna @endif</td>
                     <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
-                    <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i') }}) @else Non Pubblicato @endif</td>
+                    <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i', strtotime($article->published_at)) }}) @else Non Pubblicato @endif</td>
                     <td>
                         @if(Auth::user()->isAdministrator())
                             @if($article->isPublished())
-                                <a href="#" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</a>
+                                <button class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</button>
                             @else
-                                <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
+                                <button id="publish_button" data-id="{{ $article->id }}" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</button>
                             @endif
                         @endif
 
@@ -43,7 +43,7 @@
                         @endif
 
                         @if(Auth::user()->isAdministrator())
-                            <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
+                            <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-remove"></span> Cancella</button>
                         @endif
                     </td>
                 </tr>
@@ -57,11 +57,39 @@
             </tbody>
         </table>
     </div>
+
+    <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="publishModalLabel">Pubblica Articolo</h4>
+                </div>
+                <form id="article_publish_form" action="" method="post">
+                    {!! csrf_field() !!}
+                    <div class="modal-body">
+                        <p>Scegli la data e l'ora di pubblicazione dell'articolo.</p>
+                        <p><input type="text" class="form-control" name="published_at" placeholder="gg/mm/aaaa oo:mm" /></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Conferma Pubblicazione</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-remove"></span> Annulla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
 <script>
     $(document).ready(function(){
+
+        $('#publish_button').click(function(){
+            $('#article_publish_form').prop('action', '{{ url('admin/articles/publish') }}/' + $(this).data('id'));
+            $('#publishModal').modal('toggle');
+        });
+
         $('#delete_button').click(function(){
             if(confirm('Sicuro di voler cancellare questo articolo?')){
                 window.location.href = "{{ url('admin/articles/delete') }}/" + $(this).data('id');

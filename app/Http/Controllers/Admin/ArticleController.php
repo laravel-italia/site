@@ -3,6 +3,7 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Entities\Article;
@@ -12,6 +13,7 @@ use LaravelItalia\Entities\Factories\ArticleFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 use LaravelItalia\Entities\Repositories\ArticleRepository;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
+use LaravelItalia\Http\Requests\ArticlePublishRequest;
 
 class ArticleController extends Controller
 {
@@ -53,6 +55,19 @@ class ArticleController extends Controller
         $article->categories()->sync($request->get('categories'));
 
         return redirect('admin/articles')->withInput()->with('success_message', 'Articolo aggiunto correttamente.');
+    }
+
+    public function postPublish(Request $request, ArticleRepository $articleRepository, $articleId)
+    {
+        /* @var $article Article */
+        $article = $articleRepository->findById($articleId);
+
+        $publicationDate = Carbon::createFromFormat('d/m/Y H:i', $request->get('published_at'));
+        $article->publish($publicationDate);
+
+        $articleRepository->save($article);
+
+        return redirect('admin/articles')->with('success_message', 'Articolo mandato in pubblicazione correttamente.');
     }
 
     public function getDelete(ArticleRepository $articleRepository, $articleId)
