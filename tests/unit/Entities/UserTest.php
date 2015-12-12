@@ -1,5 +1,7 @@
 <?php
 
+use LaravelItalia\Entities\User;
+
 class UserTest extends TestCase
 {
     public function testUserConfirmation()
@@ -37,7 +39,7 @@ class UserTest extends TestCase
 
     private function prepareTestUser($isAlreadyConfirmed)
     {
-        $user = new \LaravelItalia\Entities\User();
+        $user = new User();
 
         $user->name = 'Francesco';
         $user->email = 'Malatesta';
