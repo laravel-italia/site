@@ -52,7 +52,7 @@ class ArticleController extends Controller
 
         $article->categories()->sync($request->get('categories'));
 
-        return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
+        return redirect('admin/articles')->withInput()->with('success_message', 'Articolo aggiunto correttamente.');
     }
 
     public function getDelete(ArticleRepository $articleRepository, $articleId)
