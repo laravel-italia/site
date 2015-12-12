@@ -79,4 +79,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->role->name === 'administrator';
     }
+
+    public function isAuthorOf(Article $article)
+    {
+        return $this->id === $article->user_id;
+    }
 }
