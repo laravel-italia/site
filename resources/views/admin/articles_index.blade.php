@@ -36,7 +36,7 @@
                             <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
                         @endif
                         <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
-                        <a href="#" class="btn btn-sm btn-danger"><span class="fa fa-times"></span> Cancella</a>
+                        <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
                     </td>
                 </tr>
             @empty
@@ -49,4 +49,16 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $('#delete_button').click(function(){
+            if(confirm('Sicuro di voler cancellare questo articolo?')){
+                window.location.href = "{{ url('admin/articles/delete') }}/" + $(this).data('id');
+            }
+        });
+    });
+</script>
 @endsection

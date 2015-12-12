@@ -5,6 +5,7 @@ namespace LaravelItalia\Http\Controllers\Admin;
 use Auth;
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Series;
+use LaravelItalia\Entities\Article;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Http\Requests\ArticleAddRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
@@ -52,5 +53,14 @@ class ArticleController extends Controller
         $article->categories()->sync($request->get('categories'));
 
         return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
+    }
+
+    public function getDelete(ArticleRepository $articleRepository, $articleId)
+    {
+        /* @var $article Article */
+        $article = $articleRepository->findById($articleId);
+        $articleRepository->delete($article);
+
+        return redirect('admin/articles')->with('success_message', 'Articolo cancellato correttamente.');
     }
 }
