@@ -37,7 +37,7 @@ class UserTest extends TestCase
 
     private function prepareTestUser($isAlreadyConfirmed)
     {
-        $user = new \LaravelItalia\Entities\User;
+        $user = new \LaravelItalia\Entities\User();
 
         $user->name = 'Francesco';
         $user->email = 'Malatesta';

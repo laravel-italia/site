@@ -6,8 +6,6 @@ class UserFactoryTest extends TestCase
 {
     /**
      * Test if the factory is able to create a User in the right way.
-     *
-     * @return void
      */
     public function testCanCreateUser()
     {
@@ -24,8 +22,6 @@ class UserFactoryTest extends TestCase
 
     /**
      * Test if the factory is able to create a User in the right way.
-     *
-     * @return void
      */
     public function testCanCreateSocialUser()
     {

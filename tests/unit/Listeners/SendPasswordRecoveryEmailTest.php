@@ -5,7 +5,7 @@ use LaravelItalia\Events\UserHasRecoveredPassword;
 use LaravelItalia\Listeners\SendPasswordRecoveryEmail;
 
 /**
- * Class SendPasswordRecoveryEmailTest
+ * Class SendPasswordRecoveryEmailTest.
  */
 class SendPasswordRecoveryEmailTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SendPasswordRecoveryEmailTest extends TestCase
     {
         $this->event = $this->getMockBuilder(UserHasRecoveredPassword::class)->disableOriginalConstructor()->getMock();
         $this->user = $this->getMock(User::class);
-        $this->listener = new SendPasswordRecoveryEmail;
+        $this->listener = new SendPasswordRecoveryEmail();
 
         parent::setUp();
     }

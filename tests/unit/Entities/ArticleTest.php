@@ -11,7 +11,7 @@ class ArticleTest extends TestCase
 
     public function setUp()
     {
-        $this->article = new Article;
+        $this->article = new Article();
         $this->article->title = 'test title';
         $this->article->published_at = null;
 

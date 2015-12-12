@@ -5,7 +5,7 @@ use LaravelItalia\Events\UserHasSignedUp;
 use LaravelItalia\Listeners\SendWelcomeEmail;
 
 /**
- * Class SendWelcomeEmailTest
+ * Class SendWelcomeEmailTest.
  */
 class SendWelcomeEmailTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SendWelcomeEmailTest extends TestCase
     {
         $this->event = $this->getMockBuilder(UserHasSignedUp::class)->disableOriginalConstructor()->getMock();
         $this->user = $this->getMock(User::class);
-        $this->listener = new SendWelcomeEmail;
+        $this->listener = new SendWelcomeEmail();
 
         parent::setUp();
     }

@@ -49,7 +49,7 @@ class MediaUploaderTest extends TestCase
             ->method('file')
             ->willReturn($this->uploadedFileMock);
 
-        $expectedFileName = time() . 'original_name.jpg';
+        $expectedFileName = time().'original_name.jpg';
 
         $this->mediaMock->expects($this->once())
             ->method('setUrl')

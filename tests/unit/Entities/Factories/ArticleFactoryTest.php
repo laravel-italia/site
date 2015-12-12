@@ -7,8 +7,6 @@ class ArticleFactoryTest extends TestCase
 {
     /**
      * Test if the factory is able to create a new Article in the right way.
-     *
-     * @return void
      */
     public function testCanCreateArticle()
     {

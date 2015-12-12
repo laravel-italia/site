@@ -27,7 +27,6 @@ class AssignRoleToUserTest extends TestCase
      */
     private $roleMock;
 
-
     public function setUp()
     {
         $this->userMock = $this->getMockBuilder(User::class)->setMethods(['role', 'associate'])->getMock();

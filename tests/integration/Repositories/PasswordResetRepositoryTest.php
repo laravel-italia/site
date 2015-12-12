@@ -25,7 +25,7 @@ class PasswordResetRepositoryTest extends TestCase
 
         $this->seeInDatabase('password_resets', [
             'email' => 'test@test.com',
-            'token' => 'test_token_yo'
+            'token' => 'test_token_yo',
         ]);
     }
 
@@ -46,14 +46,14 @@ class PasswordResetRepositoryTest extends TestCase
 
         $this->seeInDatabase('password_resets', [
             'email' => 'test@test.com',
-            'token' => 'test_token_yo'
+            'token' => 'test_token_yo',
         ]);
 
         $this->repository->removeByEmail('test@test.com');
 
         $this->dontSeeInDatabase('password_resets', [
             'email' => 'test@test.com',
-            'token' => 'test_token_yo'
+            'token' => 'test_token_yo',
         ]);
     }
 

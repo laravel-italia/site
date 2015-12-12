@@ -25,7 +25,7 @@ class SeriesRepositoryTest extends TestCase
 
         $this->seeInDatabase('series', [
             'title' => 'Title',
-            'slug' => 'title'
+            'slug' => 'title',
         ]);
     }
 
@@ -60,13 +60,13 @@ class SeriesRepositoryTest extends TestCase
 
         $this->dontSeeInDatabase('series', [
             'title' => 'Title',
-            'slug' => 'title'
+            'slug' => 'title',
         ]);
     }
 
     private function prepareTestSeries($published = false)
     {
-        $series = new Series;
+        $series = new Series();
 
         $series->title = 'Title';
         $series->slug = 'title';
@@ -81,6 +81,7 @@ class SeriesRepositoryTest extends TestCase
     {
         $testSeries = $this->prepareTestSeries($published);
         $testSeries->save();
+
         return $testSeries;
     }
 }

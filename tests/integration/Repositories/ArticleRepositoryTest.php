@@ -37,7 +37,7 @@ class ArticleRepositoryTest extends TestCase
         $this->saveTestArticle();
 
         $this->seeInDatabase('articles', [
-            'title' => 'Test title'
+            'title' => 'Test title',
         ]);
     }
 
@@ -48,7 +48,7 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->delete($article);
 
         $this->dontSeeInDatabase('articles', [
-            'title' => 'Test title'
+            'title' => 'Test title',
         ]);
     }
 
@@ -80,7 +80,7 @@ class ArticleRepositoryTest extends TestCase
 
     public function prepareTestArticle($published = false)
     {
-        $article = new Article;
+        $article = new Article();
 
         $article->title = 'Test title';
         $article->slug = \Illuminate\Support\Str::slug($article->title);
@@ -90,10 +90,11 @@ class ArticleRepositoryTest extends TestCase
 
         $article->metadescription = '...';
 
-        if($published)
+        if ($published) {
             $article->publish(\Carbon\Carbon::now());
-        else
+        } else {
             $article->unpublish();
+        }
 
         $article->user_id = 1;
 

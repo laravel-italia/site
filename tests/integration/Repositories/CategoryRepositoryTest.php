@@ -25,7 +25,7 @@ class CategoryRepositoryTest extends TestCase
 
         $this->seeInDatabase('categories', [
             'name' => 'Test Category',
-            'slug' => 'test-category'
+            'slug' => 'test-category',
         ]);
     }
 
@@ -68,7 +68,7 @@ class CategoryRepositoryTest extends TestCase
 
         $this->dontSeeInDatabase('categories', [
             'name' => 'Test Category',
-            'slug' => 'test-category'
+            'slug' => 'test-category',
         ]);
     }
 
@@ -86,6 +86,7 @@ class CategoryRepositoryTest extends TestCase
     {
         $testCategory = $this->prepareTestCategory();
         $testCategory->save();
+
         return $testCategory;
     }
 }

@@ -22,7 +22,7 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanGetAll()
     {
-        $this->app->bind(MediaUploader::class, function(){
+        $this->app->bind(MediaUploader::class, function () {
             return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
         });
 
@@ -39,7 +39,7 @@ class MediaRepositoryTest extends TestCase
 
     public function testFindById()
     {
-        $this->app->bind(MediaUploader::class, function(){
+        $this->app->bind(MediaUploader::class, function () {
             return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
         });
 
@@ -52,7 +52,7 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanSave()
     {
-        $this->app->bind(MediaUploader::class, function(){
+        $this->app->bind(MediaUploader::class, function () {
             return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
         });
 
@@ -61,32 +61,32 @@ class MediaRepositoryTest extends TestCase
         $this->repository->save($media);
 
         $this->seeInDatabase('media', [
-            'url' => 'test_url_lmao.jpg'
+            'url' => 'test_url_lmao.jpg',
         ]);
     }
 
     public function testCanDelete()
     {
-        $this->app->bind(MediaUploader::class, function(){
+        $this->app->bind(MediaUploader::class, function () {
             return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
         });
 
         $media = $this->saveTestMedia();
 
         $this->seeInDatabase('media', [
-            'url' => 'test_url_lmao.jpg'
+            'url' => 'test_url_lmao.jpg',
         ]);
 
         $this->repository->remove($media);
 
         $this->dontSeeInDatabase('media', [
-            'url' => 'test_url_lmao.jpg'
+            'url' => 'test_url_lmao.jpg',
         ]);
     }
 
     public function prepareTestMedia()
     {
-        $media = new Media;
+        $media = new Media();
 
         $media->url = 'test_url_lmao.jpg';
         $media->user_id = 1;
