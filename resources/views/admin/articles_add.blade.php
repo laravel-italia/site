@@ -7,7 +7,7 @@
 
     <hr>
 
-    <form action="" method="post">
+    <form action="" method="post" id="article_form">
         {!! csrf_field() !!}
 
         <div class="row">
@@ -20,11 +20,12 @@
 
         <div class="row">
             <div class="col-md-8">
-                <textarea name="body" id="editor" cols="30" rows="10"></textarea>
+                <input type="hidden" name="body" id="body" />
+                <textarea id="editor" cols="30" rows="10"></textarea>
             </div>
             <div class="col-md-4">
                 <p>
-                    <button class="btn btn-success form-control">Salva Articolo</button>
+                    <button id="save_button" class="btn btn-success form-control">Salva Articolo</button>
                 </p>
 
                 <hr>
@@ -81,6 +82,10 @@
 <script>
     $(document).ready(function(){
         var simplemde = new SimpleMDE({ element: $("#editor")[0] });
+
+        $('#save_button').click(function(){
+            $('#body').val(simplemde.value());
+        });
     });
 </script>
 @endsection
