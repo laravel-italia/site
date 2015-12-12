@@ -87,7 +87,7 @@
 
         $('#publish_button').click(function(){
             $('#article_publish_form').prop('action', '{{ url('admin/articles/publish') }}/' + $(this).data('id'));
-            $('#published_at').val(getCurrentDateString());
+            $('#published_at').val(getCurrentDateTime());
             $('#publishModal').modal('toggle');
         });
 
@@ -97,10 +97,15 @@
             }
         });
 
-        function getCurrentDateString()
+        function getCurrentDateTime()
         {
-            var today = new Date();
-            return today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes();
+            var now = new Date();
+
+            minutes = now.getMinutes();
+            if(minutes < 10)
+                minutes = '0' + minutes;
+
+            return now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + now.getHours() + ':' + minutes;
         }
     });
 </script>
