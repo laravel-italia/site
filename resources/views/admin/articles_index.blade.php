@@ -30,10 +30,10 @@
                     <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
                     <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i') }}) @else Non Pubblicato @endif</td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-success">Pubblica</a>
-                        <a href="#" class="btn btn-sm btn-warning">Nascondi</a>
-                        <a href="#" class="btn btn-sm btn-info">Modifica</a>
-                        <a href="#" class="btn btn-sm btn-danger">Cancella</a>
+                        <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
+                        <a href="#" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</a>
+                        <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
+                        <a href="#" class="btn btn-sm btn-danger"><span class="fa fa-times"></span> Cancella</a>
                     </td>
                 </tr>
             @empty
