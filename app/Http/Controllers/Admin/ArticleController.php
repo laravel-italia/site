@@ -2,8 +2,9 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
+use LaravelItalia\Entities\Series;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Http\Requests\ArticleAddRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
@@ -38,7 +39,10 @@ class ArticleController extends Controller
         );
 
         if ($request->get('series_id') != 0) {
-            $article->setSeries($request->get('series_id'));
+
+            /* @var $series Series */
+            $series = $seriesRepository->findByid($request->get('series_id'));
+            $article->setSeries($series);
         }
 
         $article->setUser(Auth::user());
