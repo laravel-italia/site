@@ -73,4 +73,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Media::class);
     }
+
+    /* Relationships Utility Methods */
+    public function isAdministrator()
+    {
+        return $this->role->name === 'administrator';
+    }
 }
