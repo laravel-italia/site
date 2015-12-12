@@ -6,7 +6,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 });
 
 Route::get('auth', function (\LaravelItalia\Entities\Repositories\UserRepository $userRepository) {
-    Auth::login($userRepository->findFirstBy(['name' => 'Francesco Malatesta']));
+    Auth::login(\LaravelItalia\Entities\User::first());
 
     return redirect('admin/articles');
 });
