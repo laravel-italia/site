@@ -41,8 +41,10 @@
                         @if(Auth::user()->isAdministrator() || Auth::user()->isAuthorOf($article))
                             <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
                         @endif
-                        
-                        <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
+
+                        @if(Auth::user()->isAdministrator())
+                            <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
+                        @endif
                     </td>
                 </tr>
             @empty
