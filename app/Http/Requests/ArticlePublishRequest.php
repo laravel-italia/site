@@ -2,8 +2,6 @@
 
 namespace LaravelItalia\Http\Requests;
 
-use LaravelItalia\Http\Requests\Request;
-
 class ArticlePublishRequest extends Request
 {
     /**
@@ -24,7 +22,7 @@ class ArticlePublishRequest extends Request
     public function rules()
     {
         return [
-            'published_at' => 'required|date_format:"d/m/Y H:i"'
+            'published_at' => 'required|date_format:"d/m/Y H:i"',
         ];
     }
 
@@ -37,7 +35,7 @@ class ArticlePublishRequest extends Request
     {
         return [
             'published_at.required' => 'Specifica una data di pubblicazione!',
-            'published_at.date_format' => 'La data di pubblicazione deve essere nel formato gg/mm/aaaa oo:mm'
+            'published_at.date_format' => 'La data di pubblicazione deve essere nel formato gg/mm/aaaa oo:mm',
         ];
     }
 }
