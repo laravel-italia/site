@@ -2,13 +2,11 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use Illuminate\Support\Facades\Hash;
 use LaravelItalia\Entities\User;
 
 /**
- * Class UserRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class UserRepository.
  */
 class UserRepository
 {
@@ -26,7 +24,7 @@ class UserRepository
     {
         $users = User::query();
 
-        foreach($criteria as $fieldName => $fieldValue){
+        foreach ($criteria as $fieldName => $fieldValue) {
             $users->where($fieldName, '=', $fieldValue);
         }
 
@@ -37,7 +35,7 @@ class UserRepository
     {
         $user = $this->findFirstBy([
             'email' => $emailAddress,
-            'is_confirmed' => true
+            'is_confirmed' => true,
         ]);
 
         return ($user && Hash::check($password, $user->password)) ? $user : null;

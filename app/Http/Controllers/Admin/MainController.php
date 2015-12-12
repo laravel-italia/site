@@ -2,9 +2,6 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use LaravelItalia\Http\Requests;
 use LaravelItalia\Http\Controllers\Controller;
 
 class MainController extends Controller

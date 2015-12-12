@@ -2,13 +2,11 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
-use \Config;
+use Config;
 use LaravelItalia\Entities\Media;
 
 /**
- * Class MediaRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class MediaRepository.
  */
 class MediaRepository
 {

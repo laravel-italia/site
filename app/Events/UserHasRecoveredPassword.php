@@ -21,7 +21,8 @@ class UserHasRecoveredPassword extends Event
 
     /**
      * UserHasRecoveredPassword constructor.
-     * @param User $user
+     *
+     * @param User   $user
      * @param string $token
      */
     public function __construct(User $user, $token)

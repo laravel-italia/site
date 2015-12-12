@@ -4,7 +4,6 @@ namespace LaravelItalia\Entities\Services;
 
 use LaravelItalia\Entities\Repositories\PasswordResetRepository;
 use LaravelItalia\Entities\Repositories\UserRepository;
-use LaravelItalia\Events\UserHasRecoveredPassword;
 use LaravelItalia\Jobs\Job;
 use LaravelItalia\Entities\User;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -15,7 +14,6 @@ class ResetPassword extends Job implements SelfHandling
      * @var User
      */
     private $user;
-
 
     /**
      * @var string
@@ -29,7 +27,8 @@ class ResetPassword extends Job implements SelfHandling
 
     /**
      * UserPasswordReset constructor.
-     * @param User $user
+     *
+     * @param User   $user
      * @param string $token
      * @param string $newPassword
      */
@@ -41,8 +40,9 @@ class ResetPassword extends Job implements SelfHandling
 
     public function handle(UserRepository $userRepository, PasswordResetRepository $passwordResetRepository)
     {
-        if(!$passwordResetRepository->exists($this->user->getEmail(), $this->token))
+        if (!$passwordResetRepository->exists($this->user->getEmail(), $this->token)) {
             throw new \Exception('wrong_email_or_token');
+        }
 
         $this->user->setNewPassword($this->newPassword);
 

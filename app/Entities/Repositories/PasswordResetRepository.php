@@ -2,7 +2,6 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use Carbon\Carbon;
 
 class PasswordResetRepository
@@ -12,7 +11,7 @@ class PasswordResetRepository
         \DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
     }
 
@@ -23,7 +22,7 @@ class PasswordResetRepository
             ->where('token', '=', $token)
             ->first();
 
-        return (!is_null($reset));
+        return !is_null($reset);
     }
 
     public function removeByEmail($email)

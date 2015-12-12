@@ -2,12 +2,10 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use LaravelItalia\Entities\Category;
 
 /**
- * Class CategoryRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class CategoryRepository.
  */
 class CategoryRepository
 {

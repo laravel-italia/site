@@ -11,8 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
- * Class User
- * @package LaravelItalia\Entities
+ * Class User.
  */
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -36,8 +35,9 @@ class User extends Model implements AuthenticatableContract,
 
     public function confirm()
     {
-        if($this->is_confirmed)
+        if ($this->is_confirmed) {
             throw new \Exception('already_confirmed');
+        }
 
         $this->is_confirmed = true;
     }

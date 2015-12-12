@@ -2,7 +2,6 @@
 
 namespace LaravelItalia\Http\Requests;
 
-
 class UserConfirmationRequest extends Request
 {
     /**
@@ -23,7 +22,7 @@ class UserConfirmationRequest extends Request
     public function rules()
     {
         return [
-            'code' => 'required'
+            'code' => 'required',
         ];
     }
 
@@ -35,7 +34,7 @@ class UserConfirmationRequest extends Request
     public function messages()
     {
         return [
-            'confirmation_code.required'     => 'Non è stato specificato un codice di conferma.'
+            'confirmation_code.required' => 'Non è stato specificato un codice di conferma.',
         ];
     }
 }

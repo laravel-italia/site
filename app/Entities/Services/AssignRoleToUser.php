@@ -33,8 +33,6 @@ class AssignRoleToUser extends Job implements SelfHandling
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(UserRepository $userRepository)
     {

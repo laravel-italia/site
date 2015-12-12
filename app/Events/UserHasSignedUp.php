@@ -14,7 +14,6 @@ class UserHasSignedUp extends Event
      */
     private $user;
 
-
     public function __construct(User $user)
     {
         $this->user = $user;

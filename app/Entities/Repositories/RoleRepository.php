@@ -2,12 +2,10 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use LaravelItalia\Entities\Role;
 
 /**
- * Class RoleRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class RoleRepository.
  */
 class RoleRepository
 {

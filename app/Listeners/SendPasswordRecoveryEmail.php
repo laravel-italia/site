@@ -2,7 +2,7 @@
 
 namespace LaravelItalia\Listeners;
 
-use \Mail;
+use Mail;
 use LaravelItalia\Events\UserHasRecoveredPassword;
 
 class SendPasswordRecoveryEmail
@@ -10,14 +10,13 @@ class SendPasswordRecoveryEmail
     /**
      * Handle the event.
      *
-     * @param  UserHasRecoveredPassword  $event
-     * @return void
+     * @param UserHasRecoveredPassword $event
      */
     public function handle(UserHasRecoveredPassword $event)
     {
         $user = $event->getUser();
 
-        if(is_null($user->getAuthenticationProvider())){
+        if (is_null($user->getAuthenticationProvider())) {
             $token = $event->getToken();
 
             Mail::send('emails.user_password_recovery', ['user' => $user, 'token' => $token], function ($m) use ($user) {

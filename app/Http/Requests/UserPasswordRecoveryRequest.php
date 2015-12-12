@@ -2,7 +2,6 @@
 
 namespace LaravelItalia\Http\Requests;
 
-
 class UserPasswordRecoveryRequest extends Request
 {
     /**
@@ -23,7 +22,7 @@ class UserPasswordRecoveryRequest extends Request
     public function rules()
     {
         return [
-            'email'     => 'required|email'
+            'email' => 'required|email',
         ];
     }
 
@@ -35,8 +34,8 @@ class UserPasswordRecoveryRequest extends Request
     public function messages()
     {
         return [
-            'email.required'    => 'Hai scordato di specificare il tuo indirizzo email!',
-            'email.email'       => 'Devi specificare un indirizzo email valido!',
+            'email.required' => 'Hai scordato di specificare il tuo indirizzo email!',
+            'email.email' => 'Devi specificare un indirizzo email valido!',
         ];
     }
 }

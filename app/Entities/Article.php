@@ -9,7 +9,7 @@ class Article extends Model
 {
     public function isPublished()
     {
-        return (!is_null($this->published_at));
+        return !is_null($this->published_at);
     }
 
     public function getPublicationDate()
@@ -63,14 +63,15 @@ class Article extends Model
 
     public function syncCategories(Collection $categories)
     {
-        if(!$this->exists)
+        if (!$this->exists) {
             throw new \Exception('record_not_exists');
+        }
 
         $this->categories()->sync($categories);
     }
 
     public function isPartOfSeries()
     {
-        return ($this->series_id !== null);
+        return $this->series_id !== null;
     }
 }

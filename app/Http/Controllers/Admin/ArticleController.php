@@ -3,9 +3,7 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use Auth;
-use LaravelItalia\Http\Requests;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Http\Requests\ArticleAddRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
@@ -18,7 +16,7 @@ class ArticleController extends Controller
     public function getIndex(Request $request, ArticleRepository $articleRepository)
     {
         return view('admin.articles_index', [
-            'articles' => $articleRepository->getAll($request->get('page', 1))
+            'articles' => $articleRepository->getAll($request->get('page', 1)),
         ]);
     }
 
@@ -26,7 +24,7 @@ class ArticleController extends Controller
     {
         return view('admin.articles_add', [
             'categories' => $categoryRepository->getAll(),
-            'series' => $seriesRepository->getAll()
+            'series' => $seriesRepository->getAll(),
         ]);
     }
 
@@ -39,8 +37,9 @@ class ArticleController extends Controller
             $request->get('metadescription')
         );
 
-        if($request->get('series_id') != 0)
+        if ($request->get('series_id') != 0) {
             $article->setSeries($request->get('series_id'));
+        }
 
         $article->setUser(Auth::user());
 

@@ -2,14 +2,12 @@
 
 namespace LaravelItalia\Entities\Factories;
 
-
 use Illuminate\Support\Str;
 use LaravelItalia\Entities\Article;
 use LaravelItalia\Entities\User;
 
 /**
- * Class ArticleFactory
- * @package LaravelItalia\Entities\Factories
+ * Class ArticleFactory.
  */
 class ArticleFactory
 {
@@ -27,7 +25,7 @@ class ArticleFactory
      */
     public static function createArticle($title, $digest, $body, $metaDescription)
     {
-        $article = new Article;
+        $article = new Article();
 
         $article->title = $title;
         $article->slug = Str::slug($title);

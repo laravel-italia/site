@@ -2,12 +2,10 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use LaravelItalia\Entities\Series;
 
 /**
- * Class SeriesRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class SeriesRepository.
  */
 class SeriesRepository
 {
@@ -20,8 +18,9 @@ class SeriesRepository
     {
         $query = Series::with('articles');
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->where('slug', '=', $slug)->first();
     }
@@ -30,8 +29,9 @@ class SeriesRepository
     {
         $query = Series::with('articles');
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->find($id);
     }
@@ -40,8 +40,9 @@ class SeriesRepository
     {
         $query = Series::with('articles');
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->get();
     }

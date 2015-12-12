@@ -2,15 +2,13 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-
 use LaravelItalia\Entities\Article;
 use LaravelItalia\Entities\Category;
 use LaravelItalia\Entities\User;
-use \Config;
+use Config;
 
 /**
- * Class ArticleRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class ArticleRepository.
  */
 class ArticleRepository
 {
@@ -18,8 +16,9 @@ class ArticleRepository
     {
         $query = Article::with(['user', 'categories']);
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->paginate(
                 Config::get('publications.articles_per_page'),
@@ -33,8 +32,9 @@ class ArticleRepository
     {
         $query = $category->articles()->getQuery()->with(['user', 'categories']);
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->paginate(
             Config::get('publications.articles_per_page'),
@@ -48,8 +48,9 @@ class ArticleRepository
     {
         $query = $user->articles()->getQuery()->with(['user', 'categories']);
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->paginate(
             Config::get('publications.articles_per_page'),
@@ -63,8 +64,9 @@ class ArticleRepository
     {
         $query = Article::with(['user', 'categories']);
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->where('slug', '=', $slug)->first();
     }
@@ -73,8 +75,9 @@ class ArticleRepository
     {
         $query = Article::with(['user', 'categories']);
 
-        if($onlyPublished)
+        if ($onlyPublished) {
             $query->published();
+        }
 
         return $query->find($id);
     }

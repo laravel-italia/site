@@ -17,6 +17,7 @@ class RecoveryPassword extends Job implements SelfHandling
 
     /**
      * UserPasswordRecovery constructor.
+     *
      * @param User $user
      */
     public function __construct(User $user)
@@ -26,8 +27,9 @@ class RecoveryPassword extends Job implements SelfHandling
 
     public function handle(PasswordResetRepository $repository)
     {
-        if(!is_null($this->user->getAuthenticationProvider()))
+        if (!is_null($this->user->getAuthenticationProvider())) {
             throw new \Exception('social_network_user');
+        }
 
         $token = $this->generateToken();
 
@@ -41,6 +43,6 @@ class RecoveryPassword extends Job implements SelfHandling
 
     private function generateToken()
     {
-        return sha1(microtime() . $this->user->getEmail());
+        return sha1(microtime().$this->user->getEmail());
     }
 }

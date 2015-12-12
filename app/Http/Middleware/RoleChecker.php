@@ -17,27 +17,27 @@ class RoleChecker
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
-     * @return void
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
     }
 
-
     /**
      * @param $request
      * @param Closure $next
      * @param ...$roles
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, ...$roles)
     {
         $user = $this->auth->user();
 
-        if(in_array($user->role->name, $roles))
+        if (in_array($user->role->name, $roles)) {
             return $next($request);
+        }
 
         return redirect('/');
     }

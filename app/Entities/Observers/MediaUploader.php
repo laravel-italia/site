@@ -2,7 +2,6 @@
 
 namespace LaravelItalia\Entities\Observers;
 
-
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
 
@@ -18,7 +17,7 @@ class MediaUploader
     public function creating(Media $media)
     {
         $uploadedFile = $this->request->file('media');
-        $fileName = time() . $uploadedFile->getClientOriginalName() . $uploadedFile->getClientOriginalExtension();
+        $fileName = time().$uploadedFile->getClientOriginalName().$uploadedFile->getClientOriginalExtension();
 
         \Storage::put(
             $fileName,

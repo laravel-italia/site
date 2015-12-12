@@ -2,9 +2,6 @@
 
 namespace LaravelItalia\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
-use LaravelItalia\Http\Requests\Request;
-
 class ArticleAddRequest extends Request
 {
     /**
@@ -25,9 +22,9 @@ class ArticleAddRequest extends Request
     public function rules()
     {
         return [
-            'title'         => 'required',
-            'body'          => 'required',
-            'categories'    => 'required'
+            'title' => 'required',
+            'body' => 'required',
+            'categories' => 'required',
         ];
     }
 
@@ -39,9 +36,9 @@ class ArticleAddRequest extends Request
     public function messages()
     {
         return [
-            'title.required'        => 'Specifica un titolo per il tuo articolo!',
-            'body.required'         => 'Non puoi aggiungere un articolo senza contenuto!',
-            'categories.required'   => 'Devi specificare almeno una categoria di riferimento!'
+            'title.required' => 'Specifica un titolo per il tuo articolo!',
+            'body.required' => 'Non puoi aggiungere un articolo senza contenuto!',
+            'categories.required' => 'Devi specificare almeno una categoria di riferimento!',
         ];
     }
 }
