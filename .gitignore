@@ -3,6 +3,7 @@
 /node_modules
 /public/assets
 /public/uploads
+/public/adminer.php
 Homestead.yaml
 Homestead.json
 .env
