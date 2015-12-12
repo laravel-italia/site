@@ -39,6 +39,6 @@ class RoleChecker
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('admin/dashboard')->with('error_message', 'Non hai i permessi per effettuare questa operazione.');
     }
 }
