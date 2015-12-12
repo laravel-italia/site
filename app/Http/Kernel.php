@@ -27,6 +27,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \LaravelItalia\Http\Middleware\Authenticate::class,
+        'role' => \LaravelItalia\Http\Middleware\RoleChecker::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \LaravelItalia\Http\Middleware\RedirectIfAuthenticated::class,
     ];
