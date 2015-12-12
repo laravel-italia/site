@@ -30,10 +30,12 @@
                     <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
                     <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i') }}) @else Non Pubblicato @endif</td>
                     <td>
-                        @if($article->isPublished())
-                            <a href="#" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</a>
-                        @else
-                            <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
+                        @if(Auth::user()->isAdministrator())
+                            @if($article->isPublished())
+                                <a href="#" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</a>
+                            @else
+                                <a href="#" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</a>
+                            @endif
                         @endif
                         <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
                         <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-times"></span> Cancella</button>
