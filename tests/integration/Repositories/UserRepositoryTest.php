@@ -20,44 +20,52 @@ class UserRepositoryTest extends TestCase
 
     public function testCanSaveUser()
     {
+        $this->dontSeeInDatabase('users', [
+            'name' => 'Francesco',
+            'email' => 'hey@hellofrancesco.com',
+        ]);
+
         $this->userRepository->save($this->prepareTestUser());
 
-        $users = \LaravelItalia\Entities\User::where('name', '=', 'Francesco')
-            ->where('email', '=', 'hey@hellofrancesco.com')
-            ->get();
-
-        $this->assertCount(1, $users);
+        $this->seeInDatabase('users', [
+            'name' => 'Francesco',
+            'email' => 'hey@hellofrancesco.com',
+        ]);
     }
 
-    public function testCanFindFirst()
+    public function testCanGetById()
     {
-        $this->prepareTestUserSeed();
+        $expectedUser = $this->saveTestUser();
 
-        $existingUser = $this->userRepository->findFirstBy([
-            'email' => 'hey@hellofrancesco.com'
-        ]);
+        $user = $this->userRepository->findById($expectedUser->id);
 
-        $notExistingUser = $this->userRepository->findFirstBy([
-            'name' => 'John Doe'
-        ]);
+        $this->assertEquals($expectedUser->id, $user->id);
+    }
+
+    public function testCanFindByEmailAndPassword()
+    {
+        $this->saveTestUser();
+
+        $existingUser = $this->userRepository->findByEmailAndPassword(
+            'hey@hellofrancesco.com',
+            '123456'
+        );
+
+        $notExistingUser = $this->userRepository->findByEmailAndPassword(
+            'idont@exist.com',
+            'wololo'
+        );
 
         $this->assertNotNull($existingUser);
         $this->assertNull($notExistingUser);
     }
 
-    public function testCanFindForLogin()
+    public function testCanFindByConfirmationCode()
     {
-        $this->prepareTestUserSeed();
+        $this->saveTestUser();
 
-        $existingUser = $this->userRepository->findForLogin(
-            'hey@hellofrancesco.com',
-            '123456'
-        );
-
-        $notExistingUser = $this->userRepository->findForLogin(
-            'idont@exist.com',
-            'wololo'
-        );
+        $existingUser = $this->userRepository->findByConfirmationCode('confirmation_code');
+        $notExistingUser = $this->userRepository->findByConfirmationCode('i_dont_exist_lol');
 
         $this->assertNotNull($existingUser);
         $this->assertNull($notExistingUser);
@@ -67,17 +75,20 @@ class UserRepositoryTest extends TestCase
     {
         $user = new \LaravelItalia\Entities\User();
 
-        $user->name     = 'Francesco';
-        $user->email    = 'hey@hellofrancesco.com';
+        $user->name = 'Francesco';
+        $user->email = 'hey@hellofrancesco.com';
         $user->password = bcrypt('123456');
         $user->is_confirmed = true;
+        $user->confirmation_code = 'confirmation_code';
 
         return $user;
     }
 
-    private function prepareTestUserSeed()
+    private function saveTestUser()
     {
         $user = $this->prepareTestUser();
         $user->save();
+
+        return $user;
     }
 }

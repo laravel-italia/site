@@ -20,7 +20,29 @@ class UserRepository
         $user->save();
     }
 
-    public function findFirstBy(array $criteria)
+    public function findById($id)
+    {
+        return User::find($id);
+    }
+
+    public function findByEmailAndPassword($emailAddress, $password)
+    {
+        $user = $this->findBy([
+            'email' => $emailAddress,
+            'is_confirmed' => true,
+        ]);
+
+        return ($user && Hash::check($password, $user->password)) ? $user : null;
+    }
+
+    public function findByConfirmationCode($confirmationCode)
+    {
+        return $this->findBy([
+            'confirmation_code' => $confirmationCode,
+        ]);
+    }
+
+    private function findBy(array $criteria)
     {
         $users = User::query();
 
@@ -29,15 +51,5 @@ class UserRepository
         }
 
         return $users->first();
-    }
-
-    public function findForLogin($emailAddress, $password)
-    {
-        $user = $this->findFirstBy([
-            'email' => $emailAddress,
-            'is_confirmed' => true,
-        ]);
-
-        return ($user && Hash::check($password, $user->password)) ? $user : null;
     }
 }
