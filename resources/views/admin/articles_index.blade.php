@@ -32,7 +32,7 @@
                     <td>
                         @if(Auth::user()->isAdministrator())
                             @if($article->isPublished())
-                                <button class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</button>
+                                <button id="unpublish_button" data-id="{{ $article->id }}" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</button>
                             @else
                                 <button id="publish_button" data-id="{{ $article->id }}" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</button>
                             @endif
@@ -89,6 +89,12 @@
             $('#article_publish_form').prop('action', '{{ url('admin/articles/publish') }}/' + $(this).data('id'));
             $('#published_at').val(getCurrentDateTime());
             $('#publishModal').modal('toggle');
+        });
+
+        $('#unpublish_button').click(function(){
+            if(confirm('Sicuro di voler rimuovere questo articolo dalla pubblicazione?')){
+                window.location.href = "{{ url('admin/articles/unpublish') }}/" + $(this).data('id');
+            }
         });
 
         $('#delete_button').click(function(){

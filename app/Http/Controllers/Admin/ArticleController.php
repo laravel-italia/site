@@ -19,7 +19,7 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator', ['only' => ['postPublish']]);
+        $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish']]);
     }
 
     public function getIndex(Request $request, ArticleRepository $articleRepository)
@@ -60,6 +60,17 @@ class ArticleController extends Controller
         $article->categories()->sync($request->get('categories'));
 
         return redirect('admin/articles')->withInput()->with('success_message', 'Articolo aggiunto correttamente.');
+    }
+
+    public function getUnpublish(ArticleRepository $articleRepository, $articleId)
+    {
+        /* @var $article Article */
+        $article = $articleRepository->findById($articleId);
+
+        $article->unpublish();
+        $articleRepository->save($article);
+
+        return redirect('admin/articles')->with('success_message', 'Articolo rimosso dalla pubblicazione correttamente.');
     }
 
     public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
