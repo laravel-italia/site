@@ -24,14 +24,14 @@ class ArticleController extends Controller
 
     public function getIndex(Request $request, ArticleRepository $articleRepository)
     {
-        return view('admin.articles_index', [
+        return view('admin.article_index', [
             'articles' => $articleRepository->getAll($request->get('page', 1)),
         ]);
     }
 
     public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
     {
-        return view('admin.articles_add', [
+        return view('admin.article_add', [
             'categories' => $categoryRepository->getAll(),
             'series' => $seriesRepository->getAll(),
         ]);
