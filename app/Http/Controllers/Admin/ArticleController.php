@@ -19,7 +19,8 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish']]);
+        $this->middleware('role:editor,administrator', ['except' => ['postPublish', 'getUnpublish', 'getDelete']]);
+        $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish', 'getDelete']]);
     }
 
     public function getIndex(Request $request, ArticleRepository $articleRepository)
