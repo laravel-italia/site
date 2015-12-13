@@ -11,6 +11,10 @@ Route::get('auth', function (\LaravelItalia\Entities\Repositories\UserRepository
     return redirect('admin/articles');
 });
 
+Route::get('login', function () {
+    return 'must login!';
+});
+
 Route::get('blank', function () {
     return view('admin.blank');
 });
