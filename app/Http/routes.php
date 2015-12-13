@@ -8,7 +8,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::get('auth', function (\LaravelItalia\Entities\Repositories\UserRepository $userRepository) {
     Auth::login(\LaravelItalia\Entities\User::first());
 
-    return redirect('admin/articles');
+    return redirect('admin/dashboard');
+});
+
+/* Provisional Routes! */
+
+Route::get('access-denied', function(){
+    return 'Access Denied.';
+});
+
+Route::get('logout', function(){
+    Auth::logout();
+    return redirect('login');
 });
 
 Route::get('login', function () {
