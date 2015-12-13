@@ -62,6 +62,39 @@ class ArticleController extends Controller
         return redirect('admin/articles')->withInput()->with('success_message', 'Articolo aggiunto correttamente.');
     }
 
+    public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
+    {
+        $article = $articleRepository->findById($articleId);
+
+        $series = $seriesRepository->getAll();
+        $categories = $categoryRepository->getAll();
+
+        return view('admin.article_edit', compact('article', 'series', 'categories'));
+    }
+
+    public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, $articleId)
+    {
+        /* @var $article Article */
+        $article = $articleRepository->findById($articleId);
+
+        $article->title = $request->get('title');
+        $article->body = $request->get('body');
+        $article->digest = $request->get('digest');
+        $article->metadescription = $request->get('metadescription');
+
+        if ($request->get('series_id') != 0) {
+
+            /* @var $series Series */
+            $series = $seriesRepository->findByid($request->get('series_id'));
+            $article->setSeries($series);
+        }
+
+        $articleRepository->save($article);
+        $article->categories()->sync($request->get('categories'));
+
+        return redirect('admin/articles/edit/'.$articleId)->with('success_message', 'Articolo modificato correttamente.');
+    }
+
     public function getUnpublish(ArticleRepository $articleRepository, $articleId)
     {
         /* @var $article Article */

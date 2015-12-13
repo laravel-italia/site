@@ -39,7 +39,7 @@
                         @endif
 
                         @if(Auth::user()->isAdministrator() || Auth::user()->isAuthorOf($article))
-                            <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
+                            <a href="{{ url('admin/articles/edit/' . $article->id) }}" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
                         @endif
 
                         @if(Auth::user()->isAdministrator())
