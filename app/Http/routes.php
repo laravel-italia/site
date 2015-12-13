@@ -13,12 +13,13 @@ Route::get('auth', function (\LaravelItalia\Entities\Repositories\UserRepository
 
 /* Provisional Routes! */
 
-Route::get('access-denied', function(){
+Route::get('access-denied', function () {
     return 'Access Denied.';
 });
 
-Route::get('logout', function(){
+Route::get('logout', function () {
     Auth::logout();
+
     return redirect('login');
 });
 
