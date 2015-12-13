@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Entities\Article;
 use LaravelItalia\Http\Controllers\Controller;
-use LaravelItalia\Http\Requests\ArticleAddRequest;
+use LaravelItalia\Http\Requests\ArticleSaveRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 use LaravelItalia\Entities\Repositories\ArticleRepository;
@@ -37,7 +37,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function postAdd(ArticleAddRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
+    public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
     {
         $article = ArticleFactory::createArticle(
             $request->get('title'),

@@ -2,7 +2,7 @@
 
 namespace LaravelItalia\Http\Requests;
 
-class ArticleAddRequest extends Request
+class ArticleSaveRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
