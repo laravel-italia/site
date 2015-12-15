@@ -21,15 +21,23 @@ class ArticleRepositoryTest extends TestCase
 
     public function testCanGetAll()
     {
-        $articles = $this->repository->getAll(1);
-
-        $this->assertCount(0, $articles);
+        $this->assertCount(0, $this->repository->getAll(1));
 
         $this->saveTestArticle();
         $this->saveTestArticle(true);
 
         $this->assertCount(2, $this->repository->getAll(1));
         $this->assertCount(1, $this->repository->getAll(1, true));
+    }
+
+    public function testCanGetUnpublished()
+    {
+        $this->assertCount(0, $this->repository->getUnpublished());
+
+        $this->saveTestArticle(false);
+        $this->saveTestArticle(true);
+
+        $this->assertCount(1, $this->repository->getUnpublished());
     }
 
     public function testCanSave()

@@ -31,6 +31,14 @@ class ArticleRepository
         );
     }
 
+    public function getUnpublished()
+    {
+        return Article::with(['user', 'categories'])
+            ->where('published_at', '=', null)
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
+
     public function findByCategory(Category $category, $page, $onlyPublished = false)
     {
         $query = $category->articles()->getQuery()->with(['user', 'categories']);
