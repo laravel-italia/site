@@ -3,6 +3,9 @@
 namespace LaravelItalia\Entities\Repositories;
 
 use LaravelItalia\Entities\Category;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotSavedException;
 
 /**
  * Class CategoryRepository.
@@ -11,17 +14,31 @@ class CategoryRepository
 {
     public function save(Category $category)
     {
-        $category->save();
+        if (!$category->save()) {
+            throw new NotSavedException();
+        }
     }
 
     public function findById($id)
     {
-        return Category::find($id);
+        $category = Category::find($id);
+
+        if (!$category) {
+            throw new NotFoundException();
+        }
+
+        return $category;
     }
 
     public function findBySlug($slug)
     {
-        return Category::where('slug', '=', $slug)->first();
+        $category = Category::where('slug', '=', $slug)->first();
+
+        if (!$category) {
+            throw new NotFoundException();
+        }
+
+        return $category;
     }
 
     public function getAll()
@@ -31,6 +48,8 @@ class CategoryRepository
 
     public function delete(Category $category)
     {
-        $category->delete();
+        if (!$category->delete()) {
+            throw new NotDeletedException();
+        }
     }
 }

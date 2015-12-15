@@ -34,10 +34,16 @@ class CategoryRepositoryTest extends TestCase
         $expectedCategory = $this->saveTestCategory();
 
         $existingCategory = $this->repository->findById($expectedCategory->id);
-        $notExistingCategory = $this->repository->findById($expectedCategory->id + 1);
 
         $this->assertNotNull($existingCategory);
-        $this->assertNull($notExistingCategory);
+    }
+
+    /**
+     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByIdThrowsException()
+    {
+        $this->repository->findById(999);
     }
 
     public function testCanFindBySlug()
@@ -45,10 +51,16 @@ class CategoryRepositoryTest extends TestCase
         $this->saveTestCategory();
 
         $existingCategory = $this->repository->findBySlug('test-category');
-        $notExistingCategory = $this->repository->findBySlug('i-did-it-for-teh-lulz');
 
         $this->assertNotNull($existingCategory);
-        $this->assertNull($notExistingCategory);
+    }
+
+    /**
+     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindBySlugThrowsException()
+    {
+        $this->repository->findBySlug('test-category');
     }
 
     public function testCanGetAll()
