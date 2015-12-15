@@ -25,7 +25,7 @@
                     <td>{{ $category->articles->count() }}</td>
                     <td>
                         <a href="#" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
-                        <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $category->id }}"><span class="fa fa-remove"></span> Cancella</button>
+                        <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $category->id }}"><span class="fa fa-remove"></span> Cancella</button>
                     </td>
                 </tr>
             @empty
@@ -44,9 +44,9 @@
 <script>
     $(document).ready(function(){
 
-        $('#delete_button').click(function(){
+        $('.delete_button').click(function(){
             if(confirm('Sicuro di voler cancellare questa categoria?')){
-                alert('cancella!');
+                window.location.href = '{{ url('admin/categories/delete') }}/' + $(this).data('id');
             }
         });
 
