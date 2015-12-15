@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::controller('articles', 'ArticleController');
+    Route::controller('categories', 'CategoryController');
     Route::controller('/', 'MainController');
 });
 

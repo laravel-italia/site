@@ -59,7 +59,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Categorie</a>
+                    <a href="{{ url('admin/categories') }}"><i class="fa fa-files-o fa-fw"></i> Categorie</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-upload fa-fw"></i> Media</a>
