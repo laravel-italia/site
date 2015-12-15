@@ -7,6 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Entities\Article;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Http\Requests\ArticleSaveRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
@@ -56,7 +59,13 @@ class ArticleController extends Controller
 
         $article->setUser(Auth::user());
 
-        $articleRepository->save($article);
+        try {
+            $articleRepository->save($article);
+        } catch(NotSavedException $e){
+            return redirect('admin/articles/add')
+                ->withInput()
+                ->with('error_message', 'Problemi in fase di aggiunta. Riprovare.');
+        }
 
         $article->categories()->sync($request->get('categories'));
 
@@ -65,7 +74,11 @@ class ArticleController extends Controller
 
     public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
-        $article = $articleRepository->findById($articleId);
+        try {
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
 
         $series = $seriesRepository->getAll();
         $categories = $categoryRepository->getAll();
@@ -75,8 +88,12 @@ class ArticleController extends Controller
 
     public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, $articleId)
     {
-        /* @var $article Article */
-        $article = $articleRepository->findById($articleId);
+        try {
+            /* @var $article Article */
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
 
         $article->title = $request->get('title');
         $article->body = $request->get('body');
@@ -90,7 +107,14 @@ class ArticleController extends Controller
             $article->setSeries($series);
         }
 
-        $articleRepository->save($article);
+        try {
+            $articleRepository->save($article);
+        } catch (NotSavedException $e) {
+            return redirect('admin/articles/edit/' . $articleId)
+                ->withInput()
+                ->with('error_message', 'Problemi in fase di modifica. Riprovare.');
+        }
+
         $article->categories()->sync($request->get('categories'));
 
         return redirect('admin/articles/edit/'.$articleId)->with('success_message', 'Articolo modificato correttamente.');
@@ -98,33 +122,61 @@ class ArticleController extends Controller
 
     public function getUnpublish(ArticleRepository $articleRepository, $articleId)
     {
-        /* @var $article Article */
-        $article = $articleRepository->findById($articleId);
+        try {
+            /* @var $article Article */
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
 
         $article->unpublish();
-        $articleRepository->save($article);
+
+        try {
+            $articleRepository->save($article);
+        } catch (NotSavedException $e) {
+            return redirect('admin/articles')
+                ->with('error_message', 'Problemi durante la rimozione dalla pubblicazione. Riprovare.');
+        }
 
         return redirect('admin/articles')->with('success_message', 'Articolo rimosso dalla pubblicazione correttamente.');
     }
 
     public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
     {
-        /* @var $article Article */
-        $article = $articleRepository->findById($articleId);
+        try {
+            /* @var $article Article */
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
 
         $publicationDate = Carbon::createFromFormat('d/m/Y H:i', $request->get('published_at'));
         $article->publish($publicationDate);
 
-        $articleRepository->save($article);
+        try {
+            $articleRepository->save($article);
+        } catch (NotSavedException $e) {
+            return redirect('admin/articles')
+                ->with('error_message', 'Problemi durante la pubblicazione. Riprovare.');
+        }
 
         return redirect('admin/articles')->with('success_message', 'Articolo mandato in pubblicazione correttamente.');
     }
 
     public function getDelete(ArticleRepository $articleRepository, $articleId)
     {
-        /* @var $article Article */
-        $article = $articleRepository->findById($articleId);
-        $articleRepository->delete($article);
+        try {
+            /* @var $article Article */
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
+
+        try {
+            $articleRepository->delete($article);
+        } catch (NotDeletedException $e) {
+            return redirect('admin/articles')->with('error_message', 'Impossibile cancellare l\'articolo selezionato.');
+        }
 
         return redirect('admin/articles')->with('success_message', 'Articolo cancellato correttamente.');
     }
