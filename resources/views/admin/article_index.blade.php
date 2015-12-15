@@ -7,6 +7,8 @@
 
     <hr>
 
+    {!! $articles->render() !!}
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -57,6 +59,8 @@
             </tbody>
         </table>
     </div>
+
+    {!! $articles->render() !!}
 
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel">
         <div class="modal-dialog" role="document">
