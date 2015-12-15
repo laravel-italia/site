@@ -48,6 +48,10 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="#"><i class="fa fa-upload fa-fw"></i> Media</a>
+                </li>
+                @if(Auth::user()->isAdministrator())
+                    <li>
                     <a href="#"><i class="fa fa-th-list fa-fw"></i> Serie<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -58,15 +62,13 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                    <li>
                     <a href="{{ url('admin/categories') }}"><i class="fa fa-files-o fa-fw"></i> Categorie</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-upload fa-fw"></i> Media</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-group fa-fw"></i> Utenti</a>
                 </li>
+                @endif
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
