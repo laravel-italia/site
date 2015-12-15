@@ -17,7 +17,7 @@ class ArticleRepository
 {
     public function getAll($page, $onlyPublished = false)
     {
-        $query = Article::with(['user', 'categories']);
+        $query = Article::with(['user', 'categories'])->orderBy('published_at', 'desc');
 
         if ($onlyPublished) {
             $query->published();
