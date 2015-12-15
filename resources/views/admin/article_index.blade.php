@@ -7,7 +7,48 @@
 
     <hr>
 
-    {!! $articles->render() !!}
+    @if(count($unpublishedArticles) > 0 && Auth::user()->isAdministrator())
+        <h3>Coda di Revisione</h3>
+
+        <p>Ci sono degli articoli da controllare!</p>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titolo</th>
+                    <th>Autore</th>
+                    <th>Serie</th>
+                    <th>Categorie</th>
+                    <th>Stato</th>
+                    <th>Operazioni</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($unpublishedArticles as $article)
+                    <tr>
+                        <td>{{ $article->id }}</td>
+                        <td>{{ $article->title }}</td>
+                        <td>{{ $article->user->name }}</td>
+                        <td>@if($article->isPartOfSeries()) $article->series->title @else Nessuna @endif</td>
+                        <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
+                        <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i', strtotime($article->published_at)) }}) @else Non Pubblicato @endif</td>
+                        <td>
+                            <button data-id="{{ $article->id }}" class="btn btn-sm btn-success publish_button"><span class="fa fa-check"></span> Pubblica</button>
+                            <a href="{{ url('admin/articles/edit/' . $article->id) }}" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
+                            <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $article->id }}"><span class="fa fa-remove"></span> Cancella</button>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+    <h3>Articoli Pubblicati</h3>
+
+    {!! $publishedArticles->render() !!}
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
@@ -23,7 +64,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($articles as $article)
+            @forelse($publishedArticles as $article)
                 <tr>
                     <td>{{ $article->id }}</td>
                     <td>{{ $article->title }}</td>
@@ -60,7 +101,7 @@
         </table>
     </div>
 
-    {!! $articles->render() !!}
+    {!! $publishedArticles->render() !!}
 
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel">
         <div class="modal-dialog" role="document">
