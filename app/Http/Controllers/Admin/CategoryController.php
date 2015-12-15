@@ -53,7 +53,7 @@ class CategoryController extends Controller
             /* @var $category Category */
             $category = $categoryRepository->findById($categoryId);
         } catch (NotFoundException $e) {
-            return redirect('admin/categories')->with('error_message', 'La categoria cercata non esiste o non è più disponibile.');
+            return redirect('admin/categories')->with('error_message', 'La categoria scelta non esiste o non è più disponibile.');
         }
 
         $category->name = $request->get('name');
