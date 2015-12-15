@@ -6,6 +6,9 @@ use LaravelItalia\Entities\Article;
 use LaravelItalia\Entities\Category;
 use LaravelItalia\Entities\User;
 use Config;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotSavedException;
 
 /**
  * Class ArticleRepository.
@@ -68,7 +71,12 @@ class ArticleRepository
             $query->published();
         }
 
-        return $query->where('slug', '=', $slug)->first();
+        $result = $query->where('slug', '=', $slug)->first();
+
+        if(!$result)
+            throw new NotFoundException;
+
+        return $result;
     }
 
     public function findById($id, $onlyPublished = false)
@@ -79,16 +87,23 @@ class ArticleRepository
             $query->published();
         }
 
-        return $query->find($id);
+        $result = $query->find($id);
+
+        if(!$result)
+            throw new NotFoundException;
+
+        return $result;
     }
 
     public function save(Article $article)
     {
-        $article->save();
+        if(!$article->save())
+            throw new NotSavedException;
     }
 
     public function delete(Article $article)
     {
-        $article->delete();
+        if(!$article->delete())
+            throw new NotDeletedException;
     }
 }

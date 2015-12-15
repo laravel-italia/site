@@ -52,30 +52,38 @@ class ArticleRepositoryTest extends TestCase
         ]);
     }
 
-    public function testFindBySlug()
+    public function testFindBySlugIsOk()
     {
         $expectedArticle = $this->saveTestArticle();
 
         $article = $this->repository->findBySlug($expectedArticle->slug);
 
         $this->assertEquals($expectedArticle->id, $article->id);
-
-        $article = $this->repository->findBySlug($expectedArticle->slug, true);
-
-        $this->assertNull($article);
     }
 
-    public function testFindById()
+    /**
+     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testFindBySlugThrowExceptionIfNotFound()
+    {
+        $this->repository->findBySlug('i_dont_exist_lol');
+    }
+
+    public function testFindByIdIsOk()
     {
         $expectedArticle = $this->saveTestArticle();
 
         $article = $this->repository->findById($expectedArticle->id);
 
         $this->assertEquals($expectedArticle->id, $article->id);
+    }
 
-        $article = $this->repository->findById($expectedArticle->id, true);
-
-        $this->assertNull($article);
+    /**
+     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testFindByIdThrowsExceptionIfNotFound()
+    {
+        $this->repository->findById(999);
     }
 
     public function prepareTestArticle($published = false)
