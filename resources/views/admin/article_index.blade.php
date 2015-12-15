@@ -34,9 +34,9 @@
                     <td>
                         @if(Auth::user()->isAdministrator())
                             @if($article->isPublished())
-                                <button id="unpublish_button" data-id="{{ $article->id }}" class="btn btn-sm btn-warning"><span class="fa fa-eye-slash"></span> Nascondi</button>
+                                <button data-id="{{ $article->id }}" class="btn btn-sm btn-warning unpublish_button"><span class="fa fa-eye-slash"></span> Nascondi</button>
                             @else
-                                <button id="publish_button" data-id="{{ $article->id }}" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Pubblica</button>
+                                <button data-id="{{ $article->id }}" class="btn btn-sm btn-success publish_button"><span class="fa fa-check"></span> Pubblica</button>
                             @endif
                         @endif
 
@@ -45,7 +45,7 @@
                         @endif
 
                         @if(Auth::user()->isAdministrator())
-                            <button type="button" class="btn btn-sm btn-danger" id="delete_button" data-id="{{ $article->id }}"><span class="fa fa-remove"></span> Cancella</button>
+                            <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $article->id }}"><span class="fa fa-remove"></span> Cancella</button>
                         @endif
                     </td>
                 </tr>
@@ -89,19 +89,19 @@
 <script>
     $(document).ready(function(){
 
-        $('#publish_button').click(function(){
+        $('.publish_button').click(function(){
             $('#article_publish_form').prop('action', '{{ url('admin/articles/publish') }}/' + $(this).data('id'));
             $('#published_at').val(getCurrentDateTime());
             $('#publishModal').modal('toggle');
         });
 
-        $('#unpublish_button').click(function(){
+        $('.unpublish_button').click(function(){
             if(confirm('Sicuro di voler rimuovere questo articolo dalla pubblicazione?')){
                 window.location.href = "{{ url('admin/articles/unpublish') }}/" + $(this).data('id');
             }
         });
 
-        $('#delete_button').click(function(){
+        $('.delete_button').click(function(){
             if(confirm('Sicuro di voler cancellare questo articolo?')){
                 window.location.href = "{{ url('admin/articles/delete') }}/" + $(this).data('id');
             }
