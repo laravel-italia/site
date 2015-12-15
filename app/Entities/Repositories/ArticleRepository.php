@@ -73,8 +73,9 @@ class ArticleRepository
 
         $result = $query->where('slug', '=', $slug)->first();
 
-        if(!$result)
-            throw new NotFoundException;
+        if (!$result) {
+            throw new NotFoundException();
+        }
 
         return $result;
     }
@@ -89,21 +90,24 @@ class ArticleRepository
 
         $result = $query->find($id);
 
-        if(!$result)
-            throw new NotFoundException;
+        if (!$result) {
+            throw new NotFoundException();
+        }
 
         return $result;
     }
 
     public function save(Article $article)
     {
-        if(!$article->save())
-            throw new NotSavedException;
+        if (!$article->save()) {
+            throw new NotSavedException();
+        }
     }
 
     public function delete(Article $article)
     {
-        if(!$article->delete())
-            throw new NotDeletedException;
+        if (!$article->delete()) {
+            throw new NotDeletedException();
+        }
     }
 }

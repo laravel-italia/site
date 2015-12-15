@@ -61,7 +61,7 @@ class ArticleController extends Controller
 
         try {
             $articleRepository->save($article);
-        } catch(NotSavedException $e){
+        } catch (NotSavedException $e) {
             return redirect('admin/articles/add')
                 ->withInput()
                 ->with('error_message', 'Problemi in fase di aggiunta. Riprovare.');
@@ -110,7 +110,7 @@ class ArticleController extends Controller
         try {
             $articleRepository->save($article);
         } catch (NotSavedException $e) {
-            return redirect('admin/articles/edit/' . $articleId)
+            return redirect('admin/articles/edit/'.$articleId)
                 ->withInput()
                 ->with('error_message', 'Problemi in fase di modifica. Riprovare.');
         }
