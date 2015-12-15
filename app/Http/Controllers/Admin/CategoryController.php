@@ -3,6 +3,9 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use LaravelItalia\Entities\Category;
+use LaravelItalia\Entities\Factories\CategoryFactory;
+use LaravelItalia\Exceptions\NotSavedException;
+use LaravelItalia\Http\Requests\SaveCategoryRequest;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Exceptions\NotFoundException;
@@ -20,6 +23,19 @@ class CategoryController extends Controller
         $categories = $categoryRepository->getAll();
 
         return view('admin.category_index', compact('categories'));
+    }
+
+    public function postAdd(SaveCategoryRequest $request, CategoryRepository $categoryRepository)
+    {
+        $category = CategoryFactory::createCategory($request->get('name'));
+
+        try {
+            $categoryRepository->save($category);
+        } catch (NotSavedException $e) {
+            return redirect('admin/categories')->with('error_message', 'Impossibile aggiungere la categoria. Riprovare.');
+        }
+
+        return redirect('admin/categories')->with('success_message', 'Categoria aggiunta con successo.');
     }
 
     public function getDelete(CategoryRepository $categoryRepository, $categoryId)
