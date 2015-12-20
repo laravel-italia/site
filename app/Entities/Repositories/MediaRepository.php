@@ -4,15 +4,20 @@ namespace LaravelItalia\Entities\Repositories;
 
 use Config;
 use LaravelItalia\Entities\Media;
-use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
+use LaravelItalia\Exceptions\NotDeletedException;
 
 /**
- * Class MediaRepository.
+ * Class MediaRepository
+ * @package LaravelItalia\Entities\Repositories
  */
 class MediaRepository
 {
+    /**
+     * @param $page
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getAll($page)
     {
         return Media::with(['user'])
@@ -24,6 +29,11 @@ class MediaRepository
             );
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NotFoundException
+     */
     public function findById($id)
     {
         $media = Media::find($id);
@@ -35,6 +45,10 @@ class MediaRepository
         return $media;
     }
 
+    /**
+     * @param Media $media
+     * @throws NotSavedException
+     */
     public function save(Media $media)
     {
         if (!$media->save()) {
@@ -42,6 +56,11 @@ class MediaRepository
         }
     }
 
+    /**
+     * @param Media $media
+     * @throws NotDeletedException
+     * @throws \Exception
+     */
     public function delete(Media $media)
     {
         if (!$media->delete()) {
