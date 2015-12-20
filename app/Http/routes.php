@@ -1,8 +1,10 @@
 <?php
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::controller('articles', 'ArticleController');
     Route::controller('categories', 'CategoryController');
+    Route::controller('articles', 'ArticleController');
+    Route::controller('series', 'SeriesController');
+    Route::controller('media', 'MediaController');
     Route::controller('/', 'MainController');
 });
 
