@@ -4,8 +4,15 @@ namespace LaravelItalia\Entities\Observers;
 
 use LaravelItalia\Entities\Article;
 
+/**
+ * Class ArticleObserver
+ * @package LaravelItalia\Entities\Observers
+ */
 class ArticleObserver
 {
+    /**
+     * @param Article $article
+     */
     public function deleting(Article $article)
     {
         $article->categories()->detach();
