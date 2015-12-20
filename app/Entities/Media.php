@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Media
- * @package LaravelItalia\Entities
+ * Class Media.
  */
 class Media extends Model
 {

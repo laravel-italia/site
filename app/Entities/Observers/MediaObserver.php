@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
 
 /**
- * Class MediaObserver
- * @package LaravelItalia\Entities\Observers
+ * Class MediaObserver.
  */
 class MediaObserver
 {
@@ -18,6 +17,7 @@ class MediaObserver
 
     /**
      * MediaObserver constructor.
+     *
      * @param Request $request
      */
     public function __construct(Request $request)

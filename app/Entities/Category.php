@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Category
- * @package LaravelItalia\Entities
+ * Class Category.
  */
 class Category extends Model
 {

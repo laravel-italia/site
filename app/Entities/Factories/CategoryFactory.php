@@ -6,13 +6,13 @@ use Illuminate\Support\Str;
 use LaravelItalia\Entities\Category;
 
 /**
- * Class CategoryFactory
- * @package LaravelItalia\Entities\Factories
+ * Class CategoryFactory.
  */
 class CategoryFactory
 {
     /**
      * @param $name
+     *
      * @return Category
      */
     public static function createCategory($name)

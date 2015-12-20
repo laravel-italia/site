@@ -5,13 +5,13 @@ namespace LaravelItalia\Entities\Repositories;
 use LaravelItalia\Entities\Series;
 
 /**
- * Class SeriesRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class SeriesRepository.
  */
 class SeriesRepository
 {
     /**
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAll($onlyPublished = false)
@@ -28,6 +28,7 @@ class SeriesRepository
     /**
      * @param $id
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
     public function findByid($id, $onlyPublished = false)
@@ -44,6 +45,7 @@ class SeriesRepository
     /**
      * @param $slug
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public function findBySlug($slug, $onlyPublished = false)
@@ -67,6 +69,7 @@ class SeriesRepository
 
     /**
      * @param Series $series
+     *
      * @throws \Exception
      */
     public function delete(Series $series)

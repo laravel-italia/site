@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities\Factories;
 use LaravelItalia\Entities\Media;
 
 /**
- * Class MediaFactory
- * @package LaravelItalia\Entities\Factories
+ * Class MediaFactory.
  */
 class MediaFactory
 {

@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Series;
 
 /**
- * Class SeriesObserver
- * @package LaravelItalia\Entities\Observers
+ * Class SeriesObserver.
  */
 class SeriesObserver
 {

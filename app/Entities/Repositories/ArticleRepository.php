@@ -10,16 +10,15 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
-
 /**
- * Class ArticleRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class ArticleRepository.
  */
 class ArticleRepository
 {
     /**
      * @param $page
      * @param bool|false $onlyPublished
+     *
      * @return mixed
      */
     public function getAll($page, $onlyPublished = false)
@@ -52,7 +51,9 @@ class ArticleRepository
     /**
      * @param $id
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     *
      * @throws NotFoundException
      */
     public function findById($id, $onlyPublished = false)
@@ -75,7 +76,9 @@ class ArticleRepository
     /**
      * @param $slug
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Database\Eloquent\Model|null|static
+     *
      * @throws NotFoundException
      */
     public function findBySlug($slug, $onlyPublished = false)
@@ -99,6 +102,7 @@ class ArticleRepository
      * @param Category $category
      * @param $page
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function findByCategory(Category $category, $page, $onlyPublished = false)
@@ -121,6 +125,7 @@ class ArticleRepository
      * @param User $user
      * @param $page
      * @param bool|false $onlyPublished
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function findByUser(User $user, $page, $onlyPublished = false)
@@ -141,6 +146,7 @@ class ArticleRepository
 
     /**
      * @param Article $article
+     *
      * @throws NotSavedException
      */
     public function save(Article $article)
@@ -152,6 +158,7 @@ class ArticleRepository
 
     /**
      * @param Article $article
+     *
      * @throws NotDeletedException
      * @throws \Exception
      */

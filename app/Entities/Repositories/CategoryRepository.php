@@ -8,8 +8,7 @@ use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
 /**
- * Class CategoryRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class CategoryRepository.
  */
 class CategoryRepository
 {
@@ -23,6 +22,7 @@ class CategoryRepository
 
     /**
      * @param array $ids
+     *
      * @return mixed
      */
     public function getByIds(array $ids)
@@ -32,7 +32,9 @@ class CategoryRepository
 
     /**
      * @param $id
+     *
      * @return mixed
+     *
      * @throws NotFoundException
      */
     public function findById($id)
@@ -48,7 +50,9 @@ class CategoryRepository
 
     /**
      * @param $slug
+     *
      * @return mixed
+     *
      * @throws NotFoundException
      */
     public function findBySlug($slug)
@@ -64,6 +68,7 @@ class CategoryRepository
 
     /**
      * @param Category $category
+     *
      * @throws NotSavedException
      */
     public function save(Category $category)
@@ -75,6 +80,7 @@ class CategoryRepository
 
     /**
      * @param Category $category
+     *
      * @throws NotDeletedException
      * @throws \Exception
      */

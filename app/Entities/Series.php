@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Series
- * @package LaravelItalia\Entities
+ * Class Series.
  */
 class Series extends Model
 {
@@ -19,6 +18,7 @@ class Series extends Model
 
     /**
      * @param $query
+     *
      * @return mixed
      */
     public function scopePublished($query)

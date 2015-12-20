@@ -6,8 +6,7 @@ use Illuminate\Support\Str;
 use LaravelItalia\Entities\Article;
 
 /**
- * Class ArticleFactory
- * @package LaravelItalia\Entities\Factories
+ * Class ArticleFactory.
  */
 class ArticleFactory
 {
@@ -16,6 +15,7 @@ class ArticleFactory
      * @param $digest
      * @param $body
      * @param $metaDescription
+     *
      * @return Article
      */
     public static function createArticle($title, $digest, $body, $metaDescription)

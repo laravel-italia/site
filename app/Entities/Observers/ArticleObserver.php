@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Article;
 
 /**
- * Class ArticleObserver
- * @package LaravelItalia\Entities\Observers
+ * Class ArticleObserver.
  */
 class ArticleObserver
 {

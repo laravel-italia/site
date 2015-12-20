@@ -9,13 +9,13 @@ use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
 /**
- * Class MediaRepository
- * @package LaravelItalia\Entities\Repositories
+ * Class MediaRepository.
  */
 class MediaRepository
 {
     /**
      * @param $page
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAll($page)
@@ -31,7 +31,9 @@ class MediaRepository
 
     /**
      * @param $id
+     *
      * @return mixed
+     *
      * @throws NotFoundException
      */
     public function findById($id)
@@ -47,6 +49,7 @@ class MediaRepository
 
     /**
      * @param Media $media
+     *
      * @throws NotSavedException
      */
     public function save(Media $media)
@@ -58,6 +61,7 @@ class MediaRepository
 
     /**
      * @param Media $media
+     *
      * @throws NotDeletedException
      * @throws \Exception
      */

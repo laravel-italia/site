@@ -5,8 +5,7 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Category;
 
 /**
- * Class CategoryObserver
- * @package LaravelItalia\Entities\Observers
+ * Class CategoryObserver.
  */
 class CategoryObserver
 {

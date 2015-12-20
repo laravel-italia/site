@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class Article
- * @package LaravelItalia\Entities
+ * Class Article.
  */
 class Article extends Model
 {
@@ -39,6 +38,7 @@ class Article extends Model
 
     /**
      * @param $query
+     *
      * @return mixed
      */
     public function scopePublished($query)
@@ -66,6 +66,7 @@ class Article extends Model
 
     /**
      * @param Collection $categories
+     *
      * @throws \Exception
      */
     public function syncCategories(Collection $categories)
