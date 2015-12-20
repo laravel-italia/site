@@ -41,6 +41,11 @@ class CategoryRepository
         return $category;
     }
 
+    public function getByIds(array $ids)
+    {
+        return Category::findMany($ids);
+    }
+
     public function getAll()
     {
         return Category::all();
