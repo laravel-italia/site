@@ -3,10 +3,10 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use LaravelItalia\Entities\Services\AssignRoleToUser;
+use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
-use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Entities\Services\AssignRoleToUser;
 use LaravelItalia\Entities\Repositories\RoleRepository;
 use LaravelItalia\Entities\Repositories\UserRepository;
 
