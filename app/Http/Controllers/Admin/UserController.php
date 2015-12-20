@@ -3,6 +3,7 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use LaravelItalia\Entities\Services\AssignRoleToUser;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Controllers\Controller;
@@ -99,5 +100,32 @@ class UserController extends Controller
         }
 
         return redirect('admin/users')->with('success_message', 'Utente sbloccato correttamente.');
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     * @param $userId
+     * @param $roleName
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getSwitch(UserRepository $userRepository, RoleRepository $roleRepository, $userId, $roleName)
+    {
+        try {
+            $user = $userRepository->findById($userId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/users')->with('error_message', 'L\'utente selezionato non esiste più. Potrebbe essere stato rimosso, nel frattempo.');
+        }
+
+        $role = $roleRepository->findByName($roleName);
+
+        try {
+            $this->dispatch(new AssignRoleToUser($role, $user));
+        } catch (NotSavedException $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi in fase di assegnazione del ruolo. Riprovare.');
+        }
+
+        return redirect('admin/users')->with('success_message', 'Ruolo assegnato correttamente.');
     }
 }

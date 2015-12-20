@@ -64,15 +64,15 @@
                     <td>
                         @if($user->id !== Auth::user()->id)
                             @if($user->role->name !== 'user')
-                                <button class="btn btn-info"><span class="fa fa-user"></span> Rendi Utente</button>
+                                <button data-id="{{ $user->id }}" class="btn btn-info user-button"><span class="fa fa-user"></span> Rendi Utente</button>
                             @endif
 
                             @if($user->role->name !== 'editor')
-                                <button class="btn btn-warning"><span class="fa fa-pencil"></span> Rendi Editor</button>
+                                <button data-id="{{ $user->id }}" class="btn btn-warning editor-button"><span class="fa fa-pencil"></span> Rendi Editor</button>
                             @endif
 
                             @if($user->role->name !== 'administrator')
-                                <button class="btn btn-success"><span class="fa fa-eye"></span> Rendi Amministratore</button>
+                                <button data-id="{{ $user->id }}" class="btn btn-success administrator-button"><span class="fa fa-eye"></span> Rendi Amministratore</button>
                             @endif
 
                             @if($user->is_blocked == false)
@@ -108,6 +108,24 @@
             $('.unblock-button').click(function(){
                 if(confirm('Sicuro di sbloccare questo utente?')) {
                     window.location.href = '{{ url('admin/users/unblock') }}/' + $(this).data('id');
+                }
+            });
+
+            $('.user-button').click(function(){
+                if(confirm('Vuoi dare a questa persona il ruolo di "Utente"?')) {
+                    window.location.href = '{{ url('admin/users/switch') }}/' + $(this).data('id') + '/user';
+                }
+            });
+
+            $('.editor-button').click(function(){
+                if(confirm('Vuoi dare a questa persona il ruolo di "Editor"?')) {
+                    window.location.href = '{{ url('admin/users/switch') }}/' + $(this).data('id') + '/editor';
+                }
+            });
+
+            $('.administrator-button').click(function(){
+                if(confirm('Vuoi dare a questa persona il ruolo di "Amministratore"?')) {
+                    window.location.href = '{{ url('admin/users/switch') }}/' + $(this).data('id') + '/administrator';
                 }
             });
         });
