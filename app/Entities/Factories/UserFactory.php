@@ -27,8 +27,6 @@ class UserFactory
         $user->email = $emailAddress;
         $user->password = bcrypt($password);
 
-        $user->slug = Str::slug($user->name);
-
         $user->is_confirmed = false;
         $user->confirmation_code = sha1(microtime().$user->email);
 
