@@ -2,22 +2,33 @@
 
 namespace LaravelItalia\Entities\Repositories;
 
-use Illuminate\Support\Facades\Hash;
 use LaravelItalia\Entities\User;
+use Illuminate\Support\Facades\Hash;
 
-/**
- * Class UserRepository.
- */
 class UserRepository
 {
-    /**
-     * Saves a User object.
-     *
-     * @param User $user
-     */
-    public function save(User $user)
+    public function getAll($page, array $criteria)
     {
-        $user->save();
+        $query = User::with(['role']);
+
+        if (isset($criteria['name'])) {
+            $query->where('name', 'LIKE', '%'.$criteria['name'].'%');
+        }
+
+        if (isset($criteria['email'])) {
+            $query->where('email', 'LIKE', '%'.$criteria['email'].'%');
+        }
+
+        if (isset($criteria['role_id'])) {
+            $query->where('role_id', '=', $criteria['role_id']);
+        }
+
+        return $query->paginate(
+            \Config::get('settings.user.users_per_page'),
+            ['*'],
+            'page',
+            $page
+        );
     }
 
     public function findById($id)
@@ -51,5 +62,10 @@ class UserRepository
         }
 
         return $users->first();
+    }
+
+    public function save(User $user)
+    {
+        $user->save();
     }
 }

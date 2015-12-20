@@ -18,6 +18,25 @@ class UserRepositoryTest extends TestCase
         parent::setUp();
     }
 
+    public function testCanGetAll()
+    {
+        $this->assertCount(0, $this->userRepository->getAll(1, []));
+
+        $this->saveTestUser();
+
+        $this->assertCount(1, $this->userRepository->getAll(1, []));
+    }
+
+    public function testCanGetAllWithCriteria()
+    {
+        $this->assertCount(0, $this->userRepository->getAll(1, ['name' => 'Francesco']));
+
+        $this->saveTestUser();
+
+        $this->assertCount(1, $this->userRepository->getAll(1, ['name' => 'Francesco']));
+        $this->assertCount(0, $this->userRepository->getAll(1, ['name' => 'Lorenzo']));
+    }
+
     public function testCanSaveUser()
     {
         $this->dontSeeInDatabase('users', [
