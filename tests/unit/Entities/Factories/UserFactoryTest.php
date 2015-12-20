@@ -13,7 +13,6 @@ class UserFactoryTest extends TestCase
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals('Francesco', $user->name);
-        $this->assertEquals('francesco', $user->slug);
         $this->assertEquals('hey@hellofrancesco.com', $user->email);
         $this->assertEquals(60, strlen($user->password));
         $this->assertEquals(false, $user->is_confirmed);
