@@ -13,9 +13,7 @@ class SeriesFactoryTest extends TestCase
         $series = SeriesFactory::createSeries(
             'Test Series',
             'Description...',
-            'Metadesc...',
-            false,
-            false
+            'Metadesc...'
         );
 
         $this->assertInstanceOf(Series::class, $series);
