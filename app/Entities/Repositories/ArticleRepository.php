@@ -17,7 +17,7 @@ class ArticleRepository
 {
     public function getAll($page, $onlyPublished = false)
     {
-        $query = Article::with(['user', 'categories'])->orderBy('published_at', 'desc');
+        $query = Article::with(['user', 'categories', 'series'])->orderBy('published_at', 'desc');
 
         if ($onlyPublished) {
             $query->published();
@@ -41,7 +41,7 @@ class ArticleRepository
 
     public function findByCategory(Category $category, $page, $onlyPublished = false)
     {
-        $query = $category->articles()->getQuery()->with(['user', 'categories']);
+        $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
@@ -57,7 +57,7 @@ class ArticleRepository
 
     public function findByUser(User $user, $page, $onlyPublished = false)
     {
-        $query = $user->articles()->getQuery()->with(['user', 'categories']);
+        $query = $user->articles()->getQuery()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
