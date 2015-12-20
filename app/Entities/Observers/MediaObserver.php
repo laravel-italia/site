@@ -5,7 +5,7 @@ namespace LaravelItalia\Entities\Observers;
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
 
-class MediaUploader
+class MediaObserver
 {
     private $request;
 
@@ -17,18 +17,19 @@ class MediaUploader
     public function creating(Media $media)
     {
         $uploadedFile = $this->request->file('media');
-        $fileName = time().$uploadedFile->getClientOriginalName().$uploadedFile->getClientOriginalExtension();
+        $fileName = time().$uploadedFile->getClientOriginalName();
 
         \Storage::put(
             $fileName,
-            $this->getFileContents($uploadedFile->getRealPath())
+            file_get_contents($uploadedFile->getRealPath())
         );
 
-        $media->setUrl($fileName);
+        $media->url = url('uploads/'.$fileName);
     }
 
-    private function getFileContents($realPath)
+    public function deleting(Media $media)
     {
-        return file_get_contents($realPath);
+        $fileName = str_replace(url('uploads/'), '', $media->url);
+        \Storage::delete($fileName);
     }
 }

@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
-use LaravelItalia\Entities\Observers\MediaUploader;
+use LaravelItalia\Entities\Observers\MediaObserver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class MediaUploaderTest extends TestCase
+class MediaObserverTest extends TestCase
 {
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|Media
@@ -38,10 +38,6 @@ class MediaUploaderTest extends TestCase
             ->willReturn('original_name');
 
         $this->uploadedFileMock->expects($this->once())
-            ->method('getClientOriginalExtension')
-            ->willReturn('.jpg');
-
-        $this->uploadedFileMock->expects($this->once())
             ->method('getRealPath')
             ->willReturn(tempnam('tmp', 'test'));
 
@@ -49,15 +45,17 @@ class MediaUploaderTest extends TestCase
             ->method('file')
             ->willReturn($this->uploadedFileMock);
 
-        $expectedFileName = time().'original_name.jpg';
-
-        $this->mediaMock->expects($this->once())
-            ->method('setUrl')
-            ->with($this->equalTo($expectedFileName));
-
         \Storage::shouldReceive('put')->once();
 
-        $mediaUploader = new MediaUploader($this->requestMock);
+        $mediaUploader = new MediaObserver($this->requestMock);
         $mediaUploader->creating($this->mediaMock);
+    }
+
+    public function testRemoval()
+    {
+        \Storage::shouldReceive('delete')->once();
+
+        $mediaUploader = new MediaObserver($this->requestMock);
+        $mediaUploader->deleting($this->mediaMock);
     }
 }
