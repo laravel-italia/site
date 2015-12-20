@@ -22,6 +22,7 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('role:editor,administrator', ['except' => ['postPublish', 'getUnpublish', 'getDelete']]);
         $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish', 'getDelete']]);
     }
@@ -42,7 +43,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository)
+    public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
     {
         $article = ArticleFactory::createArticle(
             $request->get('title'),
@@ -68,7 +69,7 @@ class ArticleController extends Controller
                 ->with('error_message', 'Problemi in fase di aggiunta. Riprovare.');
         }
 
-        $article->categories()->sync($request->get('categories'));
+        $article->syncCategories($categoryRepository->getByIds($request->get('categories')));
 
         return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
     }
@@ -87,7 +88,7 @@ class ArticleController extends Controller
         return view('admin.article_edit', compact('article', 'series', 'categories'));
     }
 
-    public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, $articleId)
+    public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
         try {
             /* @var $article Article */
@@ -116,7 +117,7 @@ class ArticleController extends Controller
                 ->with('error_message', 'Problemi in fase di modifica. Riprovare.');
         }
 
-        $article->categories()->sync($request->get('categories'));
+        $article->syncCategories($categoryRepository->getByIds($request->get('categories')));
 
         return redirect('admin/articles/edit/'.$articleId)->with('success_message', 'Articolo modificato correttamente.');
     }
