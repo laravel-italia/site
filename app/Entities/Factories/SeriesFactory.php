@@ -6,7 +6,8 @@ use Illuminate\Support\Str;
 use LaravelItalia\Entities\Series;
 
 /**
- * Class SeriesFactory.
+ * Class SeriesFactory
+ * @package LaravelItalia\Entities\Factories
  */
 class SeriesFactory
 {
@@ -14,9 +15,6 @@ class SeriesFactory
      * @param $title
      * @param $description
      * @param $metadescription
-     * @param $isPublished
-     * @param $isCompleted
-     *
      * @return Series
      */
     public static function createSeries($title, $description, $metadescription)

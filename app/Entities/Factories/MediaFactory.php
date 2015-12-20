@@ -5,13 +5,12 @@ namespace LaravelItalia\Entities\Factories;
 use LaravelItalia\Entities\Media;
 
 /**
- * Class MediaFactory.
+ * Class MediaFactory
+ * @package LaravelItalia\Entities\Factories
  */
 class MediaFactory
 {
     /**
-     * Creates a new Media instance.
-     *
      * @return Media
      */
     public static function createMedia()

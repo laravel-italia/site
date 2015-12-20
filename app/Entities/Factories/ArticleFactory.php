@@ -4,23 +4,18 @@ namespace LaravelItalia\Entities\Factories;
 
 use Illuminate\Support\Str;
 use LaravelItalia\Entities\Article;
-use LaravelItalia\Entities\User;
 
 /**
- * Class ArticleFactory.
+ * Class ArticleFactory
+ * @package LaravelItalia\Entities\Factories
  */
 class ArticleFactory
 {
     /**
-     * Creates a new Article instance, starting from the title, digest, body
-     * and metadescription, for a certain User.
-     *
-     * @param User $user
      * @param $title
      * @param $digest
      * @param $body
      * @param $metaDescription
-     *
      * @return Article
      */
     public static function createArticle($title, $digest, $body, $metaDescription)
