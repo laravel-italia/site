@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Entities\Services;
 
+use Illuminate\Support\Str;
 use LaravelItalia\Jobs\Job;
 use LaravelItalia\Entities\Role;
 use LaravelItalia\Entities\User;
@@ -36,6 +37,12 @@ class AssignRoleToUser extends Job implements SelfHandling
      */
     public function handle(UserRepository $userRepository)
     {
+        if ($this->role->name == 'administrator' || $this->role->name == 'editor') {
+            $this->user->slug = Str::slug($this->user->name.$this->user->id);
+        } else {
+            $this->user->slug = '';
+        }
+
         $this->user->role()->associate($this->role);
         $userRepository->save($this->user);
     }
