@@ -66,7 +66,7 @@
                     <a href="{{ url('admin/categories') }}"><i class="fa fa-files-o fa-fw"></i> Categorie</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-group fa-fw"></i> Utenti</a>
+                    <a href="{{ url('admin/users') }}"><i class="fa fa-group fa-fw"></i> Utenti</a>
                 </li>
                 @endif
             </ul>
