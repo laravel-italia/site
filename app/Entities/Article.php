@@ -12,11 +12,6 @@ class Article extends Model
         return !is_null($this->published_at);
     }
 
-    public function getPublicationDate()
-    {
-        return $this->published_at;
-    }
-
     public function publish($publicationDate)
     {
         $this->published_at = $publicationDate;
