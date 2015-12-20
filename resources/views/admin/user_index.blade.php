@@ -75,7 +75,11 @@
                                 <button class="btn btn-success"><span class="fa fa-eye"></span> Rendi Amministratore</button>
                             @endif
 
-                            <button class="btn btn-danger"><span class="fa fa-remove"></span> Blocca</button>
+                            @if($user->is_blocked == false)
+                                <button data-id="{{ $user->id }}" class="btn btn-danger block-button"><span class="fa fa-remove"></span> Blocca</button>
+                            @else
+                                <button data-id="{{ $user->id }}" class="btn btn-info unblock-button"><span class="fa fa-check"></span> Sblocca</button>
+                            @endif
                         @else
                             <i>Nessuna disponibile</i>
                         @endif
@@ -94,6 +98,18 @@
     <script>
         $(document).ready(function(){
             $('#role').val('{{ Request::get('role', 'all') }}');
+
+            $('.block-button').click(function(){
+                if(confirm('Sicuro di bloccare questo utente?')) {
+                    window.location.href = '{{ url('admin/users/block') }}/' + $(this).data('id');
+                }
+            });
+
+            $('.unblock-button').click(function(){
+                if(confirm('Sicuro di sbloccare questo utente?')) {
+                    window.location.href = '{{ url('admin/users/unblock') }}/' + $(this).data('id');
+                }
+            });
         });
     </script>
 @endsection

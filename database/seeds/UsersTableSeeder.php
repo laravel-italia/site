@@ -22,5 +22,15 @@ class UsersTableSeeder extends Seeder
         $user->role()->associate($roleRepository->findByName('administrator'));
 
         $userRepository->save($user);
+
+        for($c = 0; $c < 50; $c++) {
+            $factory = new Faker\Factory();
+            $faker = $factory->create();
+
+            $user = UserFactory::createUser($faker->name, $faker->email, $faker->password(6,8));
+            $user->role_id = $faker->numberBetween(1, 3);
+
+            $userRepository->save($user);
+        }
     }
 }

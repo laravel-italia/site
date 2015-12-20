@@ -32,6 +32,8 @@ class UserFactory
         $user->provider = null;
         $user->provider_id = null;
 
+        $user->is_blocked = false;
+
         return $user;
     }
 
@@ -58,6 +60,8 @@ class UserFactory
 
         $user->provider = $provider;
         $user->provider_id = $providerId;
+
+        $user->is_blocked = false;
 
         return $user;
     }

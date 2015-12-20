@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->boolean('is_confirmed');
+            $table->boolean('is_blocked');
             $table->string('confirmation_code');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable()->unique();

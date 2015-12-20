@@ -3,6 +3,8 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Entities\Repositories\RoleRepository;
 use LaravelItalia\Entities\Repositories\UserRepository;
@@ -47,5 +49,55 @@ class UserController extends Controller
         $users = $userRepository->getAll($request->get('page', 1), $criteria);
 
         return view('admin.user_index', compact('users'));
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param $userId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getBlock(UserRepository $userRepository, $userId)
+    {
+        try {
+            $user = $userRepository->findById($userId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/users')->with('error_message', 'L\'utente selezionato non esiste più. Potrebbe essere stato rimosso, nel frattempo.');
+        }
+
+        $user->is_blocked = true;
+
+        try {
+            $userRepository->save($user);
+        } catch (NotSavedException $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi durante la procedura di blocco. Riprovare.');
+        }
+
+        return redirect('admin/users')->with('success_message', 'Utente bloccato correttamente.');
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param $userId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getUnblock(UserRepository $userRepository, $userId)
+    {
+        try {
+            $user = $userRepository->findById($userId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/users')->with('error_message', 'L\'utente selezionato non esiste più. Potrebbe essere stato rimosso, nel frattempo.');
+        }
+
+        $user->is_blocked = false;
+
+        try {
+            $userRepository->save($user);
+        } catch (NotSavedException $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi durante la procedura di sblocco. Riprovare.');
+        }
+
+        return redirect('admin/users')->with('success_message', 'Utente sbloccato correttamente.');
     }
 }
