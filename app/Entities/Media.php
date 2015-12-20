@@ -15,13 +15,7 @@ class Media extends Model
         $this->user()->associate($user);
     }
 
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
     /* Relationship Methods */
-
     public function user()
     {
         return $this->belongsTo(User::class);
