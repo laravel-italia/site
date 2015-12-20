@@ -4,8 +4,8 @@ namespace LaravelItalia\Providers;
 
 use LaravelItalia\Entities\Article;
 use LaravelItalia\Entities\Media;
+use LaravelItalia\Entities\Observers\MediaObserver;
 use LaravelItalia\Entities\Series;
-use LaravelItalia\Entities\Observers\MediaUploader;
 use LaravelItalia\Entities\Observers\SeriesObserver;
 use LaravelItalia\Entities\Observers\ArticleObserver;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
@@ -37,7 +37,7 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        Media::observe(MediaUploader::class);
+        Media::observe(MediaObserver::class);
         Series::observe(SeriesObserver::class);
         Article::observe(ArticleObserver::class);
     }
