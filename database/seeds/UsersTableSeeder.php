@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use LaravelItalia\Entities\Factories\UserFactory;
 use LaravelItalia\Entities\Repositories\RoleRepository;
 use LaravelItalia\Entities\Repositories\UserRepository;
