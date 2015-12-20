@@ -7,19 +7,26 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Entities\Article;
-use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
-use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\ArticleSaveRequest;
 use LaravelItalia\Entities\Factories\ArticleFactory;
+use LaravelItalia\Http\Requests\ArticlePublishRequest;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 use LaravelItalia\Entities\Repositories\ArticleRepository;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
-use LaravelItalia\Http\Requests\ArticlePublishRequest;
 
+/**
+ * Class ArticleController
+ * @package LaravelItalia\Http\Controllers\Admin
+ */
 class ArticleController extends Controller
 {
+    /**
+     * ArticleController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,6 +34,11 @@ class ArticleController extends Controller
         $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish', 'getDelete']]);
     }
 
+    /**
+     * @param Request $request
+     * @param ArticleRepository $articleRepository
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
     public function getIndex(Request $request, ArticleRepository $articleRepository)
     {
         return view('admin.article_index', [
@@ -35,6 +47,11 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * @param CategoryRepository $categoryRepository
+     * @param SeriesRepository $seriesRepository
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
     public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
     {
         return view('admin.article_add', [
@@ -43,6 +60,14 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * @param ArticleSaveRequest $request
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
+     * @param CategoryRepository $categoryRepository
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
     {
         $article = ArticleFactory::createArticle(
@@ -74,6 +99,13 @@ class ArticleController extends Controller
         return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
     }
 
+    /**
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
+     * @param CategoryRepository $categoryRepository
+     * @param $articleId
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
+     */
     public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
         try {
@@ -88,6 +120,15 @@ class ArticleController extends Controller
         return view('admin.article_edit', compact('article', 'series', 'categories'));
     }
 
+    /**
+     * @param ArticleSaveRequest $request
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
+     * @param CategoryRepository $categoryRepository
+     * @param $articleId
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
         try {
@@ -122,6 +163,11 @@ class ArticleController extends Controller
         return redirect('admin/articles/edit/'.$articleId)->with('success_message', 'Articolo modificato correttamente.');
     }
 
+    /**
+     * @param ArticleRepository $articleRepository
+     * @param $articleId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getUnpublish(ArticleRepository $articleRepository, $articleId)
     {
         try {
@@ -143,6 +189,12 @@ class ArticleController extends Controller
         return redirect('admin/articles')->with('success_message', 'Articolo rimosso dalla pubblicazione correttamente.');
     }
 
+    /**
+     * @param ArticlePublishRequest $request
+     * @param ArticleRepository $articleRepository
+     * @param $articleId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
     {
         try {
@@ -165,6 +217,11 @@ class ArticleController extends Controller
         return redirect('admin/articles')->with('success_message', 'Articolo mandato in pubblicazione correttamente.');
     }
 
+    /**
+     * @param ArticleRepository $articleRepository
+     * @param $articleId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDelete(ArticleRepository $articleRepository, $articleId)
     {
         try {

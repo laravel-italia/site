@@ -2,24 +2,36 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Auth;
-use LaravelItalia\Entities\Factories\MediaFactory;
+use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
-use LaravelItalia\Entities\Repositories\MediaRepository;
-use LaravelItalia\Exceptions\NotDeletedException;
-use LaravelItalia\Exceptions\NotFoundException;
-use LaravelItalia\Http\Requests\MediaUploadRequest;
 use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Entities\Factories\MediaFactory;
+use LaravelItalia\Http\Requests\MediaUploadRequest;
+use LaravelItalia\Entities\Repositories\MediaRepository;
 
+/**
+ * Class MediaController
+ * @package LaravelItalia\Http\Controllers\Admin
+ */
 class MediaController extends Controller
 {
+    /**
+     * MediaController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('role:editor,administrator');
     }
 
+    /**
+     * @param MediaRepository $mediaRepository
+     * @param Request $request
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
     public function getIndex(MediaRepository $mediaRepository, Request $request)
     {
         $media = $mediaRepository->getAll($request->get('page', 1));
@@ -27,6 +39,12 @@ class MediaController extends Controller
         return view('admin.media_index', compact('media'));
     }
 
+    /**
+     * @param MediaUploadRequest $request
+     * @param MediaRepository $mediaRepository
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \LaravelItalia\Exceptions\NotSavedException
+     */
     public function postUpload(MediaUploadRequest $request, MediaRepository $mediaRepository)
     {
         $media = MediaFactory::createMedia();
@@ -41,6 +59,11 @@ class MediaController extends Controller
         return redirect('admin/media')->with('success_message', 'Upload effettuato correttamente.');
     }
 
+    /**
+     * @param MediaRepository $mediaRepository
+     * @param $mediaId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDelete(MediaRepository $mediaRepository, $mediaId)
     {
         try {

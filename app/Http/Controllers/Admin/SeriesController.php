@@ -2,23 +2,34 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use LaravelItalia\Entities\Factories\SeriesFactory;
-use LaravelItalia\Exceptions\NotDeletedException;
-use LaravelItalia\Exceptions\NotSavedException;
-use LaravelItalia\Http\Requests\SeriesSaveRequest;
-use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Exceptions\NotSavedException;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Http\Requests\SeriesSaveRequest;
+use LaravelItalia\Entities\Factories\SeriesFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 
+/**
+ * Class SeriesController
+ * @package LaravelItalia\Http\Controllers\Admin
+ */
 class SeriesController extends Controller
 {
+    /**
+     * SeriesController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('role:administrator');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
     public function getIndex(SeriesRepository $seriesRepository)
     {
         $series = $seriesRepository->getAll();
@@ -26,11 +37,19 @@ class SeriesController extends Controller
         return view('admin.series_index', compact('series'));
     }
 
+    /**
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     */
     public function getAdd()
     {
         return view('admin.series_add');
     }
 
+    /**
+     * @param SeriesSaveRequest $request
+     * @param SeriesRepository $seriesRepository
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postAdd(SeriesSaveRequest $request, SeriesRepository $seriesRepository)
     {
         $series = SeriesFactory::createSeries(
@@ -50,6 +69,11 @@ class SeriesController extends Controller
         return redirect('admin/series')->with('success_message', 'La serie è stata aggiunta correttamente.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getPublish(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -70,6 +94,11 @@ class SeriesController extends Controller
         return redirect('admin/series')->with('success_message', 'La serie è stata messa in pubblicazione correttamente.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getUnpublish(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -90,6 +119,11 @@ class SeriesController extends Controller
         return redirect('admin/series')->with('success_message', 'La serie è stata rimossa dalla pubblicazione correttamente.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getComplete(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -110,6 +144,11 @@ class SeriesController extends Controller
         return redirect('admin/series')->with('success_message', 'La serie è stata contrassegnata come completata.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getIncomplete(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -130,6 +169,11 @@ class SeriesController extends Controller
         return redirect('admin/series')->with('success_message', 'La serie è stata contrassegnata come non completata.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
+     */
     public function getEdit(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -142,6 +186,12 @@ class SeriesController extends Controller
         return view('admin.series_edit', compact('series'));
     }
 
+    /**
+     * @param SeriesSaveRequest $request
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postEdit(SeriesSaveRequest $request, SeriesRepository $seriesRepository, $seriesId)
     {
         try {
@@ -164,6 +214,11 @@ class SeriesController extends Controller
         return redirect('admin/series/edit/'.$seriesId)->with('success_message', 'Serie modificata correttamente.');
     }
 
+    /**
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDelete(SeriesRepository $seriesRepository, $seriesId)
     {
         try {
