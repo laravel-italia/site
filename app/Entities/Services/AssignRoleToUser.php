@@ -38,7 +38,7 @@ class AssignRoleToUser extends Job implements SelfHandling
     public function handle(UserRepository $userRepository)
     {
         if ($this->role->name == 'administrator' || $this->role->name == 'editor') {
-            $this->user->slug = Str::slug($this->user->name.$this->user->id);
+            $this->user->slug = Str::slug($this->user->id.'-'.$this->user->name);
         } else {
             $this->user->slug = '';
         }
