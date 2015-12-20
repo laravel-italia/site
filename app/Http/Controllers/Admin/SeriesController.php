@@ -2,13 +2,11 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use LaravelItalia\Entities\Factories\SeriesFactory;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Requests\SeriesSaveRequest;
 use LaravelItalia\Exceptions\NotFoundException;
-use LaravelItalia\Http\Requests;
 use LaravelItalia\Entities\Series;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
@@ -163,7 +161,7 @@ class SeriesController extends Controller
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 
-        return redirect('admin/series/edit/' . $seriesId)->with('success_message', 'Serie modificata correttamente.');
+        return redirect('admin/series/edit/'.$seriesId)->with('success_message', 'Serie modificata correttamente.');
     }
 
     public function getDelete(SeriesRepository $seriesRepository, $seriesId)

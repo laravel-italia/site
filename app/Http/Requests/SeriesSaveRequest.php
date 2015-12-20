@@ -2,8 +2,6 @@
 
 namespace LaravelItalia\Http\Requests;
 
-use LaravelItalia\Http\Requests\Request;
-
 class SeriesSaveRequest extends Request
 {
     /**
@@ -25,7 +23,7 @@ class SeriesSaveRequest extends Request
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ];
     }
 

@@ -28,21 +28,24 @@ class MediaRepository
     {
         $media = Media::find($id);
 
-        if(!$media)
-            throw new NotFoundException;
+        if (!$media) {
+            throw new NotFoundException();
+        }
 
         return $media;
     }
 
     public function save(Media $media)
     {
-        if(!$media->save())
-            throw new NotSavedException;
+        if (!$media->save()) {
+            throw new NotSavedException();
+        }
     }
 
     public function delete(Media $media)
     {
-        if(!$media->delete())
-            throw new NotDeletedException;
+        if (!$media->delete()) {
+            throw new NotDeletedException();
+        }
     }
 }
