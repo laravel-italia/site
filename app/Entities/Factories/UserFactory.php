@@ -2,7 +2,6 @@
 
 namespace LaravelItalia\Entities\Factories;
 
-use Illuminate\Support\Str;
 use LaravelItalia\Entities\User;
 
 /**
