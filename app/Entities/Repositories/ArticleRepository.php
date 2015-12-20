@@ -30,7 +30,7 @@ class ArticleRepository
         }
 
         return $query->paginate(
-                Config::get('publications.articles_per_page'),
+                Config::get('settings.publications.articles_per_page'),
                 ['*'],
                 'page',
                 $page

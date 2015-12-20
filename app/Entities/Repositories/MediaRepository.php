@@ -22,7 +22,7 @@ class MediaRepository
     {
         return Media::with(['user'])
             ->paginate(
-                Config::get('publications.media_per_page'),
+                Config::get('settings.publications.media_per_page'),
                 ['*'],
                 'page',
                 $page
