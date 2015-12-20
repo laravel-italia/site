@@ -48,17 +48,17 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-upload fa-fw"></i> Media</a>
+                    <a href="{{ url('admin/media') }}"><i class="fa fa-upload fa-fw"></i> Media</a>
                 </li>
                 @if(Auth::user()->isAdministrator())
                     <li>
                     <a href="#"><i class="fa fa-th-list fa-fw"></i> Serie<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Aggiungi Nuova</a>
+                            <a href="{{ url('admin/series/add') }}">Aggiungi Nuova</a>
                         </li>
                         <li>
-                            <a href="#">Elenco</a>
+                            <a href="{{ url('admin/series') }}">Elenco</a>
                         </li>
                     </ul>
                 </li>
