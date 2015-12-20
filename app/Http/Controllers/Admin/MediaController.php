@@ -13,8 +13,7 @@ use LaravelItalia\Http\Requests\MediaUploadRequest;
 use LaravelItalia\Entities\Repositories\MediaRepository;
 
 /**
- * Class MediaController
- * @package LaravelItalia\Http\Controllers\Admin
+ * Class MediaController.
  */
 class MediaController extends Controller
 {
@@ -29,7 +28,8 @@ class MediaController extends Controller
 
     /**
      * @param MediaRepository $mediaRepository
-     * @param Request $request
+     * @param Request         $request
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      */
     public function getIndex(MediaRepository $mediaRepository, Request $request)
@@ -41,8 +41,10 @@ class MediaController extends Controller
 
     /**
      * @param MediaUploadRequest $request
-     * @param MediaRepository $mediaRepository
+     * @param MediaRepository    $mediaRepository
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \LaravelItalia\Exceptions\NotSavedException
      */
     public function postUpload(MediaUploadRequest $request, MediaRepository $mediaRepository)
@@ -62,6 +64,7 @@ class MediaController extends Controller
     /**
      * @param MediaRepository $mediaRepository
      * @param $mediaId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(MediaRepository $mediaRepository, $mediaId)

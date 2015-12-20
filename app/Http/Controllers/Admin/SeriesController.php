@@ -12,8 +12,7 @@ use LaravelItalia\Entities\Factories\SeriesFactory;
 use LaravelItalia\Entities\Repositories\SeriesRepository;
 
 /**
- * Class SeriesController
- * @package LaravelItalia\Http\Controllers\Admin
+ * Class SeriesController.
  */
 class SeriesController extends Controller
 {
@@ -28,6 +27,7 @@ class SeriesController extends Controller
 
     /**
      * @param SeriesRepository $seriesRepository
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      */
     public function getIndex(SeriesRepository $seriesRepository)
@@ -47,7 +47,8 @@ class SeriesController extends Controller
 
     /**
      * @param SeriesSaveRequest $request
-     * @param SeriesRepository $seriesRepository
+     * @param SeriesRepository  $seriesRepository
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(SeriesSaveRequest $request, SeriesRepository $seriesRepository)
@@ -72,6 +73,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getPublish(SeriesRepository $seriesRepository, $seriesId)
@@ -97,6 +99,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getUnpublish(SeriesRepository $seriesRepository, $seriesId)
@@ -122,6 +125,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getComplete(SeriesRepository $seriesRepository, $seriesId)
@@ -147,6 +151,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getIncomplete(SeriesRepository $seriesRepository, $seriesId)
@@ -172,6 +177,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
      */
     public function getEdit(SeriesRepository $seriesRepository, $seriesId)
@@ -188,8 +194,9 @@ class SeriesController extends Controller
 
     /**
      * @param SeriesSaveRequest $request
-     * @param SeriesRepository $seriesRepository
+     * @param SeriesRepository  $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(SeriesSaveRequest $request, SeriesRepository $seriesRepository, $seriesId)
@@ -217,6 +224,7 @@ class SeriesController extends Controller
     /**
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(SeriesRepository $seriesRepository, $seriesId)

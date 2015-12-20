@@ -13,8 +13,7 @@ use LaravelItalia\Entities\Factories\CategoryFactory;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
 
 /**
- * Class CategoryController
- * @package LaravelItalia\Http\Controllers\Admin
+ * Class CategoryController.
  */
 class CategoryController extends Controller
 {
@@ -29,6 +28,7 @@ class CategoryController extends Controller
 
     /**
      * @param CategoryRepository $categoryRepository
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      */
     public function getIndex(CategoryRepository $categoryRepository)
@@ -40,7 +40,8 @@ class CategoryController extends Controller
 
     /**
      * @param SaveCategoryRequest $request
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepository  $categoryRepository
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(SaveCategoryRequest $request, CategoryRepository $categoryRepository)
@@ -59,7 +60,9 @@ class CategoryController extends Controller
     /**
      * @param CategoryRepository $categoryRepository
      * @param $categoryId
+     *
      * @return Category
+     *
      * @throws NotFoundException
      */
     public function getDetails(CategoryRepository $categoryRepository, $categoryId)
@@ -72,9 +75,11 @@ class CategoryController extends Controller
 
     /**
      * @param SaveCategoryRequest $request
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepository  $categoryRepository
      * @param $categoryId
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws NotSavedException
      */
     public function postEdit(SaveCategoryRequest $request, CategoryRepository $categoryRepository, $categoryId)
@@ -101,6 +106,7 @@ class CategoryController extends Controller
     /**
      * @param CategoryRepository $categoryRepository
      * @param $categoryId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(CategoryRepository $categoryRepository, $categoryId)

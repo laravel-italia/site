@@ -19,8 +19,7 @@ use LaravelItalia\Entities\Repositories\ArticleRepository;
 use LaravelItalia\Entities\Repositories\CategoryRepository;
 
 /**
- * Class ArticleController
- * @package LaravelItalia\Http\Controllers\Admin
+ * Class ArticleController.
  */
 class ArticleController extends Controller
 {
@@ -35,8 +34,9 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request           $request
      * @param ArticleRepository $articleRepository
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      */
     public function getIndex(Request $request, ArticleRepository $articleRepository)
@@ -49,7 +49,8 @@ class ArticleController extends Controller
 
     /**
      * @param CategoryRepository $categoryRepository
-     * @param SeriesRepository $seriesRepository
+     * @param SeriesRepository   $seriesRepository
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      */
     public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
@@ -62,10 +63,12 @@ class ArticleController extends Controller
 
     /**
      * @param ArticleSaveRequest $request
-     * @param ArticleRepository $articleRepository
-     * @param SeriesRepository $seriesRepository
+     * @param ArticleRepository  $articleRepository
+     * @param SeriesRepository   $seriesRepository
      * @param CategoryRepository $categoryRepository
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
     public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
@@ -100,10 +103,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param SeriesRepository $seriesRepository
+     * @param ArticleRepository  $articleRepository
+     * @param SeriesRepository   $seriesRepository
      * @param CategoryRepository $categoryRepository
      * @param $articleId
+     *
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
      */
     public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
@@ -122,11 +126,13 @@ class ArticleController extends Controller
 
     /**
      * @param ArticleSaveRequest $request
-     * @param ArticleRepository $articleRepository
-     * @param SeriesRepository $seriesRepository
+     * @param ArticleRepository  $articleRepository
+     * @param SeriesRepository   $seriesRepository
      * @param CategoryRepository $categoryRepository
      * @param $articleId
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Exception
      */
     public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
@@ -166,6 +172,7 @@ class ArticleController extends Controller
     /**
      * @param ArticleRepository $articleRepository
      * @param $articleId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getUnpublish(ArticleRepository $articleRepository, $articleId)
@@ -191,8 +198,9 @@ class ArticleController extends Controller
 
     /**
      * @param ArticlePublishRequest $request
-     * @param ArticleRepository $articleRepository
+     * @param ArticleRepository     $articleRepository
      * @param $articleId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
@@ -220,6 +228,7 @@ class ArticleController extends Controller
     /**
      * @param ArticleRepository $articleRepository
      * @param $articleId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(ArticleRepository $articleRepository, $articleId)
