@@ -1,7 +1,7 @@
 <?php
 
 use LaravelItalia\Entities\Media;
-use LaravelItalia\Entities\Observers\MediaUploader;
+use LaravelItalia\Entities\Observers\MediaObserver;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Entities\Repositories\MediaRepository;
 
@@ -22,8 +22,8 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanGetAll()
     {
-        $this->app->bind(MediaUploader::class, function () {
-            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        $this->app->bind(MediaObserver::class, function () {
+            return $this->getMockBuilder(MediaObserver::class)->disableOriginalConstructor()->getMock();
         });
 
         $emptyMediaResults = $this->repository->getAll(1);
@@ -39,8 +39,8 @@ class MediaRepositoryTest extends TestCase
 
     public function testFindById()
     {
-        $this->app->bind(MediaUploader::class, function () {
-            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        $this->app->bind(MediaObserver::class, function () {
+            return $this->getMockBuilder(MediaObserver::class)->disableOriginalConstructor()->getMock();
         });
 
         $expectedMedia = $this->saveTestMedia();
@@ -52,8 +52,8 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanSave()
     {
-        $this->app->bind(MediaUploader::class, function () {
-            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        $this->app->bind(MediaObserver::class, function () {
+            return $this->getMockBuilder(MediaObserver::class)->disableOriginalConstructor()->getMock();
         });
 
         $media = $this->prepareTestMedia();
@@ -67,8 +67,8 @@ class MediaRepositoryTest extends TestCase
 
     public function testCanDelete()
     {
-        $this->app->bind(MediaUploader::class, function () {
-            return $this->getMockBuilder(MediaUploader::class)->disableOriginalConstructor()->getMock();
+        $this->app->bind(MediaObserver::class, function () {
+            return $this->getMockBuilder(MediaObserver::class)->disableOriginalConstructor()->getMock();
         });
 
         $media = $this->saveTestMedia();
@@ -77,7 +77,7 @@ class MediaRepositoryTest extends TestCase
             'url' => 'test_url_lmao.jpg',
         ]);
 
-        $this->repository->remove($media);
+        $this->repository->delete($media);
 
         $this->dontSeeInDatabase('media', [
             'url' => 'test_url_lmao.jpg',

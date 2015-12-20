@@ -4,6 +4,9 @@ namespace LaravelItalia\Entities\Repositories;
 
 use Config;
 use LaravelItalia\Entities\Media;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Exceptions\NotSavedException;
 
 /**
  * Class MediaRepository.
@@ -23,16 +26,23 @@ class MediaRepository
 
     public function findById($id)
     {
-        return Media::find($id);
+        $media = Media::find($id);
+
+        if(!$media)
+            throw new NotFoundException;
+
+        return $media;
     }
 
     public function save(Media $media)
     {
-        $media->save();
+        if(!$media->save())
+            throw new NotSavedException;
     }
 
-    public function remove(Media $media)
+    public function delete(Media $media)
     {
-        $media->delete();
+        if(!$media->delete())
+            throw new NotDeletedException;
     }
 }
