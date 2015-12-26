@@ -20,12 +20,13 @@ class TagRepository
 
     public function getBySlugs(array $slugs)
     {
-        if(empty($slugs))
+        if (empty($slugs)) {
             return new Collection();
+        }
 
         $tag = Tag::query();
 
-        foreach($slugs as $slug){
+        foreach ($slugs as $slug) {
             $tag->orWhere('slug', $slug);
         }
 
@@ -36,8 +37,9 @@ class TagRepository
     {
         $tag = Tag::find($id);
 
-        if(!$tag)
-            throw new NotFoundException;
+        if (!$tag) {
+            throw new NotFoundException();
+        }
 
         return $tag;
     }
@@ -46,21 +48,24 @@ class TagRepository
     {
         $tag = Tag::where('slug', $slug)->first();
 
-        if(!$tag)
-            throw new NotFoundException;
+        if (!$tag) {
+            throw new NotFoundException();
+        }
 
         return $tag;
     }
 
     public function save(Tag $tag)
     {
-        if(!$tag->save())
-            throw new NotSavedException;
+        if (!$tag->save()) {
+            throw new NotSavedException();
+        }
     }
 
     public function delete(Tag $tag)
     {
-        if(!$tag->delete())
-            throw new NotDeletedException;
+        if (!$tag->delete()) {
+            throw new NotDeletedException();
+        }
     }
 }

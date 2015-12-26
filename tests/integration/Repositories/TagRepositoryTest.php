@@ -88,19 +88,19 @@ class TagRepositoryTest extends TestCase
         $tag = $this->saveTestTag('Test');
 
         $this->seeInDatabase('tags', [
-            'name' => 'Test'
+            'name' => 'Test',
         ]);
 
         $this->repository->delete($tag);
 
         $this->dontSeeInDatabase('tags', [
-            'name' => 'Test'
+            'name' => 'Test',
         ]);
     }
 
     private function prepareTestTag($tagName)
     {
-        $tag = new Tag;
+        $tag = new Tag();
 
         $tag->name = $tagName;
         $tag->slug = \Illuminate\Support\Str::slug($tagName);
