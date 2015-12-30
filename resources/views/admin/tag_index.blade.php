@@ -26,7 +26,7 @@
                     <td>{{ $tag->name }}</td>
                     <td><a href="{{ url('forum?tag=' . $tag->slug) }}" target="_blank">Guarda nel Forum</a></td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-info edit_button"><span class="fa fa-pencil"></span> Modifica</button>
+                        <button type="button" class="btn btn-sm btn-info edit_button" data-id="{{ $tag->id }}"><span class="fa fa-pencil"></span> Modifica</button>
                         <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $tag->id }}"><span class="fa fa-remove"></span> Cancella</button>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="publishModalLabel">Aggiungi Tag</h4>
                 </div>
-                <form id="article_publish_form" action="{{ url('admin/tags/add') }}" method="post">
+                <form id="tag_add_form" action="{{ url('admin/tags/add') }}" method="post">
                     {!! csrf_field() !!}
                     <div class="modal-body">
                         <p>Scegli il nome del tag da aggiungere.</p>
@@ -56,6 +56,28 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Aggiungi</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-remove"></span> Annulla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editModalLabel">Modifica Tag</h4>
+                </div>
+                <form id="tag_edit_form" action="" method="post">
+                    {!! csrf_field() !!}
+                    <div class="modal-body">
+                        <p>Scegli il nuovo nome per questo tag.</p>
+                        <p><input type="text" class="form-control" name="name" id="new_name" required /></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Salva</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-remove"></span> Annulla</button>
                     </div>
                 </form>
@@ -75,6 +97,23 @@
             $('#add_button').click(function(){
                 $('#name').val('');
                 $('#addModal').modal('toggle');
+            });
+
+            $('.edit_button').click(function(){
+                $.get( "{{ url('admin/tags/details') }}/" + $(this).data('id'))
+                        .done(function(data){
+                            $('#tag_edit_form').prop('action', '{{ url('admin/tags/edit') }}/' + data.id);
+                            $('#new_name').val(data.name);
+                            $('#editModal').modal('toggle');
+                        })
+                        .error(function(){
+                            alert('Il tag scelto non esiste o non è più disponibile.');
+                            window.location.href = '{{ url('admin/tags') }}';
+                        });
+            });
+
+            $('#editModal').on('shown.bs.modal', function(){
+                $('#new_name').focus();
             });
 
             $('.delete_button').click(function(){
