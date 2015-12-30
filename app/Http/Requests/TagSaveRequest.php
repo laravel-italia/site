@@ -2,7 +2,7 @@
 
 namespace LaravelItalia\Http\Requests;
 
-class TagAddRequest extends Request
+class TagSaveRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
