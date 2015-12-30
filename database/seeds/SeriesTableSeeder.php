@@ -18,10 +18,10 @@ class SeriesTableSeeder extends Seeder
 
         $repository = new SeriesRepository();
 
-        $repository->save(SeriesFactory::createSeries('Serie 1', 'Lorem ipsum...', 'Meta lorem ipsum...', false, false));
-        $repository->save(SeriesFactory::createSeries('Serie 2', 'Lorem ipsum...', 'Meta lorem ipsum...', false, false));
-        $repository->save(SeriesFactory::createSeries('Serie 3', 'Lorem ipsum...', 'Meta lorem ipsum...', false, false));
-        $repository->save(SeriesFactory::createSeries('Serie 4', 'Lorem ipsum...', 'Meta lorem ipsum...', false, false));
+        $repository->save(SeriesFactory::createSeries('Serie 1', 'Lorem ipsum...', 'Meta lorem ipsum...'));
+        $repository->save(SeriesFactory::createSeries('Serie 2', 'Lorem ipsum...', 'Meta lorem ipsum...'));
+        $repository->save(SeriesFactory::createSeries('Serie 3', 'Lorem ipsum...', 'Meta lorem ipsum...'));
+        $repository->save(SeriesFactory::createSeries('Serie 4', 'Lorem ipsum...', 'Meta lorem ipsum...'));
 
         Model::reguard();
     }
