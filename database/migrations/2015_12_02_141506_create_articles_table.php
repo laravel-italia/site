@@ -7,8 +7,6 @@ class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -22,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->mediumText('body');
 
             $table->string('metadescription');
-            
+
             $table->dateTime('published_at')->nullable();
 
             $table->integer('user_id')->unsigned();
@@ -31,7 +29,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('article_category', function(Blueprint $table){
+        Schema::create('article_category', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('article_id')->unsigned();
@@ -43,8 +41,6 @@ class CreateArticlesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

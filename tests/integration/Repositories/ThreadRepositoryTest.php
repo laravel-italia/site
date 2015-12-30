@@ -47,7 +47,7 @@ class ThreadRepositoryTest extends TestCase
         $this->repository->save($thread);
 
         $this->seeInDatabase('threads', [
-            'title' => 'Title'
+            'title' => 'Title',
         ]);
     }
 
@@ -56,13 +56,13 @@ class ThreadRepositoryTest extends TestCase
         $thread = $this->saveTestThread('Title', []);
 
         $this->seeInDatabase('threads', [
-            'title' => 'Title'
+            'title' => 'Title',
         ]);
 
         $this->repository->delete($thread);
 
         $this->dontSeeInDatabase('threads', [
-            'title' => 'Title'
+            'title' => 'Title',
         ]);
     }
 
@@ -72,7 +72,7 @@ class ThreadRepositoryTest extends TestCase
 
         $thread->save();
 
-        foreach($associatedTags as $aTag){
+        foreach ($associatedTags as $aTag) {
             $tag = $this->getOrCreateTestTag($aTag);
             $thread->tags()->attach($tag->id);
         }
@@ -91,10 +91,11 @@ class ThreadRepositoryTest extends TestCase
         return $thread;
     }
 
-    private function getOrCreateTestTag($name){
+    private function getOrCreateTestTag($name)
+    {
         $tag = \LaravelItalia\Entities\Tag::where('name', $name)->first();
 
-        if(!$tag){
+        if (!$tag) {
             $tag = new \LaravelItalia\Entities\Tag();
             $tag->name = $name;
             $tag->slug = str_slug($name);

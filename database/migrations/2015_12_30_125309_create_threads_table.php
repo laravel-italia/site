@@ -7,8 +7,6 @@ class CreateThreadsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -22,7 +20,7 @@ class CreateThreadsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('tag_thread', function(Blueprint $table) {
+        Schema::create('tag_thread', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('tag_id')->unsigned();
@@ -34,8 +32,6 @@ class CreateThreadsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

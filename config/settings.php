@@ -11,6 +11,6 @@ return [
     ],
 
     'forum' => [
-        'threads_per_page' => env('THREADS_PER_PAGE')
-    ]
+        'threads_per_page' => env('THREADS_PER_PAGE'),
+    ],
 ];

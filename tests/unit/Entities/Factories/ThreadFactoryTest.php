@@ -14,7 +14,7 @@ class ThreadFactoryTest extends TestCase
 
         $this->assertInstanceOf(Thread::class, $thread);
         $this->assertEquals('Test Thread', $thread->title);
-        $this->assertEquals(time() . '-test-thread', $thread->slug);
+        $this->assertEquals(time().'-test-thread', $thread->slug);
         $this->assertFalse($thread->is_closed);
     }
 }
