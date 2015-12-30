@@ -27,7 +27,7 @@
                     <td><a href="{{ url('forum?tag=' . $tag->slug) }}" target="_blank">Guarda nel Forum</a></td>
                     <td>
                         <button type="button" class="btn btn-sm btn-info edit_button"><span class="fa fa-pencil"></span> Modifica</button>
-                        <button type="button" class="btn btn-sm btn-danger delete_button"><span class="fa fa-remove"></span> Cancella</button>
+                        <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $tag->id }}"><span class="fa fa-remove"></span> Cancella</button>
                     </td>
                 </tr>
             @empty
@@ -75,6 +75,12 @@
             $('#add_button').click(function(){
                 $('#name').val('');
                 $('#addModal').modal('toggle');
+            });
+
+            $('.delete_button').click(function(){
+                if(confirm('Sicuro di voler cancellare questo tag?')){
+                    window.location.href = '{{ url('admin/tags/delete') }}/' + $(this).data('id');
+                }
             });
 
         });

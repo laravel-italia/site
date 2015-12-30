@@ -4,6 +4,8 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use LaravelItalia\Entities\Factories\TagFactory;
 use LaravelItalia\Entities\Repositories\TagRepository;
+use LaravelItalia\Exceptions\NotDeletedException;
+use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Http\Requests\TagAddRequest;
@@ -28,5 +30,22 @@ class TagController extends Controller
         }
 
         return redirect('admin/tags')->with('success_message', 'Tag aggiunto correttamente.');
+    }
+
+    public function getDelete(TagRepository $tagRepository, $tagId)
+    {
+        try {
+            $tag = $tagRepository->findById($tagId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/tags')->with('error_message', 'Errore in fase di cancellazione. Il tag scelto è stato già rimosso!');
+        }
+
+        try {
+            $tagRepository->delete($tag);
+        } catch (NotDeletedException $e) {
+            return redirect('admin/tags')->with('error_message', 'Errore in fase di cancellazione. Riprovare!');
+        }
+
+        return redirect('admin/tags')->with('success_message', 'Tag rimosso correttamente.');
     }
 }
