@@ -9,4 +9,8 @@ return [
     'user' => [
         'users_per_page' => env('USERS_PER_PAGE'),
     ],
+
+    'forum' => [
+        'threads_per_page' => env('THREADS_PER_PAGE')
+    ]
 ];
