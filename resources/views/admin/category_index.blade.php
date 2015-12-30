@@ -48,7 +48,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="publishModalLabel">Aggiungi Categoria</h4>
                 </div>
-                <form id="article_publish_form" action="{{ url('admin/categories/add') }}" method="post">
+                <form id="category_add_form" action="{{ url('admin/categories/add') }}" method="post">
                     {!! csrf_field() !!}
                     <div class="modal-body">
                         <p>Scegli il nome della nuova categoria.</p>
