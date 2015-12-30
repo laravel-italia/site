@@ -14,6 +14,20 @@ class CreateThreadsTable extends Migration
     {
         Schema::create('threads', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->string('title');
+            $table->string('slug');
+            $table->boolean('is_closed');
+
+            $table->timestamps();
+        });
+
+        Schema::create('tag_thread', function(Blueprint $table) {
+            $table->increments('id');
+
+            $table->integer('tag_id')->unsigned();
+            $table->integer('thread_id')->unsigned();
+
             $table->timestamps();
         });
     }
@@ -26,5 +40,6 @@ class CreateThreadsTable extends Migration
     public function down()
     {
         Schema::drop('threads');
+        Schema::drop('tag_thread');
     }
 }
