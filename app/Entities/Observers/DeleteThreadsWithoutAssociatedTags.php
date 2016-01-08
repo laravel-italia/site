@@ -6,9 +6,9 @@ use LaravelItalia\Entities\Tag;
 use LaravelItalia\Entities\Thread;
 
 /**
- * Class TagObserver.
+ * Class DeleteThreadsWithoutAssociatedTags.
  */
-class TagObserver
+class DeleteThreadsWithoutAssociatedTags
 {
     /**
      * @param Tag $tag
@@ -20,8 +20,9 @@ class TagObserver
         foreach($threads as $thread)
         {
             /* @var $thread Thread */
+            $thread->tags()->detach($tag->id);
+
             if(count($thread->tags()->get()) == 1) {
-                $thread->tags()->detach();
                 $thread->delete();
             }
         }

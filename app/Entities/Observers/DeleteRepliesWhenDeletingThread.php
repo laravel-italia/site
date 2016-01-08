@@ -6,9 +6,9 @@ use LaravelItalia\Entities\Thread;
 use LaravelItalia\Entities\Reply;
 
 /**
- * Class ThreadObserver.
+ * Class DeleteRepliesWhileDeletingThread.
  */
-class ThreadObserver
+class DeleteRepliesWhenDeletingThread
 {
     /**
      * @param Thread $thread

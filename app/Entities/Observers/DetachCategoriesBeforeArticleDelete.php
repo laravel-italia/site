@@ -5,9 +5,9 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Article;
 
 /**
- * Class ArticleObserver.
+ * Class DetachCategoriesBeforeArticleDelete.
  */
-class ArticleObserver
+class DetachCategoriesBeforeArticleDelete
 {
     /**
      * @param Article $article

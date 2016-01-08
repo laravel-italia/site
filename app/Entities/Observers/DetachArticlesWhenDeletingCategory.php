@@ -5,9 +5,9 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Category;
 
 /**
- * Class CategoryObserver.
+ * Class DetachArticlesWhenDeletingCategory.
  */
-class CategoryObserver
+class DetachArticlesWhenDeletingCategory
 {
     /**
      * @param Category $category

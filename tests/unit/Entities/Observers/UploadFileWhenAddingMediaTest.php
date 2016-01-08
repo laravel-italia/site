@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
-use LaravelItalia\Entities\Observers\MediaObserver;
+use LaravelItalia\Entities\Observers\UploadFileWhenAddingMedia;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class MediaObserverTest extends TestCase
+class UploadFileWhenAddingMediaTest extends TestCase
 {
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|Media
@@ -33,7 +33,7 @@ class MediaObserverTest extends TestCase
 
     public function testUpload()
     {
-        $this->uploadedFileMock->expects($this->once())
+        $this->uploadedFileMock->expects($this->any())
             ->method('getClientOriginalName')
             ->willReturn('original_name');
 
@@ -47,15 +47,7 @@ class MediaObserverTest extends TestCase
 
         \Storage::shouldReceive('put')->once();
 
-        $mediaUploader = new MediaObserver($this->requestMock);
+        $mediaUploader = new UploadFileWhenAddingMedia($this->requestMock);
         $mediaUploader->creating($this->mediaMock);
-    }
-
-    public function testRemoval()
-    {
-        \Storage::shouldReceive('delete')->once();
-
-        $mediaUploader = new MediaObserver($this->requestMock);
-        $mediaUploader->deleting($this->mediaMock);
     }
 }

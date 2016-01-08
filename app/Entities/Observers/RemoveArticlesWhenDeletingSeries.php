@@ -5,9 +5,9 @@ namespace LaravelItalia\Entities\Observers;
 use LaravelItalia\Entities\Series;
 
 /**
- * Class SeriesObserver.
+ * Class RemoveArticlesWhenDeletingSeries.
  */
-class SeriesObserver
+class RemoveArticlesWhenDeletingSeries
 {
     /**
      * @param Series $series

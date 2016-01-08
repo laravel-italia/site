@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use LaravelItalia\Entities\Media;
 
 /**
- * Class MediaObserver.
+ * Class UploadFileWhenAddingMedia.
  */
-class MediaObserver
+class UploadFileWhenAddingMedia
 {
     /**
      * @var Request
@@ -39,14 +39,5 @@ class MediaObserver
         );
 
         $media->url = url('uploads/'.$fileName);
-    }
-
-    /**
-     * @param Media $media
-     */
-    public function deleting(Media $media)
-    {
-        $fileName = str_replace(url('uploads/'), '', $media->url);
-        \Storage::delete($fileName);
     }
 }
