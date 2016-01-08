@@ -13,8 +13,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
  */
 class ThreadRepository
 {
-    use DatabaseMigrations;
-
     public function getAll($page)
     {
         $query = Thread::with(['tags'])->orderBy('created_at', 'DESC');
