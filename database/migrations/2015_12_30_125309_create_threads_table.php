@@ -17,6 +17,8 @@ class CreateThreadsTable extends Migration
             $table->string('slug');
             $table->boolean('is_closed');
 
+            $table->text('body');
+
             $table->integer('user_id')->unsigned();
 
             $table->timestamps();
