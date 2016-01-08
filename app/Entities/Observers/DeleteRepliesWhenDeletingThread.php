@@ -18,7 +18,7 @@ class DeleteRepliesWhenDeletingThread
         $replies = $thread->replies()->get();
 
         /* @var $reply Reply */
-        foreach($replies as $reply){
+        foreach ($replies as $reply) {
             $reply->delete();
         }
     }

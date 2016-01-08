@@ -49,7 +49,7 @@ class ReplyRepositoryTest extends TestCase
 
         $this->seeInDatabase('replies', [
             'body' => 'This is a test reply...',
-            'user_id' => 1
+            'user_id' => 1,
         ]);
     }
 
@@ -59,14 +59,14 @@ class ReplyRepositoryTest extends TestCase
 
         $this->seeInDatabase('replies', [
             'body' => 'This is a test reply...',
-            'user_id' => 1
+            'user_id' => 1,
         ]);
 
         $this->repository->delete($reply);
 
         $this->dontSeeInDatabase('replies', [
             'body' => 'This is a test reply...',
-            'user_id' => 1
+            'user_id' => 1,
         ]);
     }
 

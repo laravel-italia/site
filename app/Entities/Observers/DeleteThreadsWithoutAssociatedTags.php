@@ -17,12 +17,11 @@ class DeleteThreadsWithoutAssociatedTags
     {
         $threads = $tag->threads()->get();
 
-        foreach($threads as $thread)
-        {
+        foreach ($threads as $thread) {
             /* @var $thread Thread */
             $thread->tags()->detach($tag->id);
 
-            if(count($thread->tags()->get()) == 1) {
+            if (count($thread->tags()->get()) == 1) {
                 $thread->delete();
             }
         }

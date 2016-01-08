@@ -8,7 +8,7 @@ class ReplyFactory
 {
     public static function createReply($body)
     {
-        $reply = new Reply;
+        $reply = new Reply();
 
         $reply->body = $body;
 
