@@ -21,6 +21,7 @@ class TagObserver
         {
             /* @var $thread Thread */
             if(count($thread->tags()->get()) == 1) {
+                $thread->tags()->detach();
                 $thread->delete();
             }
         }
