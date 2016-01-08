@@ -88,6 +88,8 @@ class ThreadRepositoryTest extends TestCase
         $thread->slug = \Illuminate\Support\Str::slug($title);
         $thread->is_closed = false;
 
+        $thread->user_id = 1;
+
         return $thread;
     }
 
