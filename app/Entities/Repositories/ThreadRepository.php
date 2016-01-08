@@ -6,7 +6,6 @@ use LaravelItalia\Entities\Thread;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 /**
  * Class ThreadRepository.
