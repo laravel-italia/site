@@ -3,7 +3,6 @@
 namespace LaravelItalia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelItalia\Reply;
 
 class Thread extends Model
 {

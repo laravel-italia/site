@@ -1,10 +1,8 @@
 <?php
 
-namespace LaravelItalia;
+namespace LaravelItalia\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelItalia\Entities\Thread;
-use LaravelItalia\Entities\User;
 
 class Reply extends Model
 {
