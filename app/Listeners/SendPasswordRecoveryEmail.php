@@ -3,6 +3,7 @@
 namespace LaravelItalia\Listeners;
 
 use Mail;
+use Illuminate\Mail\Message;
 use LaravelItalia\Events\UserHasRecoveredPassword;
 
 class SendPasswordRecoveryEmail
@@ -19,7 +20,7 @@ class SendPasswordRecoveryEmail
         if (is_null($user->getAuthenticationProvider())) {
             $token = $event->getToken();
 
-            Mail::send('emails.user_password_recovery', ['user' => $user, 'token' => $token], function ($m) use ($user) {
+            Mail::send('emails.user_password_recovery', ['user' => $user, 'token' => $token], function (Message $m) use ($user) {
                 $m->to($user->email, $user->name)
                     ->subject('Scelta Nuova Password :: Laravel-Italia.it')
                 ;

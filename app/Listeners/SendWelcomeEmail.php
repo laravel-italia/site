@@ -3,6 +3,7 @@
 namespace LaravelItalia\Listeners;
 
 use Mail;
+use Illuminate\Mail\Message;
 use LaravelItalia\Events\UserHasSignedUp;
 
 class SendWelcomeEmail
@@ -24,7 +25,7 @@ class SendWelcomeEmail
         $user = $event->getUser();
 
         if (is_null($user->getAuthenticationProvider())) {
-            Mail::send('emails.user_welcome', ['user' => $user], function ($m) use ($user) {
+            Mail::send('emails.user_welcome', ['user' => $user], function (Message $m) use ($user) {
                 $m->to($user->email, $user->name)
                     ->subject('Benvenuto! :: Laravel-Italia.it')
                 ;
