@@ -25,7 +25,7 @@ before_script:
   - php artisan key:generate
   - php artisan migrate
 
-script: phpunit
+script: ./vendor/bin/phpunit
 
 notifications:
   on_success: never
