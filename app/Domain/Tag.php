@@ -16,9 +16,4 @@ class Tag extends Model
 
         return $tag;
     }
-
-    public function threads()
-    {
-        return $this->belongsToMany(Thread::class);
-    }
 }

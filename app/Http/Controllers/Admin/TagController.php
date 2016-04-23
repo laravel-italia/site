@@ -3,7 +3,6 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
-use LaravelItalia\Domain\Factories\TagFactory;
 use LaravelItalia\Domain\Repositories\TagRepository;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Exceptions\NotFoundException;

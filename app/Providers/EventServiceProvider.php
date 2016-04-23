@@ -5,8 +5,6 @@ namespace LaravelItalia\Providers;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
 use LaravelItalia\Domain\Media;
-use LaravelItalia\Domain\Observers\DeleteRepliesWhenDeletingThread;
-use LaravelItalia\Domain\Observers\DeleteThreadsWithoutAssociatedTags;
 use LaravelItalia\Domain\Observers\RemoveArticlesWhenDeletingSeries;
 use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
 use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
@@ -15,8 +13,6 @@ use LaravelItalia\Domain\Observers\DetachArticlesWhenDeletingCategory;
 use LaravelItalia\Domain\Observers\DetachCategoriesBeforeArticleDelete;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use LaravelItalia\Domain\Tag;
-use LaravelItalia\Domain\Thread;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -52,9 +48,5 @@ class EventServiceProvider extends ServiceProvider
         Series::observe(RemoveArticlesWhenDeletingSeries::class);
 
         Category::observe(DetachArticlesWhenDeletingCategory::class);
-
-        Tag::observe(DeleteThreadsWithoutAssociatedTags::class);
-
-        Thread::observe(DeleteRepliesWhenDeletingThread::class);
     }
 }
