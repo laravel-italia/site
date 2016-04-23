@@ -141,6 +141,7 @@ return [
          * Other Service Providers...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        JildertMiedema\LaravelTactician\TacticianServiceProvider::class,
 
         /*
          * Application Service Providers...
