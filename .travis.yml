@@ -19,7 +19,7 @@ services:
 
 before_script:
   - cp .env.travis .env
-  - mysql -u root -e 'create database laravelitalia_test;'
+  - mysql -u root -e 'create database homestead;'
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
