@@ -1,10 +1,10 @@
 <?php
 
-use LaravelItalia\Entities\Media;
-use LaravelItalia\Entities\Observers\UploadFileWhenAddingMedia;
-use LaravelItalia\Entities\Observers\RemoveFileWhenDeletingMedia;
+use LaravelItalia\Domain\Media;
+use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
+use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\MediaRepository;
+use LaravelItalia\Domain\Repositories\MediaRepository;
 
 class MediaRepositoryTest extends TestCase
 {

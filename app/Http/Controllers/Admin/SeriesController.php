@@ -2,14 +2,14 @@
 
 namespace LaravelItalia\Http\Controllers\Admin;
 
-use LaravelItalia\Entities\Series;
+use LaravelItalia\Domain\Series;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\SeriesSaveRequest;
-use LaravelItalia\Entities\Factories\SeriesFactory;
-use LaravelItalia\Entities\Repositories\SeriesRepository;
+use LaravelItalia\Domain\Factories\SeriesFactory;
+use LaravelItalia\Domain\Repositories\SeriesRepository;
 
 /**
  * Class SeriesController.

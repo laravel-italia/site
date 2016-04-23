@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use LaravelItalia\Entities\Repositories\CategoryRepository;
-use LaravelItalia\Entities\Factories\CategoryFactory;
+use LaravelItalia\Domain\Repositories\CategoryRepository;
+use LaravelItalia\Domain\Factories\CategoryFactory;
 
 class CategoriesTableSeeder extends Seeder
 {

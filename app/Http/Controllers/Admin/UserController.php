@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
-use LaravelItalia\Entities\Services\AssignRoleToUser;
-use LaravelItalia\Entities\Repositories\RoleRepository;
-use LaravelItalia\Entities\Repositories\UserRepository;
+use LaravelItalia\Domain\Services\AssignRoleToUser;
+use LaravelItalia\Domain\Repositories\RoleRepository;
+use LaravelItalia\Domain\Repositories\UserRepository;
 
 /**
  * Class UserController.

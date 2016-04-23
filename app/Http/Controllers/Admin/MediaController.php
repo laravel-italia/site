@@ -4,13 +4,13 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use Auth;
 use Illuminate\Http\Request;
-use LaravelItalia\Entities\Media;
+use LaravelItalia\Domain\Media;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotDeletedException;
-use LaravelItalia\Entities\Factories\MediaFactory;
+use LaravelItalia\Domain\Factories\MediaFactory;
 use LaravelItalia\Http\Requests\MediaUploadRequest;
-use LaravelItalia\Entities\Repositories\MediaRepository;
+use LaravelItalia\Domain\Repositories\MediaRepository;
 
 /**
  * Class MediaController.

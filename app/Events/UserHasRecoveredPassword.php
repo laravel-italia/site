@@ -2,7 +2,7 @@
 
 namespace LaravelItalia\Events;
 
-use LaravelItalia\Entities\User;
+use LaravelItalia\Domain\User;
 use Illuminate\Queue\SerializesModels;
 
 class UserHasRecoveredPassword extends Event

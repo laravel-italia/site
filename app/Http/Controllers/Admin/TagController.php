@@ -3,13 +3,13 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
-use LaravelItalia\Entities\Factories\TagFactory;
-use LaravelItalia\Entities\Repositories\TagRepository;
+use LaravelItalia\Domain\Factories\TagFactory;
+use LaravelItalia\Domain\Repositories\TagRepository;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Controllers\Controller;
-use LaravelItalia\Entities\Tag;
+use LaravelItalia\Domain\Tag;
 use LaravelItalia\Http\Requests\TagSaveRequest;
 
 class TagController extends Controller

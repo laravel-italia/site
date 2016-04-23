@@ -1,8 +1,8 @@
 <?php
 
-use LaravelItalia\Entities\Thread;
+use LaravelItalia\Domain\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\ThreadRepository;
+use LaravelItalia\Domain\Repositories\ThreadRepository;
 
 class ThreadRepositoryTest extends TestCase
 {
@@ -37,10 +37,10 @@ class ThreadRepositoryTest extends TestCase
         $this->getOrCreateTestTag('tag4');
 
         $this->assertCount(0, $this->repository->getByTags(new \Illuminate\Database\Eloquent\Collection(), 1));
-        $this->assertCount(0, $this->repository->getByTags(\LaravelItalia\Entities\Tag::where('name', 'tag4')->get(), 1));
-        $this->assertCount(1, $this->repository->getByTags(\LaravelItalia\Entities\Tag::where('name', 'tag2')->get(), 1));
-        $this->assertCount(2, $this->repository->getByTags(\LaravelItalia\Entities\Tag::where('name', 'tag1')->orWhere('name', 'tag5')->get(), 1));
-        $this->assertCount(3, $this->repository->getByTags(\LaravelItalia\Entities\Tag::all(), 1));
+        $this->assertCount(0, $this->repository->getByTags(\LaravelItalia\Domain\Tag::where('name', 'tag4')->get(), 1));
+        $this->assertCount(1, $this->repository->getByTags(\LaravelItalia\Domain\Tag::where('name', 'tag2')->get(), 1));
+        $this->assertCount(2, $this->repository->getByTags(\LaravelItalia\Domain\Tag::where('name', 'tag1')->orWhere('name', 'tag5')->get(), 1));
+        $this->assertCount(3, $this->repository->getByTags(\LaravelItalia\Domain\Tag::all(), 1));
     }
 
     public function testCanSave()
@@ -98,10 +98,10 @@ class ThreadRepositoryTest extends TestCase
 
     private function getOrCreateTestTag($name)
     {
-        $tag = \LaravelItalia\Entities\Tag::where('name', $name)->first();
+        $tag = \LaravelItalia\Domain\Tag::where('name', $name)->first();
 
         if (!$tag) {
-            $tag = new \LaravelItalia\Entities\Tag();
+            $tag = new \LaravelItalia\Domain\Tag();
             $tag->name = $name;
             $tag->slug = str_slug($name);
             $tag->save();

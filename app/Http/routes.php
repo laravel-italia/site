@@ -12,8 +12,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::controller('/', 'MainController');
 });
 
-Route::get('auth', function (\LaravelItalia\Entities\Repositories\UserRepository $userRepository) {
-    Auth::login(\LaravelItalia\Entities\User::first());
+Route::get('auth', function (\LaravelItalia\Domain\Repositories\UserRepository $userRepository) {
+    Auth::login(\LaravelItalia\Domain\User::first());
 
     return redirect('admin/dashboard');
 });

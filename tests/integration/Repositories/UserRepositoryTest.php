@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\UserRepository;
+use LaravelItalia\Domain\Repositories\UserRepository;
 
 class UserRepositoryTest extends TestCase
 {
@@ -92,7 +92,7 @@ class UserRepositoryTest extends TestCase
 
     private function prepareTestUser()
     {
-        $user = new \LaravelItalia\Entities\User();
+        $user = new \LaravelItalia\Domain\User();
 
         $user->name = 'Francesco';
         $user->email = 'hey@hellofrancesco.com';

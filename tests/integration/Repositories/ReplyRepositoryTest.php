@@ -2,9 +2,9 @@
 
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\ReplyRepository;
-use LaravelItalia\Entities\Thread;
-use LaravelItalia\Entities\Reply;
+use LaravelItalia\Domain\Repositories\ReplyRepository;
+use LaravelItalia\Domain\Thread;
+use LaravelItalia\Domain\Reply;
 
 class ReplyRepositoryTest extends TestCase
 {

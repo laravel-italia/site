@@ -5,18 +5,18 @@ namespace LaravelItalia\Http\Controllers\Admin;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use LaravelItalia\Entities\Series;
-use LaravelItalia\Entities\Article;
+use LaravelItalia\Domain\Series;
+use LaravelItalia\Domain\Article;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\ArticleSaveRequest;
-use LaravelItalia\Entities\Factories\ArticleFactory;
+use LaravelItalia\Domain\Factories\ArticleFactory;
 use LaravelItalia\Http\Requests\ArticlePublishRequest;
-use LaravelItalia\Entities\Repositories\SeriesRepository;
-use LaravelItalia\Entities\Repositories\ArticleRepository;
-use LaravelItalia\Entities\Repositories\CategoryRepository;
+use LaravelItalia\Domain\Repositories\SeriesRepository;
+use LaravelItalia\Domain\Repositories\ArticleRepository;
+use LaravelItalia\Domain\Repositories\CategoryRepository;
 
 /**
  * Class ArticleController.

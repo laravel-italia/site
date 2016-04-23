@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\RoleRepository;
+use LaravelItalia\Domain\Repositories\RoleRepository;
 
 class RoleRepositoryTest extends TestCase
 {
@@ -33,7 +33,7 @@ class RoleRepositoryTest extends TestCase
 
     private function prepareTestRoleSeed()
     {
-        $role = new \LaravelItalia\Entities\Role();
+        $role = new \LaravelItalia\Domain\Role();
         $role->name = 'administrator';
 
         $role->save();

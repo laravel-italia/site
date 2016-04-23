@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use LaravelItalia\Entities\Repositories\SeriesRepository;
-use LaravelItalia\Entities\Factories\SeriesFactory;
+use LaravelItalia\Domain\Repositories\SeriesRepository;
+use LaravelItalia\Domain\Factories\SeriesFactory;
 
 class SeriesTableSeeder extends Seeder
 {

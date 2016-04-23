@@ -3,14 +3,14 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
-use LaravelItalia\Entities\Category;
+use LaravelItalia\Domain\Category;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\SaveCategoryRequest;
-use LaravelItalia\Entities\Factories\CategoryFactory;
-use LaravelItalia\Entities\Repositories\CategoryRepository;
+use LaravelItalia\Domain\Factories\CategoryFactory;
+use LaravelItalia\Domain\Repositories\CategoryRepository;
 
 /**
  * Class CategoryController.

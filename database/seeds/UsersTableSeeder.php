@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use LaravelItalia\Entities\Factories\UserFactory;
-use LaravelItalia\Entities\Repositories\RoleRepository;
-use LaravelItalia\Entities\Repositories\UserRepository;
+use LaravelItalia\Domain\Factories\UserFactory;
+use LaravelItalia\Domain\Repositories\RoleRepository;
+use LaravelItalia\Domain\Repositories\UserRepository;
 
 class UsersTableSeeder extends Seeder
 {

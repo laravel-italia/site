@@ -1,6 +1,6 @@
 <?php
 
-use LaravelItalia\Entities\User;
+use LaravelItalia\Domain\User;
 use LaravelItalia\Events\UserHasRecoveredPassword;
 use LaravelItalia\Listeners\SendPasswordRecoveryEmail;
 

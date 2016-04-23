@@ -9,15 +9,15 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $administratorRole = new \LaravelItalia\Entities\Role();
+        $administratorRole = new \LaravelItalia\Domain\Role();
         $administratorRole->name = 'administrator';
         $administratorRole->save();
 
-        $editorRole = new \LaravelItalia\Entities\Role();
+        $editorRole = new \LaravelItalia\Domain\Role();
         $editorRole->name = 'editor';
         $editorRole->save();
 
-        $userRole = new \LaravelItalia\Entities\Role();
+        $userRole = new \LaravelItalia\Domain\Role();
         $userRole->name = 'user';
         $userRole->save();
     }

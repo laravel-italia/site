@@ -1,8 +1,8 @@
 <?php
 
-use LaravelItalia\Entities\Article;
+use LaravelItalia\Domain\Article;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\ArticleRepository;
+use LaravelItalia\Domain\Repositories\ArticleRepository;
 
 class ArticleRepositoryTest extends TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use LaravelItalia\Entities\Repositories\TagRepository;
-use LaravelItalia\Entities\Factories\TagFactory;
+use LaravelItalia\Domain\Repositories\TagRepository;
+use LaravelItalia\Domain\Factories\TagFactory;
 
 class TagsTableSeeder extends Seeder
 {

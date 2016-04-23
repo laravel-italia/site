@@ -1,8 +1,8 @@
 <?php
 
-use LaravelItalia\Entities\Category;
+use LaravelItalia\Domain\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\CategoryRepository;
+use LaravelItalia\Domain\Repositories\CategoryRepository;
 
 class CategoryRepositoryTest extends TestCase
 {

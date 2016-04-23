@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\PasswordResetRepository;
+use LaravelItalia\Domain\Repositories\PasswordResetRepository;
 
 class PasswordResetRepositoryTest extends TestCase
 {

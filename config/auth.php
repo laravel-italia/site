@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => LaravelItalia\Entities\User::class,
+    'model' => LaravelItalia\Domain\User::class,
 
     /*
     |--------------------------------------------------------------------------

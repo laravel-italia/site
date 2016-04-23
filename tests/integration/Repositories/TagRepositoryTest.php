@@ -1,8 +1,8 @@
 <?php
 
-use LaravelItalia\Entities\Tag;
+use LaravelItalia\Domain\Tag;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\TagRepository;
+use LaravelItalia\Domain\Repositories\TagRepository;
 
 class TagRepositoryTest extends TestCase
 {

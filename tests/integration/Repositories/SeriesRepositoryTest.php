@@ -1,8 +1,8 @@
 <?php
 
-use LaravelItalia\Entities\Series;
+use LaravelItalia\Domain\Series;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use LaravelItalia\Entities\Repositories\SeriesRepository;
+use LaravelItalia\Domain\Repositories\SeriesRepository;
 
 class SeriesRepositoryTest extends TestCase
 {
