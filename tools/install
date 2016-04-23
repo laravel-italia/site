@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cp .env.example .env
+composer install
+bower install
+php artisan migrate --force --seed
+
+echo "Successfully completed the install procedure! Have fun."
