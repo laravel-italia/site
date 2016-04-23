@@ -12,7 +12,6 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\ArticleSaveRequest;
-use LaravelItalia\Domain\Factories\ArticleFactory;
 use LaravelItalia\Http\Requests\ArticlePublishRequest;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
@@ -73,7 +72,7 @@ class ArticleController extends Controller
      */
     public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
     {
-        $article = ArticleFactory::createArticle(
+        $article = Article::createFromData(
             $request->get('title'),
             $request->get('digest'),
             $request->get('body'),

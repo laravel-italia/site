@@ -3,12 +3,29 @@
 namespace LaravelItalia\Domain;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class Series.
  */
 class Series extends Model
 {
+    public static function createFromTitleAndDescriptionAndMetaDescription($title, $description, $metaDescription)
+    {
+        $series = new self();
+
+        $series->title = $title;
+        $series->description = $description;
+        $series->metadescription = $metaDescription;
+
+        $series->is_published = false;
+        $series->is_completed = false;
+
+        $series->slug = Str::slug($series->title);
+
+        return $series;
+    }
+
     /**
      * @var string
      */

@@ -23,7 +23,7 @@ class TagController extends Controller
 
     public function postAdd(TagSaveRequest $request, TagRepository $tagRepository)
     {
-        $tag = TagFactory::createTag($request->get('name'));
+        $tag = Tag::createFromName($request->get('name'));
 
         try {
             $tagRepository->save($tag);

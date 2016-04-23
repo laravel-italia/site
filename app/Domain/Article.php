@@ -4,12 +4,30 @@ namespace LaravelItalia\Domain;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class Article.
  */
 class Article extends Model
 {
+    public static function createFromData($title, $digest, $body, $metaDescription)
+    {
+        $article = new self();
+
+        $article->title = $title;
+        $article->slug = Str::slug($title);
+
+        $article->digest = $digest;
+        $article->body = $body;
+
+        $article->metadescription = $metaDescription;
+
+        $article->published_at = null;
+
+        return $article;
+    }
+
     /**
      * @return bool
      */

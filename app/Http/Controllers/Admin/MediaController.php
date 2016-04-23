@@ -8,7 +8,6 @@ use LaravelItalia\Domain\Media;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotDeletedException;
-use LaravelItalia\Domain\Factories\MediaFactory;
 use LaravelItalia\Http\Requests\MediaUploadRequest;
 use LaravelItalia\Domain\Repositories\MediaRepository;
 
@@ -49,7 +48,7 @@ class MediaController extends Controller
      */
     public function postUpload(MediaUploadRequest $request, MediaRepository $mediaRepository)
     {
-        $media = MediaFactory::createMedia();
+        $media = new Media();
         $media->setUser(Auth::user());
 
         try {

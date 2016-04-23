@@ -9,7 +9,6 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\SaveCategoryRequest;
-use LaravelItalia\Domain\Factories\CategoryFactory;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
 
 /**
@@ -46,7 +45,7 @@ class CategoryController extends Controller
      */
     public function postAdd(SaveCategoryRequest $request, CategoryRepository $categoryRepository)
     {
-        $category = CategoryFactory::createCategory($request->get('name'));
+        $category = Category::createFromName($request->get('name'));
 
         try {
             $categoryRepository->save($category);

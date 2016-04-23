@@ -8,7 +8,6 @@ use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\SeriesSaveRequest;
-use LaravelItalia\Domain\Factories\SeriesFactory;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 
 /**
@@ -53,7 +52,7 @@ class SeriesController extends Controller
      */
     public function postAdd(SeriesSaveRequest $request, SeriesRepository $seriesRepository)
     {
-        $series = SeriesFactory::createSeries(
+        $series = Series::createFromTitleAndDescriptionAndMetaDescription(
             $request->get('title'),
             $request->get('description'),
             $request->get('metadescription')
