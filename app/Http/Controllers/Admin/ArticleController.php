@@ -5,6 +5,7 @@ namespace LaravelItalia\Http\Controllers\Admin;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use JildertMiedema\LaravelTactician\DispatchesCommands;
 use LaravelItalia\Domain\Series;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Http\Controllers\Controller;
@@ -16,12 +17,15 @@ use LaravelItalia\Http\Requests\ArticlePublishRequest;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
+use LaravelItalia\Domain\Commands\SaveArticleCommand;
 
 /**
  * Class ArticleController.
  */
 class ArticleController extends Controller
 {
+    use DispatchesCommands;
+
     /**
      * ArticleController constructor.
      */
@@ -79,24 +83,22 @@ class ArticleController extends Controller
             $request->get('metadescription')
         );
 
-        if ($request->get('series_id') != 0) {
-
-            /* @var $series Series */
-            $series = $seriesRepository->findByid($request->get('series_id'));
-            $article->setSeries($series);
-        }
-
-        $article->setUser(Auth::user());
+        $series = ($request->get('series_id') != 0) ? $seriesRepository->findByid($request->get('series_id')) : null;
+        $categories = $categoryRepository->getByIds($request->get('categories'));
 
         try {
-            $articleRepository->save($article);
+            $this->dispatch(new SaveArticleCommand(
+                $article,
+                Auth::user(),
+                $categories,
+                $series
+            ));
+
         } catch (NotSavedException $e) {
             return redirect('admin/articles/add')
                 ->withInput()
                 ->with('error_message', 'Problemi in fase di aggiunta. Riprovare.');
         }
-
-        $article->syncCategories($categoryRepository->getByIds($request->get('categories')));
 
         return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
     }
