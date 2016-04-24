@@ -32,7 +32,7 @@ class MediaRepository
     /**
      * @param $id
      *
-     * @return mixed
+     * @return Media|null
      *
      * @throws NotFoundException
      */

@@ -13,11 +13,18 @@ use LaravelItalia\Exceptions\NotDeletedException;
  */
 class TagRepository
 {
+    /**
+     * @return Collection|static[]
+     */
     public function getAll()
     {
         return Tag::all();
     }
 
+    /**
+     * @param array $slugs
+     * @return Collection|static[]
+     */
     public function getBySlugs(array $slugs)
     {
         if (empty($slugs)) {
@@ -33,6 +40,11 @@ class TagRepository
         return $tag->get();
     }
 
+    /**
+     * @param $id
+     * @return Tag|null
+     * @throws NotFoundException
+     */
     public function findById($id)
     {
         $tag = Tag::find($id);
@@ -44,6 +56,11 @@ class TagRepository
         return $tag;
     }
 
+    /**
+     * @param $slug
+     * @return Tag|null
+     * @throws NotFoundException
+     */
     public function findBySlug($slug)
     {
         $tag = Tag::where('slug', $slug)->first();
@@ -55,6 +72,10 @@ class TagRepository
         return $tag;
     }
 
+    /**
+     * @param Tag $tag
+     * @throws NotSavedException
+     */
     public function save(Tag $tag)
     {
         if (!$tag->save()) {
@@ -62,6 +83,10 @@ class TagRepository
         }
     }
 
+    /**
+     * @param Tag $tag
+     * @throws NotDeletedException
+     */
     public function delete(Tag $tag)
     {
         if (!$tag->delete()) {

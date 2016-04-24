@@ -29,7 +29,7 @@ class SeriesRepository
      * @param $id
      * @param bool|false $onlyPublished
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return Series|null
      */
     public function findByid($id, $onlyPublished = false)
     {
@@ -46,7 +46,7 @@ class SeriesRepository
      * @param $slug
      * @param bool|false $onlyPublished
      *
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return Series|null
      */
     public function findBySlug($slug, $onlyPublished = false)
     {

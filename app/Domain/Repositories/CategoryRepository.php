@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Domain\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use LaravelItalia\Domain\Category;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
@@ -23,7 +24,7 @@ class CategoryRepository
     /**
      * @param array $ids
      *
-     * @return mixed
+     * @return Collection|static[]
      */
     public function getByIds(array $ids)
     {
@@ -33,7 +34,7 @@ class CategoryRepository
     /**
      * @param $id
      *
-     * @return mixed
+     * @return Category|null
      *
      * @throws NotFoundException
      */
@@ -51,7 +52,7 @@ class CategoryRepository
     /**
      * @param $slug
      *
-     * @return mixed
+     * @return Category|null
      *
      * @throws NotFoundException
      */

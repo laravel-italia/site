@@ -40,6 +40,30 @@ class ArticleRepositoryTest extends TestCase
         $this->assertCount(1, $this->repository->getUnpublished());
     }
 
+    public function testGetByCategory()
+    {
+        $category = \LaravelItalia\Domain\Category::createFromName('Category');
+        $category->save();
+
+        $this->saveTestArticle(false, null, $category);
+        $this->saveTestArticle(true, null, $category);
+
+        $this->assertCount(1, $this->repository->getByCategory($category, 1, true));
+        $this->assertCount(2, $this->repository->getByCategory($category, 1, false));
+    }
+
+    public function testGetByUser()
+    {
+        $user = \LaravelItalia\Domain\Factories\UserFactory::createUser('Francesco', 'email', 'password');
+        $user->save();
+
+        $this->saveTestArticle(false, $user);
+        $this->saveTestArticle(true, $user);
+
+        $this->assertCount(1, $this->repository->getByUser($user, 1, true));
+        $this->assertCount(2, $this->repository->getByUser($user, 1, false));
+    }
+
     public function testCanSave()
     {
         $this->saveTestArticle();
@@ -112,15 +136,22 @@ class ArticleRepositoryTest extends TestCase
             $article->unpublish();
         }
 
-        $article->user_id = 1;
-
         return $article;
     }
 
-    public function saveTestArticle($published = false)
+    public function saveTestArticle($published = false, \LaravelItalia\Domain\User $user = null, \LaravelItalia\Domain\Category $category = null)
     {
         $article = $this->prepareTestArticle($published);
+
+        if($user) {
+            $article->setUser($user);
+        }
+
         $article->save();
+
+        if($category) {
+            $article->syncCategories(new \Illuminate\Database\Eloquent\Collection([$category]));
+        }
 
         return $article;
     }

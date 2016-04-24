@@ -21,7 +21,7 @@ class CategoryRepositoryTest extends TestCase
 
     public function testCanSave()
     {
-        $this->repository->save($this->prepareTestCategory());
+        $this->repository->save($this->prepareTestCategory('Test Category'));
 
         $this->seeInDatabase('categories', [
             'name' => 'Test Category',
@@ -72,6 +72,16 @@ class CategoryRepositoryTest extends TestCase
         $this->assertCount(1, $this->repository->getAll());
     }
 
+    public function testGetByIds()
+    {
+        $cat1 = $this->saveTestCategory('Test Category');
+        $cat2 = $this->saveTestCategory('Test Category 2');
+
+        $this->assertCount(0, $this->repository->getByIds([99]));
+        $this->assertCount(1, $this->repository->getByIds([$cat1->id, 99]));
+        $this->assertCount(2, $this->repository->getByIds([$cat1->id, $cat2->id]));
+    }
+
     public function testCanDelete()
     {
         $category = $this->saveTestCategory();
@@ -84,19 +94,15 @@ class CategoryRepositoryTest extends TestCase
         ]);
     }
 
-    private function prepareTestCategory()
+    private function prepareTestCategory($name)
     {
-        $category = new Category();
-
-        $category->name = 'Test Category';
-        $category->slug = 'test-category';
-
+        $category = Category::createFromName($name);
         return $category;
     }
 
-    private function saveTestCategory()
+    private function saveTestCategory($name = 'Test Category')
     {
-        $testCategory = $this->prepareTestCategory();
+        $testCategory = $this->prepareTestCategory($name);
         $testCategory->save();
 
         return $testCategory;

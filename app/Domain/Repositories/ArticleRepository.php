@@ -3,6 +3,8 @@
 namespace LaravelItalia\Domain\Repositories;
 
 use Config;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
@@ -38,7 +40,7 @@ class ArticleRepository
     }
 
     /**
-     * @return mixed
+     * @return Collection|static[]
      */
     public function getUnpublished()
     {
@@ -49,10 +51,56 @@ class ArticleRepository
     }
 
     /**
+     * @param Category $category
+     * @param $page
+     * @param bool|false $onlyPublished
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getByCategory(Category $category, $page, $onlyPublished = false)
+    {
+        $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
+
+        if ($onlyPublished) {
+            $query->published();
+        }
+
+        return $query->paginate(
+            Config::get('publications.articles_per_page'),
+            ['*'],
+            'page',
+            $page
+        );
+    }
+
+    /**
+     * @param User $user
+     * @param $page
+     * @param bool|false $onlyPublished
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getByUser(User $user, $page, $onlyPublished = false)
+    {
+        $query = $user->articles()->getQuery()->with(['user', 'categories', 'series']);
+
+        if ($onlyPublished) {
+            $query->published();
+        }
+
+        return $query->paginate(
+            Config::get('publications.articles_per_page'),
+            ['*'],
+            'page',
+            $page
+        );
+    }
+
+    /**
      * @param $id
      * @param bool|false $onlyPublished
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return Article|null
      *
      * @throws NotFoundException
      */
@@ -77,7 +125,7 @@ class ArticleRepository
      * @param $slug
      * @param bool|false $onlyPublished
      *
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return Article|null
      *
      * @throws NotFoundException
      */
@@ -96,52 +144,6 @@ class ArticleRepository
         }
 
         return $result;
-    }
-
-    /**
-     * @param Category $category
-     * @param $page
-     * @param bool|false $onlyPublished
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function findByCategory(Category $category, $page, $onlyPublished = false)
-    {
-        $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
-
-        if ($onlyPublished) {
-            $query->published();
-        }
-
-        return $query->paginate(
-            Config::get('publications.articles_per_page'),
-            ['*'],
-            'page',
-            $page
-        );
-    }
-
-    /**
-     * @param User $user
-     * @param $page
-     * @param bool|false $onlyPublished
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function findByUser(User $user, $page, $onlyPublished = false)
-    {
-        $query = $user->articles()->getQuery()->with(['user', 'categories', 'series']);
-
-        if ($onlyPublished) {
-            $query->published();
-        }
-
-        return $query->paginate(
-            Config::get('publications.articles_per_page'),
-            ['*'],
-            'page',
-            $page
-        );
     }
 
     /**
