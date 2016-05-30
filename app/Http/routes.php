@@ -12,26 +12,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::controller('/', 'MainController');
 });
 
-Route::get('auth', function (\LaravelItalia\Domain\Repositories\UserRepository $userRepository) {
-    Auth::login(\LaravelItalia\Domain\User::first());
-
-    return redirect('admin/dashboard');
-});
-
-/* Provisional Routes! */
-
 Route::get('access-denied', function () {
     return 'Access Denied.';
-});
-
-Route::get('logout', function () {
-    Auth::logout();
-
-    return redirect('login');
-});
-
-Route::get('login', function () {
-    return 'must login!';
 });
 
 Route::get('blank', function () {
