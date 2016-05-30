@@ -12,6 +12,11 @@ class MainController extends Controller
         $this->middleware('role:editor,administrator');
     }
 
+    public function getIndex()
+    {
+        return redirect('admin/dashboard');
+    }
+
     public function getDashboard()
     {
         return view('admin.dashboard');
