@@ -69,7 +69,7 @@
                     <td>{{ $article->id }}</td>
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->user->name }}</td>
-                    <td>@if($article->isPartOfSeries()) $article->series->title @else Nessuna @endif</td>
+                    <td>@if($article->isPartOfSeries()) {{ $article->series->title }} @else Nessuna @endif</td>
                     <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
                     <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i', strtotime($article->published_at)) }}) @else Non Pubblicato @endif</td>
                     <td>
