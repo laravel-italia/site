@@ -41,6 +41,12 @@
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('assets') }}/simplemde/dist/simplemde.min.css" />
+
+<style>
+    .CodeMirror {
+        height: 450px;
+    }
+</style>
 @endsection
 
 @section('scripts')

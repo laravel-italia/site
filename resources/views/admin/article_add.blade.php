@@ -71,6 +71,10 @@
     .categories-list label {
         font-weight: normal;
     }
+
+    .CodeMirror {
+        height: 450px;
+    }
 </style>
 @endsection
 

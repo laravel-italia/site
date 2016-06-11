@@ -71,6 +71,10 @@
     .categories-list label {
         font-weight: normal;
     }
+
+    .CodeMirror {
+        height: 450px;
+    }
 </style>
 @endsection
 
@@ -89,9 +93,10 @@
 
         $('#series_id').val(currentSeries);
 
-        @foreach(old('categories', $article->categories->pluck('id')) as $currentCategory)
-        $('#category_{{ $currentCategory }}').prop('checked', true);
-        @endforeach
+        var chosenCategories = {{ json_encode(old('categories', $article->categories->pluck('id'))) }};
+        for(var c in chosenCategories) {
+            $('#category_' + chosenCategories[c]).prop('checked', true);
+        }
 
         $('#save_button').click(function(){
             $('#body').val(simplemde.value());
