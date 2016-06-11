@@ -20,15 +20,20 @@ class ArticleRepository
     /**
      * @param $page
      * @param bool|false $onlyPublished
+     * @param bool|false $onlyVisible
      *
      * @return mixed
      */
-    public function getAll($page, $onlyPublished = false)
+    public function getAll($page, $onlyPublished = false, $onlyVisible = false)
     {
         $query = Article::with(['user', 'categories', 'series'])->orderBy('published_at', 'desc');
 
         if ($onlyPublished) {
             $query->published();
+        }
+
+        if ($onlyVisible) {
+            $query->visible();
         }
 
         return $query->paginate(
@@ -54,15 +59,20 @@ class ArticleRepository
      * @param Category $category
      * @param $page
      * @param bool|false $onlyPublished
+     * @param bool|false $onlyVisible
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getByCategory(Category $category, $page, $onlyPublished = false)
+    public function getByCategory(Category $category, $page, $onlyPublished = false, $onlyVisible = false)
     {
         $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
+        }
+
+        if ($onlyVisible) {
+            $query->visible();
         }
 
         return $query->paginate(
@@ -77,15 +87,20 @@ class ArticleRepository
      * @param User $user
      * @param $page
      * @param bool|false $onlyPublished
+     * @param bool|false $onlyVisible
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getByUser(User $user, $page, $onlyPublished = false)
+    public function getByUser(User $user, $page, $onlyPublished = false, $onlyVisible = false)
     {
         $query = $user->articles()->getQuery()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
+        }
+
+        if ($onlyVisible) {
+            $query->visible();
         }
 
         return $query->paginate(
@@ -129,12 +144,16 @@ class ArticleRepository
      *
      * @throws NotFoundException
      */
-    public function findBySlug($slug, $onlyPublished = false)
+    public function findBySlug($slug, $onlyPublished = false, $onlyVisible = false)
     {
         $query = Article::with(['user', 'categories']);
 
         if ($onlyPublished) {
             $query->published();
+        }
+
+        if ($onlyVisible) {
+            $query->visible();
         }
 
         $result = $query->where('slug', '=', $slug)->first();

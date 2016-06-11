@@ -25,9 +25,11 @@ class ArticleRepositoryTest extends TestCase
 
         $this->saveTestArticle();
         $this->saveTestArticle(true);
+        $this->saveTestArticle(true, true);
 
-        $this->assertCount(2, $this->repository->getAll(1));
-        $this->assertCount(1, $this->repository->getAll(1, true));
+        $this->assertCount(3, $this->repository->getAll(1));
+        $this->assertCount(2, $this->repository->getAll(1, true));
+        $this->assertCount(1, $this->repository->getAll(1, true, true));
     }
 
     public function testCanGetUnpublished()
@@ -45,8 +47,8 @@ class ArticleRepositoryTest extends TestCase
         $category = \LaravelItalia\Domain\Category::createFromName('Category');
         $category->save();
 
-        $this->saveTestArticle(false, null, $category);
-        $this->saveTestArticle(true, null, $category);
+        $this->saveTestArticle(false, false, null, $category);
+        $this->saveTestArticle(true, false, null, $category);
 
         $this->assertCount(1, $this->repository->getByCategory($category, 1, true));
         $this->assertCount(2, $this->repository->getByCategory($category, 1, false));
@@ -57,8 +59,8 @@ class ArticleRepositoryTest extends TestCase
         $user = \LaravelItalia\Domain\Factories\UserFactory::createUser('Francesco', 'email', 'password');
         $user->save();
 
-        $this->saveTestArticle(false, $user);
-        $this->saveTestArticle(true, $user);
+        $this->saveTestArticle(false, false, $user);
+        $this->saveTestArticle(true, false, $user);
 
         $this->assertCount(1, $this->repository->getByUser($user, 1, true));
         $this->assertCount(2, $this->repository->getByUser($user, 1, false));
@@ -118,7 +120,7 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->findById(999);
     }
 
-    public function prepareTestArticle($published = false)
+    public function prepareTestArticle($published = false, $visible = false)
     {
         $article = new Article();
 
@@ -131,7 +133,11 @@ class ArticleRepositoryTest extends TestCase
         $article->metadescription = '...';
 
         if ($published) {
-            $article->publish(\Carbon\Carbon::now());
+            if($visible) {
+                $article->publish(\Carbon\Carbon::now());
+            } else {
+                $article->publish(\Carbon\Carbon::now()->addDays(1));
+            }
         } else {
             $article->unpublish();
         }
@@ -139,9 +145,9 @@ class ArticleRepositoryTest extends TestCase
         return $article;
     }
 
-    public function saveTestArticle($published = false, \LaravelItalia\Domain\User $user = null, \LaravelItalia\Domain\Category $category = null)
+    public function saveTestArticle($published = false, $visible = false, \LaravelItalia\Domain\User $user = null, \LaravelItalia\Domain\Category $category = null)
     {
-        $article = $this->prepareTestArticle($published);
+        $article = $this->prepareTestArticle($published, $visible);
 
         if($user) {
             $article->setUser($user);

@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Domain;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
@@ -62,6 +63,16 @@ class Article extends Model
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at');
+    }
+
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('published_at', '<=', Carbon::now());
     }
 
     /* Relationship Utility Methods */
