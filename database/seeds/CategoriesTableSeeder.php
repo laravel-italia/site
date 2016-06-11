@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
-use LaravelItalia\Domain\Factories\CategoryFactory;
+use LaravelItalia\Domain\Category;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -16,12 +16,12 @@ class CategoriesTableSeeder extends Seeder
 
         $repository = new CategoryRepository();
 
-        $repository->save(CategoryFactory::createCategory('Package'));
-        $repository->save(CategoryFactory::createCategory('Tutorial'));
-        $repository->save(CategoryFactory::createCategory('News'));
-        $repository->save(CategoryFactory::createCategory('Interviste'));
-        $repository->save(CategoryFactory::createCategory('Tips'));
-        $repository->save(CategoryFactory::createCategory('Risorse'));
+        $repository->save(Category::createFromName('Package'));
+        $repository->save(Category::createFromName('Tutorial'));
+        $repository->save(Category::createFromName('News'));
+        $repository->save(Category::createFromName('Interviste'));
+        $repository->save(Category::createFromName('Tips'));
+        $repository->save(Category::createFromName('Risorse'));
 
         Model::reguard();
     }
