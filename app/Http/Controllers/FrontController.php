@@ -4,15 +4,19 @@ namespace LaravelItalia\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use LaravelItalia\Domain\Repositories\ArticleRepository;
 use LaravelItalia\Http\Requests;
-use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Domain\Repositories\ArticleRepository;
 
 class FrontController extends Controller
 {
     public function getArticle(ArticleRepository $articleRepository, $slug)
     {
-        $article = $articleRepository->findBySlug($slug);
-        return view('front.article', ['article' => $article]);
+        try {
+            $article = $articleRepository->findBySlug($slug, true, true);
+            return view('front.article', ['article' => $article]);
+        } catch (NotFoundException $e) {
+            // TODO: implement 404
+        }
     }
 }
