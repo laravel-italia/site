@@ -19,3 +19,5 @@ Route::get('access-denied', function () {
 Route::get('blank', function () {
     return view('admin.blank');
 });
+
+Route::get('articoli/{slug}', 'FrontController@getArticle');

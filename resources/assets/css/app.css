@@ -75,6 +75,9 @@
 .pt30 {
     padding-top: 30px!important;
 }
+.pt40 {
+    padding-top: 40px!important;
+}
 .pt50 {
     padding-top: 50px!important;
 }
@@ -120,9 +123,12 @@
 p {
     line-height: 1.9em;
 }
+li:first-child {
+    margin-top: 0px;
+}
 li {
     list-style-position: inside;
-    margin-top: 14px;
+    margin-top: 15px;
 }
 h1,
 .h1,
@@ -145,11 +151,7 @@ mark,
     padding: .2em;
 }
 code {
-    padding: 18px 20px;
-    border-bottom: 1px solid #DDD;
     background-color: #f9f9f9;
-    margin: 10px 0 30px 0;
-    display: inline-block;
     border-radius: 4px;
     width: 100%;
     font-family: 'Inconsolata';
@@ -678,14 +680,14 @@ article.cover .overlay {
 .single_article h4,
 .single_article h5,
 .single_article h6 {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 .single_article h5,
 .single_article h6 {
     font-weight: 600;
 }
 .single_article p {
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     margin: 0;
 }
 .single_article h1 + p,
@@ -693,7 +695,7 @@ article.cover .overlay {
 .single_article h3 + p,
 .single_article h4 + p,
 .single_article h5 + p {
-    padding-top: 35px;
+    padding-top: 15px;
 }
 .single_article h6 + p {
     padding-top: 30px;
@@ -704,6 +706,10 @@ article.cover .overlay {
 .single_article .subtitle {
     font-weight: 300;
     padding-bottom: 0;
+    font-size: 24px !important;
+}
+.single_article img {
+    max-width: 100%;
 }
 
 /* Archive */
@@ -874,6 +880,12 @@ article.archive .author-block {
     .navbar-nav .open .dropdown-menu {
         background-color: #f5f5f5;
         text-align: center;
+    }
+    .pt30 {
+        padding-top: 15px!important;
+    }
+    .pt40 {
+        padding-top: 20px!important;
     }
     .pt50 {
         padding-top: 30px!important;
@@ -1094,6 +1106,10 @@ article.archive .author-block {
     .single_tweet p {
         height: 84px;
     }
+}
+
+footer a, footer a:hover, footer a:active, footer a:visited {
+    color: #FFFFFF;
 }
 
 /* CUSTOM THEME DEFAULT END */
