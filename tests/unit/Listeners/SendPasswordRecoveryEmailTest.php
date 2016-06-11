@@ -27,7 +27,7 @@ class SendPasswordRecoveryEmailTest extends TestCase
     public function setUp()
     {
         $this->event = $this->getMockBuilder(UserHasRecoveredPassword::class)->disableOriginalConstructor()->getMock();
-        $this->user = $this->getMock(User::class);
+        $this->user = $this->createMock(User::class);
         $this->listener = new SendPasswordRecoveryEmail();
 
         parent::setUp();

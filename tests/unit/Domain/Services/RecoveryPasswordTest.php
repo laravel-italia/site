@@ -24,8 +24,8 @@ class RecoveryPasswordTest extends TestCase
 
     public function __construct()
     {
-        $this->userMock = $this->getMock(\LaravelItalia\Domain\User::class);
-        $this->repositoryMock = $this->getMock(PasswordResetRepository::class);
+        $this->userMock = $this->createMock(\LaravelItalia\Domain\User::class);
+        $this->repositoryMock = $this->createMock(PasswordResetRepository::class);
 
         parent::__construct();
     }

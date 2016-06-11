@@ -29,9 +29,9 @@ class ResetPasswordTest extends TestCase
 
     public function __construct()
     {
-        $this->userMock = $this->getMock(\LaravelItalia\Domain\User::class);
-        $this->passwordRepositoryMock = $this->getMock(PasswordResetRepository::class);
-        $this->userRepositoryMock = $this->getMock(UserRepository::class);
+        $this->userMock = $this->createMock(\LaravelItalia\Domain\User::class);
+        $this->passwordRepositoryMock = $this->createMock(PasswordResetRepository::class);
+        $this->userRepositoryMock = $this->createMock(UserRepository::class);
     }
 
     public function testCanResetPasswordCorrectly()

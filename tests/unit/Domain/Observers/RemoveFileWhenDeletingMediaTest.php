@@ -18,8 +18,8 @@ class RemoveFileWhenDeletingMediaTest extends TestCase
 
     public function setUp()
     {
-        $this->mediaMock = $this->getMock(Media::class);
-        $this->requestMock = $this->getMock(Request::class);
+        $this->mediaMock = $this->createMock(Media::class);
+        $this->requestMock = $this->createMock(Request::class);
 
         parent::setUp();
     }
