@@ -33,7 +33,7 @@
     <hr>
 
     <h3>Elenco</h3>
-    <p>Di seguito l'elenco degli utenti richiesto.</p>
+    <p>Di seguito l'elenco degli utenti richiesto. (<a href="#newEditorModal" data-toggle="modal">Invita un nuovo Editor</a>)</p>
 
     {!! $users->appends(['name' => Request::get('name', ''), 'email' => Request::get('email', ''), 'role' => Request::get('role', 'all')])->render() !!}
 
@@ -92,6 +92,31 @@
 
     {!! $users->appends(['name' => Request::get('name', ''), 'email' => Request::get('email', ''), 'role' => Request::get('role', 'all')])->render() !!}
 
+    <div class="modal fade" id="newEditorModal" tabindex="-1" role="dialog" aria-labelledby="newEditorModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="publishModalLabel">Invita Editor</h4>
+                </div>
+                <form id="article_publish_form" action="{{ url('admin/users/invite') }}" method="post">
+                    {!! csrf_field() !!}
+
+                    <div class="modal-body">
+                        <p>Inserisci nome completo ed indirizzo email del nuovo editor. Verrà inviato un invito.</p>
+
+                        <p><input type="text" class="form-control" name="name" placeholder="Nome..." /></p>
+                        <p><input type="text" class="form-control" name="email" placeholder="Indirizzo Email..." /></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Invita Editor</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-remove"></span> Chiudi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

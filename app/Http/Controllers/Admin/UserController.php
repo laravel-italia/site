@@ -3,12 +3,15 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use LaravelItalia\Domain\Factories\UserFactory;
+use LaravelItalia\Domain\User;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Domain\Services\AssignRoleToUser;
 use LaravelItalia\Domain\Repositories\RoleRepository;
 use LaravelItalia\Domain\Repositories\UserRepository;
+use LaravelItalia\Http\Requests\UserInviteRequest;
 
 /**
  * Class UserController.
@@ -127,5 +130,25 @@ class UserController extends Controller
         }
 
         return redirect('admin/users')->with('success_message', 'Ruolo assegnato correttamente.');
+    }
+
+    public function postInvite(UserInviteRequest $request, UserRepository $userRepository, RoleRepository $roleRepository)
+    {
+        $user = UserFactory::createUser($request->get('name'), $request->get('email'), '');
+
+        try {
+            $userRepository->save($user);
+        } catch (NotSavedException $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi durante la creazione dell\'utente. Riprovare.');
+        }
+
+        try {
+            $role = $roleRepository->findByName('editor');
+            $this->dispatch(new AssignRoleToUser($role, $user));
+        } catch (NotSavedException $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi in fase di assegnazione del ruolo. Riprovare.');
+        }
+
+        return redirect('admin/users')->with('success_message', 'Editor invitato correttamente.');
     }
 }
