@@ -11,6 +11,16 @@ var elixir = require('laravel-elixir');
  |
  */
 
+console.log(__dirname);
+
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.less('variables.less', __dirname + '/resources/assets/css/bootstrap.css');
+    mix.styles([
+            '/resources/assets/css/bootstrap.css',
+            'app.css'
+        ], __dirname + '/public/css/style.css');
+
+    mix.copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/bootstrap.min.js');
+    mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js/jquery.min.js');
+    mix.copy('resources/assets/js/app.js', 'public/js/app.js');
 });
