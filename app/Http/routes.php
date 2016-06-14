@@ -21,3 +21,4 @@ Route::get('blank', function () {
 });
 
 Route::get('articoli/{slug}', 'FrontController@getArticle');
+Route::get('serie', 'FrontController@getSeries');

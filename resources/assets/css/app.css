@@ -1146,3 +1146,17 @@ footer {
 footer p {
     margin: 0;
 }
+
+.description-block .cont div em a:hover {
+    color: #525252;
+}
+.description-block {
+    background: #fff;
+    border-top: 1px solid #f5f5f5;
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+.description-block {
+    margin-top: 0;
+}
