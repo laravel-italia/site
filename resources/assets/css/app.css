@@ -850,7 +850,7 @@ article.archive .author-block {
         width: 100%;
     }
     .fw_block {
-        padding: 60px 0 0 0;
+        padding: 0 0 0 0;
     }
     .fw_block .container {
         padding: 50px 0 70px 0;
@@ -1112,4 +1112,37 @@ footer a, footer a:hover, footer a:active, footer a:visited {
     color: #FFFFFF;
 }
 
+.not-found {
+    text-align: center !important;
+}
+
+.not-found ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.not-found ul li {
+    list-style: none;
+}
+
 /* CUSTOM THEME DEFAULT END */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 30px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+}
+
+footer p {
+    margin: 0;
+}
