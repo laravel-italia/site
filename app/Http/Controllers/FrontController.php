@@ -16,7 +16,7 @@ class FrontController extends Controller
             $article = $articleRepository->findBySlug($slug, true, true);
             return view('front.article', ['article' => $article]);
         } catch (NotFoundException $e) {
-            // TODO: implement 404
+            return view('front.404');
         }
     }
 }
