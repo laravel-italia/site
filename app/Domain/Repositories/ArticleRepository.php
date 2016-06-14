@@ -146,7 +146,7 @@ class ArticleRepository
      */
     public function findBySlug($slug, $onlyPublished = false, $onlyVisible = false)
     {
-        $query = Article::with(['user', 'categories']);
+        $query = Article::with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();

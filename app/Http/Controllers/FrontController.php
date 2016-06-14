@@ -30,4 +30,15 @@ class FrontController extends Controller
             return view('front.404');
         }
     }
+
+    public function getSeriesFirstArticle(SeriesRepository $seriesRepository, $slug)
+    {
+        try {
+            $series = $seriesRepository->findBySlug($slug, true);
+            $firstArticle = $series->articles->first();
+            return redirect('articoli/' . $firstArticle->slug);
+        } catch (NotFoundException $e) {
+            return view('front.404');
+        }
+    }
 }

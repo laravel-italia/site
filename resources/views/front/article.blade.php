@@ -25,6 +25,35 @@
                     <h2 class="w_light">{{ $article->title }}</h2>
                     <h6 class="subtitle">{{ $article->digest }}</h6>
 
+                    @if($article->series)
+                        <div class="panel-group series pt20" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" class="collapse-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <span class="glyphicon glyphicon-plus"></span> Questo articolo fa parte di... <b>"{{ $article->series->title }}"</b>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        {!! Markdown::convertToHtml($article->series->description) !!}
+
+                                        <ul>
+                                            @foreach($article->series->articles()->get() as $siblingArticle)
+                                                @if($article->slug === $siblingArticle->slug)
+                                                    <li><b>{{ $siblingArticle->title }}</b></li>
+                                                @else
+                                                    <li><a href="{{ url('articoli/' . $siblingArticle->slug) }}">{{ $siblingArticle->title }}</a></li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     {!! Markdown::convertToHtml($article->body) !!}
 
                     <hr>

@@ -17,7 +17,6 @@ class Article extends Model
         $article = new self();
 
         $article->title = $title;
-        $article->slug = Str::slug($title);
 
         $article->digest = $digest;
         $article->body = $body;
@@ -73,6 +72,20 @@ class Article extends Model
     public function scopeVisible($query)
     {
         return $query->where('published_at', '<=', Carbon::now());
+    }
+
+    /* Mutators */
+
+    /**
+     * Sets the article slug everytime the title is changed.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 
     /* Relationship Utility Methods */

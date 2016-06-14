@@ -1160,3 +1160,11 @@ footer p {
 .description-block {
     margin-top: 0;
 }
+
+.series h4 {
+    padding-top: 0px !important;
+}
+
+.series .panel-title a {
+    color:#f4645f;
+}
