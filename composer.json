@@ -10,7 +10,8 @@
         "laravel/socialite": "^2.0",
         "league/tactician": "^1.0",
         "jildertmiedema/laravel-tactician": "^0.2.2",
-        "graham-campbell/markdown": "^6.1"
+        "graham-campbell/markdown": "^6.1",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

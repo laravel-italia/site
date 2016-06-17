@@ -3,6 +3,7 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Intervention\Image\Image;
 use LaravelItalia\Domain\Factories\UserFactory;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Domain\Services\AssignRoleToUser;
 use LaravelItalia\Domain\Repositories\RoleRepository;
 use LaravelItalia\Domain\Repositories\UserRepository;
+use LaravelItalia\Http\Requests\ChangeProfilePictureRequest;
 use LaravelItalia\Http\Requests\UserInviteRequest;
 
 /**
@@ -150,5 +152,19 @@ class UserController extends Controller
         }
 
         return redirect('admin/users')->with('success_message', 'Editor invitato correttamente.');
+    }
+
+    public function postChangePicture(ChangeProfilePictureRequest $request)
+    {
+        $fileName = $request->get('user_id') . '.jpg';
+
+        try {
+            \Image::make($request->file('picture'))
+                ->save('profile-pictures/' . $fileName);
+        } catch (\Exception $e) {
+            return redirect('admin/users')->with('error_message', 'Problemi in fase di elaborazione della nuova immagine. Riprovare.');
+        }
+
+        return redirect('admin/users')->with('success_message', 'Immagine dell\'utente impostata correttamente.');
     }
 }

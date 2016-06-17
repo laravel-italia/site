@@ -75,6 +75,8 @@
                                 <button data-id="{{ $user->id }}" class="btn btn-success administrator-button"><span class="fa fa-eye"></span> Rendi Amministratore</button>
                             @endif
 
+                            <a href="#profilePictureModal" data-toggle="modal" data-id="{{ $user->id }}" class="btn btn-default picture-button"><span class="fa fa-image"></span> Cambia Foto</a>
+
                             @if($user->is_blocked == false)
                                 <button data-id="{{ $user->id }}" class="btn btn-danger block-button"><span class="fa fa-remove"></span> Blocca</button>
                             @else
@@ -117,12 +119,63 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="profilePictureModal" tabindex="-1" role="dialog" aria-labelledby="newEditorModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="publishModalLabel">Cambia Foto</h4>
+                </div>
+                <form id="article_publish_form" enctype="multipart/form-data" action="{{ url('admin/users/change-picture') }}" method="post">
+                    {!! csrf_field() !!}
+                    <input type="hidden" name="user_id" id="user_id" />
+
+                    <div class="modal-body">
+                        <p class="user-picture"></p>
+                        <hr>
+
+                        <p>Scegli una nuova foto profilo per l'utente.</p>
+                        <p><input type="file" class="form-control" name="picture" /></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Carica</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-remove"></span> Chiudi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
+    <style>
+        .user-picture {
+            text-align: center;
+        }
+
+        .user-picture img {
+            max-width: 150px;
+        }
+    </style>
+
     <script>
         $(document).ready(function(){
             $('#role').val('{{ Request::get('role', 'all') }}');
+
+            $('.picture-button').click(function() {
+                var pictureUrl = '{{ url('profile-pictures') }}/' + $(this).data('id') + '.jpg';
+
+                $('#user_id').val($(this).data('id'));
+
+                $('.user-picture').html('<img src="' + pictureUrl + '" id="user_picture" />');
+
+                $('#user_picture').attr('src', '{{ url('profile-pictures') }}/' + $(this).data('id') + '.jpg');
+                $('#user_picture').error(function(){
+                   $(this).parent().text('Nessuna foto presente per l\'utente.');
+                });
+            });
 
             $('.block-button').click(function(){
                 if(confirm('Sicuro di bloccare questo utente?')) {
