@@ -20,21 +20,21 @@
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <article class="archive">
-                            <div class="status">
-                            @if($singleSeries->is_completed)
-                                Completata!
-                            @else
-                                In Corso...
-                            @endif
-                            </div>
+                            <a href="{{ url('serie/' . $singleSeries->slug) }}" class="series-link">
+                                <div class="status">
+                                @if($singleSeries->is_completed)
+                                    Completata!
+                                @else
+                                    In Corso...
+                                @endif
+                                </div>
 
-                            <h6><a href="{{ url('serie/' . $singleSeries->slug) }}">{{ $singleSeries->title }}</a></h6>
-                            <span><em>Totale Articoli: <strong>{{ count($singleSeries->articles) }}</strong></em></span>
-                            <div class="description-block">
-                                <a href="{{ url('serie/' . $singleSeries->slug) }}" class="lnk">→</a>
-
-                                <p>{!! Markdown::convertToHtml($singleSeries->description) !!}</p>
-                            </div>
+                                <h6>{{ $singleSeries->title }}</h6>
+                                <span><em>Totale Articoli: <strong>{{ count($singleSeries->articles) }}</strong></em></span>
+                                <div class="description-block">
+                                    <p>{!! Markdown::convertToHtml($singleSeries->description) !!}</p>
+                                </div>
+                            </a>
                         </article>
                     </div>
 

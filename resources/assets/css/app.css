@@ -1169,11 +1169,11 @@ footer p {
     color:#f4645f;
 }
 
-.article-link h6 {
+.article-link h6, .series-link h6 {
     color: #FFFFFF;
 }
 
-.article-link p {
+.article-link p, .series-link p {
     color: #525252;
 }
 
