@@ -252,10 +252,12 @@ header .top {
 #logo h4 {
     font-weight: 600;
     margin: 8px 0 0 0;
+    text-rendering: geometricPrecision;
 }
 #logo span {
     font-weight: 400;
-    font-size: 11px;
+    font-size: 13px;
+    text-rendering: geometricPrecision;
 }
 .user_buttons {
     text-align: center;
