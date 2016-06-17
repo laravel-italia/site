@@ -18,7 +18,6 @@
             <div class="col-md-3">
                 <select name="role" id="role" class="form-control">
                     <option value="all" selected>Tutti</option>
-                    <option value="user">Utenti</option>
                     <option value="editor">Editor</option>
                     <option value="administrator">Amministratori</option>
                 </select>
@@ -57,16 +56,11 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ date('d/m/Y', strtotime($user->created_at)) }}</td>
                     <td>
-                        @if($user->role->name == 'user') Utente @endif
                         @if($user->role->name == 'editor') Editor @endif
                         @if($user->role->name == 'administrator') Amministratore @endif
                     </td>
                     <td>
                         @if($user->id !== Auth::user()->id)
-                            @if($user->role->name !== 'user')
-                                <button data-id="{{ $user->id }}" class="btn btn-info user-button"><span class="fa fa-user"></span> Rendi Utente</button>
-                            @endif
-
                             @if($user->role->name !== 'editor')
                                 <button data-id="{{ $user->id }}" class="btn btn-warning editor-button"><span class="fa fa-pencil"></span> Rendi Editor</button>
                             @endif

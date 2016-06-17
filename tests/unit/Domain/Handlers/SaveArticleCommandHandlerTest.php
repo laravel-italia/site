@@ -40,7 +40,7 @@ class SaveArticleCommandHandlerTest extends TestCase
 
     public function testHandleWithoutSeries()
     {
-        $this->article->shouldReceive('setSeries')->times(0);
+        $this->article->shouldReceive('setSeries')->times(1);
 
         $this->handler->handle(
             new SaveArticleCommand(

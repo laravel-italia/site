@@ -99,9 +99,9 @@ class Article extends Model
     }
 
     /**
-     * @param Series $series
+     * @param Series|null $series
      */
-    public function setSeries(Series $series)
+    public function setSeries($series)
     {
         $this->series()->associate($series);
     }

@@ -23,11 +23,7 @@ class SaveArticleCommandHandler
     {
         $article = $command->getArticle();
         $article->setUser($command->getUser());
-
-        $series = $command->getSeries();
-        if($series !== null) {
-            $article->setSeries($series);
-        }
+        $article->setSeries($command->getSeries());
 
         $this->articleRepository->save($article);
 

@@ -150,22 +150,22 @@ class ArticleController extends Controller
         $article->digest = $request->get('digest');
         $article->metadescription = $request->get('metadescription');
 
-        if ($request->get('series_id') != 0) {
-
-            /* @var $series Series */
-            $series = $seriesRepository->findByid($request->get('series_id'));
-            $article->setSeries($series);
-        }
+        $categories = $categoryRepository->getByIds($request->get('categories'));
+        $series = ($request->has('series_id')) ? $seriesRepository->findByid($request->get('series_id')) : null;
 
         try {
-            $articleRepository->save($article);
+            $this->dispatch(new SaveArticleCommand(
+                $article,
+                Auth::user(),
+                $categories,
+                $series
+            ));
+
         } catch (NotSavedException $e) {
-            return redirect('admin/articles/edit/'.$articleId)
+            return redirect('admin/articles/edit')
                 ->withInput()
                 ->with('error_message', 'Problemi in fase di modifica. Riprovare.');
         }
-
-        $article->syncCategories($categoryRepository->getByIds($request->get('categories')));
 
         return redirect('admin/articles/edit/'.$articleId)->with('success_message', 'Articolo modificato correttamente.');
     }
