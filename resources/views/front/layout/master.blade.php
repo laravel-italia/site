@@ -7,6 +7,8 @@
 
     @yield('head')
 
+    <link rel="shortcut icon" href="{{ url('favicon.png') }}" />
+
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:600,400,300' rel='stylesheet' type='text/css' />
     <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css' />
 
