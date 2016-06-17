@@ -31,3 +31,12 @@ $('.collapse').on('shown.bs.collapse', function(){
         .addClass("glyphicon-plus");
 
 });
+
+$(document).ready(function(){
+    var currentUrl = window.location.href.split('?')[0];
+    $('nav li a').each(function(index){
+        if(currentUrl === $(this).attr('href')){
+            $(this).parent().addClass('active');
+        }
+    });
+});
