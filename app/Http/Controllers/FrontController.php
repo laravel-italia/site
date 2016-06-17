@@ -12,6 +12,12 @@ use LaravelItalia\Domain\Repositories\ArticleRepository;
 
 class FrontController extends Controller
 {
+    public function getIndex(ArticleRepository $articleRepository)
+    {
+        $latestArticles = $articleRepository->getAll(1, true, true);
+        return view('front.index', compact('latestArticles'));
+    }
+
     public function getArticles(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, Request $request) {
         $categories = $categoryRepository->getAll();
 
