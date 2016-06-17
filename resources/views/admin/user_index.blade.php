@@ -60,6 +60,8 @@
                         @if($user->role->name == 'administrator') Amministratore @endif
                     </td>
                     <td>
+                        <a href="#profilePictureModal" data-toggle="modal" data-id="{{ $user->id }}" class="btn btn-default picture-button"><span class="fa fa-image"></span> Cambia Foto</a>
+
                         @if($user->id !== Auth::user()->id)
                             @if($user->role->name !== 'editor')
                                 <button data-id="{{ $user->id }}" class="btn btn-warning editor-button"><span class="fa fa-pencil"></span> Rendi Editor</button>
@@ -69,15 +71,11 @@
                                 <button data-id="{{ $user->id }}" class="btn btn-success administrator-button"><span class="fa fa-eye"></span> Rendi Amministratore</button>
                             @endif
 
-                            <a href="#profilePictureModal" data-toggle="modal" data-id="{{ $user->id }}" class="btn btn-default picture-button"><span class="fa fa-image"></span> Cambia Foto</a>
-
                             @if($user->is_blocked == false)
                                 <button data-id="{{ $user->id }}" class="btn btn-danger block-button"><span class="fa fa-remove"></span> Blocca</button>
                             @else
                                 <button data-id="{{ $user->id }}" class="btn btn-info unblock-button"><span class="fa fa-check"></span> Sblocca</button>
                             @endif
-                        @else
-                            <i>Nessuna disponibile</i>
                         @endif
                     </td>
                 </tr>
