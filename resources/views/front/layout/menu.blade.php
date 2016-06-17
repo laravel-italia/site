@@ -34,7 +34,7 @@
                             <a href="{{ url('serie') }}">Serie</a>
                         </li>
                         <li>
-                            <a href="http://forum.laravel-italia.it" target="_blank">Forum</a>
+                            <a href="{{ env('FORUM_URL') }}" target="_blank">Forum</a>
                         </li>
                     </ul>
                 </div>

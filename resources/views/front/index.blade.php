@@ -15,7 +15,7 @@
 
                         <div class="jumbut">
                             <a class="btn btn-primary" href="#" role="button">Vuoi saperne di più? Inizia subito!</a>
-                            <a class="btn btn-primary" href="http://forum.laravel-italia.it" target="_blank" role="button">Serve una mano? Accedi al Forum</a>
+                            <a class="btn btn-primary" href="{{ env('FORUM_URL') }}" target="_blank" role="button">Serve una mano? Accedi al Forum</a>
                         </div>
                     </section>
                 </div>
