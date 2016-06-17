@@ -10,10 +10,14 @@
         <div class="row">
             <div class="col-md-12">
                 <article class="single_article">
+
+                    <h2 class="w_light">{{ $article->title }}</h2>
+                    <h6 class="subtitle">{{ $article->digest }}</h6>
+
                     <div class="author">
                         <div class="auth_cont pt30 pb30">
                             <figure>
-                                <a href="#"><img src="{{ url('images/author.jpg') }}" alt="francesco" /></a>
+                                <a href="#"><img src="{{ url('profile-pictures/' . $article->user->id . '.jpg') }}" alt="francesco" /></a>
                             </figure>
                             <div>
                                 <a href="#" rel="author">{{ $article->user->name }}</a>
@@ -22,8 +26,7 @@
                         </div>
                     </div>
 
-                    <h2 class="w_light">{{ $article->title }}</h2>
-                    <h6 class="subtitle">{{ $article->digest }}</h6>
+                    <hr>
 
                     @if($article->series)
                         <div class="panel-group series pt20" id="accordion" role="tablist" aria-multiselectable="true">
