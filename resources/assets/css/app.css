@@ -1168,3 +1168,15 @@ footer p {
 .series .panel-title a {
     color:#f4645f;
 }
+
+.article-link h6 {
+    color: #FFFFFF;
+}
+
+.article-link p {
+    color: #525252;
+}
+
+.pagination-container {
+    text-align: center;
+}
