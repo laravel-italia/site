@@ -4,6 +4,8 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Intervention\Image\Image;
+use JildertMiedema\LaravelTactician\DispatchesCommands;
+use LaravelItalia\Domain\Commands\AssignRoleToUserCommand;
 use LaravelItalia\Domain\Factories\UserFactory;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Http\Controllers\Controller;
@@ -20,6 +22,8 @@ use LaravelItalia\Http\Requests\UserInviteRequest;
  */
 class UserController extends Controller
 {
+    use DispatchesCommands;
+
     /**
      * UserController constructor.
      */
@@ -126,7 +130,7 @@ class UserController extends Controller
         $role = $roleRepository->findByName($roleName);
 
         try {
-            $this->dispatch(new AssignRoleToUser($role, $user));
+            $this->dispatch(new AssignRoleToUserCommand($role, $user));
         } catch (NotSavedException $e) {
             return redirect('admin/users')->with('error_message', 'Problemi in fase di assegnazione del ruolo. Riprovare.');
         }
