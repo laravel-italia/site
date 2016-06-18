@@ -2,6 +2,14 @@
 
 @section('head')
     <title>Laravel-Italia.it</title>
+    <meta name="description" content="La Community Italiana di Laravel." />
+
+    <meta property="og:title" content="Laravel-Italia.it" />
+    <meta property="og:url" content="{{ url('/') }}" />
+    <meta property="og:description" content="La Community Italiana Ufficiale di Laravel." />
+    <meta property="og:image" content="{{ url('images/fb_post_image.png') }}" />
+
+    <meta name="twitter:card" value="summary" />
 @endsection
 
 @section('contents')

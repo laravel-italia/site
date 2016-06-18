@@ -2,7 +2,13 @@
 
 @section('head')
     <title>Serie :: Laravel-Italia.it</title>
-    <meta name=”description” content="Tutte le serie di articoli dedicate a Laravel." />
+    <meta name="description" content="Tutte le serie di articoli dedicate a Laravel." />
+
+    <meta property="og:title" content="Serie :: Laravel-Italia.it" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ url('serie') }}" />
+    <meta property="og:description" content="Tutte le serie di articoli dedicate a Laravel." />
+    <meta property="og:image" content="{{ url('images/fb_post_image.png') }}" />
 @endsection
 
 @section('contents')

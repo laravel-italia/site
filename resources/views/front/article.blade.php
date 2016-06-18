@@ -3,6 +3,14 @@
 @section('head')
     <title>{{ $article->title }} :: Laravel-Italia.it</title>
     <meta name=”description” content="{{ $article->metadescription }}" />
+
+    <meta property="og:title" content="{{ $article->title }} :: Laravel-Italia.it" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ url('articoli/' . $article->slug) }}" />
+    <meta property="og:description" content="{{ $article->metadescription }}" />
+    <meta property="og:image" content="{{ url('images/fb_post_image.png') }}" />
+
+    <meta name="twitter:card" value="summary" />
 @endsection
 
 @section('contents')
