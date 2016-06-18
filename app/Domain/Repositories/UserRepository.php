@@ -36,6 +36,11 @@ class UserRepository
         return User::find($id);
     }
 
+    public function findByEmail($emailAddress)
+    {
+        return User::where('email', '=', $emailAddress)->first();
+    }
+
     public function findByEmailAndPassword($emailAddress, $password)
     {
         $user = $this->findBy([

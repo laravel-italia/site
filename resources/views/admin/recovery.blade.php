@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Accesso :: Amministrazione :: Laravel-Italia.it</title>
+        <title>Recupero Credenziali :: Amministrazione :: Laravel-Italia.it</title>
 
         <link href="{{ url('assets') }}/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="{{ url('assets') }}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -59,27 +59,22 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Accesso Amministrazione</h3>
+                            <h3 class="panel-title">Recupero Credenziali</h3>
                         </div>
                         <div class="panel-body">
-                            <form method="POST" action="{{ url('admin/login') }}">
+                            <form method="POST" action="{{ url('admin/recovery') }}">
                                 {{ csrf_field() }}
+
+                                <p>Non ricordi la tua password? Nessun problema. Inserisci il tuo indirizzo email, ti verrà inviato un link per sceglierne una nuova.</p>
 
                                 <fieldset>
                                     <div class="form-group">
                                         <input class="form-control" placeholder="Indirizzo Email" name="email" type="text">
                                     </div>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                    </div>
 
                                     <hr>
 
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-
-                                    <hr>
-
-                                    <p><a href="{{ url('admin/recovery') }}">Non ricordi la password?</a></p>
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Recupera Password">
                                 </fieldset>
                             </form>
                         </div>

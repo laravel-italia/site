@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         'LaravelItalia\Events\UserHasRecoveredPassword' => [
-            'LaravelItalia\Listeners\SendRecoveryEmail',
+            'LaravelItalia\Listeners\SendPasswordRecoveryEmail',
         ],
 
         'LaravelItalia\Events\EditorHasBeenInvited' => [

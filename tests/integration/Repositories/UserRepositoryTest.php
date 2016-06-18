@@ -79,6 +79,17 @@ class UserRepositoryTest extends TestCase
         $this->assertNull($notExistingUser);
     }
 
+    public function testCanFindByEmail()
+    {
+        $this->saveTestUser();
+
+        $existingUser = $this->userRepository->findByEmail('hey@hellofrancesco.com');
+        $notExistingUser = $this->userRepository->findByEmail('idont@exist.com');
+
+        $this->assertNotNull($existingUser);
+        $this->assertNull($notExistingUser);
+    }
+
     public function testCanFindByConfirmationCode()
     {
         $this->saveTestUser();

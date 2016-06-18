@@ -1,17 +1,13 @@
 <?php
 
 use LaravelItalia\Domain\User;
-use LaravelItalia\Domain\Services\ResetPassword;
 use LaravelItalia\Domain\Repositories\UserRepository;
+use LaravelItalia\Domain\Commands\ResetPasswordCommand;
 use LaravelItalia\Domain\Repositories\PasswordResetRepository;
+use LaravelItalia\Domain\Commands\Handlers\ResetPasswordCommandHandler;
 
-class ResetPasswordTest extends TestCase
+class ResetPasswordCommandHandlerTest extends TestCase
 {
-    /**
-     * @var ResetPassword
-     */
-    private $service;
-
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|User
      */
@@ -27,9 +23,14 @@ class ResetPasswordTest extends TestCase
      */
     private $userRepositoryMock;
 
-    public function __construct()
+    /* @var ResetPasswordCommandHandler */
+    private $handler;
+
+    public function setUp()
     {
-        $this->userMock = $this->createMock(\LaravelItalia\Domain\User::class);
+        parent::setUp();
+
+        $this->userMock = $this->createMock(User::class);
         $this->passwordRepositoryMock = $this->createMock(PasswordResetRepository::class);
         $this->userRepositoryMock = $this->createMock(UserRepository::class);
     }
@@ -49,8 +50,14 @@ class ResetPasswordTest extends TestCase
         $this->passwordRepositoryMock->expects($this->once())
             ->method('removeByEmail');
 
-        $this->service = new ResetPassword($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
-        $this->service->handle($this->userRepositoryMock, $this->passwordRepositoryMock);
+        $this->handler = new ResetPasswordCommandHandler(
+            $this->passwordRepositoryMock,
+            $this->userRepositoryMock
+        );
+
+        $this->handler->handle(new ResetPasswordCommand(
+            $this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD'
+        ));
     }
 
     /**
@@ -72,7 +79,13 @@ class ResetPasswordTest extends TestCase
         $this->passwordRepositoryMock->expects($this->never())
             ->method('removeByEmail');
 
-        $this->service = new ResetPassword($this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD');
-        $this->service->handle($this->userRepositoryMock, $this->passwordRepositoryMock);
+        $this->handler = new ResetPasswordCommandHandler(
+            $this->passwordRepositoryMock,
+            $this->userRepositoryMock
+        );
+
+        $this->handler->handle(new ResetPasswordCommand(
+            $this->userMock, 'TEST_TOKEN', 'NEW_PASSWORD'
+        ));
     }
 }
