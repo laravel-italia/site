@@ -546,6 +546,10 @@ article.cover .overlay {
     line-height: 20px;
     text-align: left;
 }
+.author .author-name {
+    font-size: 16px;
+    color: #525252;
+}
 .author div a {
     font-size: 16px;
 }

@@ -25,10 +25,10 @@
                     <div class="author">
                         <div class="auth_cont pt30 pb30">
                             <figure>
-                                <a href="#"><img src="{{ url('profile-pictures/' . $article->user->id . '.jpg') }}" alt="francesco" /></a>
+                                <img src="{{ url('profile-pictures/' . $article->user->id . '.jpg') }}" alt="francesco" />
                             </figure>
                             <div>
-                                <a href="#" rel="author">{{ $article->user->name }}</a>
+                                <b class="author-name">{{ $article->user->name }}</b>
                                 <br/><span class="date">{{ date('d/m/Y', strtotime($article->published_at)) }} </span> in <em> {!! $article->categories->map(function($category) { return '<a href="' . url('categorie/' . $category->slug) . '">'.$category->name.'</a>'; })->implode(', ') !!}</em>
                             </div>
                         </div>
