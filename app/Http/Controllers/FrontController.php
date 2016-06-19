@@ -4,20 +4,40 @@ namespace LaravelItalia\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use LaravelItalia\Domain\Repositories\CategoryRepository;
-use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Http\Requests;
 use LaravelItalia\Exceptions\NotFoundException;
+use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
+use LaravelItalia\Domain\Repositories\CategoryRepository;
 
+/**
+ * Class FrontController
+ * @package LaravelItalia\Http\Controllers
+ */
 class FrontController extends Controller
 {
+    /**
+     * Mostra la pagina principale del sito.
+     *
+     * @param ArticleRepository $articleRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex(ArticleRepository $articleRepository)
     {
         $latestArticles = $articleRepository->getAll(1, true, true);
         return view('front.index', compact('latestArticles'));
     }
 
+    /**
+     * Mostra la raccolta degli articoli. Se viene specificata una categoria, vengono mostrati solo gli articoli
+     * della categoria specificata.
+     *
+     * @param ArticleRepository $articleRepository
+     * @param CategoryRepository $categoryRepository
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws NotFoundException
+     */
     public function getArticles(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, Request $request) {
         $categories = $categoryRepository->getAll();
 
@@ -31,16 +51,29 @@ class FrontController extends Controller
         return view('front.articles', compact('articles', 'categories'));
     }
 
+    /**
+     * Mostra un articolo, partendo dal suo slug.
+     *
+     * @param ArticleRepository $articleRepository
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getArticle(ArticleRepository $articleRepository, $slug)
     {
         try {
             $article = $articleRepository->findBySlug($slug, true, true);
-            return view('front.article', ['article' => $article]);
+            return view('front.article', compact('article'));
         } catch (NotFoundException $e) {
             return view('front.404');
         }
     }
 
+    /**
+     * Mostra l'elenco delle serie pubblicate sul sito.
+     *
+     * @param SeriesRepository $seriesRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getSeries(SeriesRepository $seriesRepository)
     {
         try {
@@ -51,6 +84,13 @@ class FrontController extends Controller
         }
     }
 
+    /**
+     * Partendo dallo slug di una serie, redireziona il lettore al primo articolo, pubblicato, della serie.
+     *
+     * @param SeriesRepository $seriesRepository
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function getSeriesFirstArticle(SeriesRepository $seriesRepository, $slug)
     {
         try {

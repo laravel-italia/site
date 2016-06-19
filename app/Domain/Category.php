@@ -2,12 +2,9 @@
 
 namespace LaravelItalia\Domain;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Category.
- */
 class Category extends Model
 {
     public static function createFromName($name)
@@ -20,9 +17,6 @@ class Category extends Model
 
     /* Relationship Methods */
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function articles()
     {
         return $this->belongsToMany(Article::class);

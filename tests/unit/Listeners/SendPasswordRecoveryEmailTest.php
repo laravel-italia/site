@@ -33,39 +33,17 @@ class SendPasswordRecoveryEmailTest extends TestCase
         parent::setUp();
     }
 
-    public function testSendWithNormalUser()
+    public function testSend()
     {
         $this->event->expects($this->once())
             ->method('getUser')
             ->willReturn($this->user);
-
-        $this->user->expects($this->once())
-            ->method('getAuthenticationProvider')
-            ->willReturn(null);
 
         $this->event->expects($this->once())
             ->method('getToken')
             ->willReturn('test_token');
 
         \Mail::shouldReceive('send')->once();
-
-        $this->listener->handle($this->event);
-    }
-
-    public function testNothingHappensWithSocialNetworkUser()
-    {
-        $this->event->expects($this->once())
-            ->method('getUser')
-            ->willReturn($this->user);
-
-        $this->user->expects($this->once())
-            ->method('getAuthenticationProvider')
-            ->willReturn('facebook');
-
-        $this->event->expects($this->never())
-            ->method('getToken');
-
-        \Mail::shouldReceive('send')->never();
 
         $this->listener->handle($this->event);
     }

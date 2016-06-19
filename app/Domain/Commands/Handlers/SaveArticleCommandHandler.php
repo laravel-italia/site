@@ -6,14 +6,17 @@ namespace LaravelItalia\Domain\Commands\Handlers;
 use LaravelItalia\Domain\Commands\SaveArticleCommand;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
 
+/**
+ * Effettua il salvataggio di un articolo e le relative operazioni di associazione a categorie, utente ed
+ * eventuale serie.
+ *
+ * Class SaveArticleCommandHandler
+ * @package LaravelItalia\Domain\Commands\Handlers
+ */
 class SaveArticleCommandHandler
 {
     private $articleRepository;
 
-    /**
-     * SaveArticleCommandHandler constructor.
-     * @param ArticleRepository $articleRepository
-     */
     public function __construct(ArticleRepository $articleRepository)
     {
         $this->articleRepository = $articleRepository;

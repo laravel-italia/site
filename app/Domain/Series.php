@@ -5,11 +5,10 @@ namespace LaravelItalia\Domain;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-/**
- * Class Series.
- */
 class Series extends Model
 {
+    protected $table = 'series';
+
     public static function createFromTitleAndDescriptionAndMetaDescription($title, $description, $metaDescription)
     {
         $series = new self();
@@ -26,18 +25,8 @@ class Series extends Model
         return $series;
     }
 
-    /**
-     * @var string
-     */
-    protected $table = 'series';
-
     /* Eloquent Scopes */
 
-    /**
-     * @param $query
-     *
-     * @return mixed
-     */
     public function scopePublished($query)
     {
         return $query->where('is_published', '=', true);
@@ -45,9 +34,6 @@ class Series extends Model
 
     /* Relationship Methods */
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function articles()
     {
         return $this->hasMany(Article::class);

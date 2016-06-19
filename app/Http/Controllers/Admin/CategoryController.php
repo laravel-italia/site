@@ -12,7 +12,8 @@ use LaravelItalia\Http\Requests\SaveCategoryRequest;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
 
 /**
- * Class CategoryController.
+ * Class CategoryController
+ * @package LaravelItalia\Http\Controllers\Admin
  */
 class CategoryController extends Controller
 {
@@ -26,9 +27,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param CategoryRepository $categoryRepository
+     * Mostra l'elenco delle categorie presenti sul sito.
      *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @param CategoryRepository $categoryRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getIndex(CategoryRepository $categoryRepository)
     {
@@ -38,9 +40,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param SaveCategoryRequest $request
-     * @param CategoryRepository  $categoryRepository
+     * Salva una nuova categoria sul sito, il cui nome è contenuto in $request.
      *
+     * @param SaveCategoryRequest $request
+     * @param CategoryRepository $categoryRepository
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(SaveCategoryRequest $request, CategoryRepository $categoryRepository)
@@ -57,11 +60,11 @@ class CategoryController extends Controller
     }
 
     /**
+     * Restituisce i dettagli della categoria il cui id è $categoryId.
+     *
      * @param CategoryRepository $categoryRepository
      * @param $categoryId
-     *
      * @return Category
-     *
      * @throws NotFoundException
      */
     public function getDetails(CategoryRepository $categoryRepository, $categoryId)
@@ -73,12 +76,12 @@ class CategoryController extends Controller
     }
 
     /**
+     * Salva le modifiche ad una categoria esistente, il cui id è $categoryId.
+     *
      * @param SaveCategoryRequest $request
-     * @param CategoryRepository  $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @param $categoryId
-     *
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws NotSavedException
      */
     public function postEdit(SaveCategoryRequest $request, CategoryRepository $categoryRepository, $categoryId)
@@ -103,9 +106,10 @@ class CategoryController extends Controller
     }
 
     /**
+     * Cancella la categoria il cui id è $categoryId.
+     *
      * @param CategoryRepository $categoryRepository
      * @param $categoryId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(CategoryRepository $categoryRepository, $categoryId)

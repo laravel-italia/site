@@ -11,7 +11,8 @@ use LaravelItalia\Http\Requests\SeriesSaveRequest;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 
 /**
- * Class SeriesController.
+ * Class SeriesController
+ * @package LaravelItalia\Http\Controllers\Admin
  */
 class SeriesController extends Controller
 {
@@ -25,9 +26,10 @@ class SeriesController extends Controller
     }
 
     /**
-     * @param SeriesRepository $seriesRepository
+     * Mostra l'elenco delle serie presenti nel sistema.
      *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @param SeriesRepository $seriesRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getIndex(SeriesRepository $seriesRepository)
     {
@@ -37,7 +39,9 @@ class SeriesController extends Controller
     }
 
     /**
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * Mostra il form di aggiunta di una nuova serie.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getAdd()
     {
@@ -45,9 +49,10 @@ class SeriesController extends Controller
     }
 
     /**
-     * @param SeriesSaveRequest $request
-     * @param SeriesRepository  $seriesRepository
+     * Salva una nuova serie i cui dati sono passati in $request.
      *
+     * @param SeriesSaveRequest $request
+     * @param SeriesRepository $seriesRepository
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(SeriesSaveRequest $request, SeriesRepository $seriesRepository)
@@ -70,9 +75,10 @@ class SeriesController extends Controller
     }
 
     /**
+     * Segna come pubblicata la serie di cui viene passato l'id.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getPublish(SeriesRepository $seriesRepository, $seriesId)
@@ -96,9 +102,10 @@ class SeriesController extends Controller
     }
 
     /**
+     * Rimuove dalla pubblicazione la serie identificata da $seriesId.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getUnpublish(SeriesRepository $seriesRepository, $seriesId)
@@ -122,9 +129,10 @@ class SeriesController extends Controller
     }
 
     /**
+     * Segna come completa la serie di cui viene passato l'id.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getComplete(SeriesRepository $seriesRepository, $seriesId)
@@ -148,9 +156,10 @@ class SeriesController extends Controller
     }
 
     /**
+     * Segna come incompleta la serie di cui viene passato l'id.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getIncomplete(SeriesRepository $seriesRepository, $seriesId)
@@ -174,10 +183,11 @@ class SeriesController extends Controller
     }
 
     /**
+     * Mostra il form di modifica dei dettagli di una serie.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function getEdit(SeriesRepository $seriesRepository, $seriesId)
     {
@@ -192,10 +202,11 @@ class SeriesController extends Controller
     }
 
     /**
-     * @param SeriesSaveRequest $request
-     * @param SeriesRepository  $seriesRepository
-     * @param $seriesId
+     * Salva le modifiche apportate ad una serie esistente.
      *
+     * @param SeriesSaveRequest $request
+     * @param SeriesRepository $seriesRepository
+     * @param $seriesId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(SeriesSaveRequest $request, SeriesRepository $seriesRepository, $seriesId)
@@ -221,9 +232,10 @@ class SeriesController extends Controller
     }
 
     /**
+     * Rimuove dal sistema la serie selezionata, di cui viene passato l'id.
+     *
      * @param SeriesRepository $seriesRepository
      * @param $seriesId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(SeriesRepository $seriesRepository, $seriesId)

@@ -5,13 +5,13 @@ namespace LaravelItalia\Domain\Observers;
 use LaravelItalia\Domain\Media;
 
 /**
- * Class RemoveFileWhenDeletingMedia.
+ * Si occupa di rimuovere fisicamente un file quando viene richiesta la cancellazione del media corrispondente.
+ *
+ * Class RemoveFileWhenDeletingMedia
+ * @package LaravelItalia\Domain\Observers
  */
 class RemoveFileWhenDeletingMedia
 {
-    /**
-     * @param Media $media
-     */
     public function deleting(Media $media)
     {
         $fileName = str_replace(url('uploads/'), '', $media->url);

@@ -3,25 +3,24 @@
 namespace LaravelItalia\Domain\Repositories;
 
 use Config;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
-/**
- * Class ArticleRepository.
- */
 class ArticleRepository
 {
     /**
-     * @param $page
-     * @param bool|false $onlyPublished
-     * @param bool|false $onlyVisible
+     * Restituisce, paginati, gli articoli presenti sul database. Se $onlyPublished è true, solo quelli
+     * mandati in pubblicazione. Se $onlyVisible è true, solo quelli già pubblicati e già visibili.
      *
+     * @param $page
+     * @param bool $onlyPublished
+     * @param bool $onlyVisible
      * @return mixed
      */
     public function getAll($page, $onlyPublished = false, $onlyVisible = false)
@@ -45,7 +44,9 @@ class ArticleRepository
     }
 
     /**
-     * @return Collection|static[]
+     * Restituisce l'insieme degli articoli non ancora pubblicati, e quindi da controllare.
+     *
+     * @return mixed
      */
     public function getUnpublished()
     {
@@ -56,11 +57,14 @@ class ArticleRepository
     }
 
     /**
+     * Restituisce, paginati, gli articoli presenti sul database appartenenti alla categoria $category.
+     * Se $onlyPublished è true, solo quelli mandati in pubblicazione. Se $onlyVisible è true, solo quelli
+     * già pubblicati e già visibili.
+     *
      * @param Category $category
      * @param $page
-     * @param bool|false $onlyPublished
-     * @param bool|false $onlyVisible
-     *
+     * @param bool $onlyPublished
+     * @param bool $onlyVisible
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getByCategory(Category $category, $page, $onlyPublished = false, $onlyVisible = false)
@@ -86,9 +90,8 @@ class ArticleRepository
     /**
      * @param User $user
      * @param $page
-     * @param bool|false $onlyPublished
-     * @param bool|false $onlyVisible
-     *
+     * @param bool $onlyPublished
+     * @param bool $onlyVisible
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getByUser(User $user, $page, $onlyPublished = false, $onlyVisible = false)
@@ -112,11 +115,11 @@ class ArticleRepository
     }
 
     /**
+     * Restituisce un articolo a partire dal suo id.
+     *
      * @param $id
-     * @param bool|false $onlyPublished
-     *
-     * @return Article|null
-     *
+     * @param bool $onlyPublished
+     * @return Collection|Model|null
      * @throws NotFoundException
      */
     public function findById($id, $onlyPublished = false)
@@ -137,11 +140,13 @@ class ArticleRepository
     }
 
     /**
+     * Restituisce un articolo a partire dal suo slug. Se $onlyPublished è true, solo se mandato in pubblicazione.
+     * Se $onlyVisible è true, solo se già pubblicato e visibile.
+     *
      * @param $slug
-     * @param bool|false $onlyPublished
-     *
-     * @return Article|null
-     *
+     * @param bool $onlyPublished
+     * @param bool $onlyVisible
+     * @return Model|null|static
      * @throws NotFoundException
      */
     public function findBySlug($slug, $onlyPublished = false, $onlyVisible = false)
@@ -166,8 +171,9 @@ class ArticleRepository
     }
 
     /**
-     * @param Article $article
+     * Salva l'articolo $article sul datbase.
      *
+     * @param Article $article
      * @throws NotSavedException
      */
     public function save(Article $article)
@@ -178,8 +184,9 @@ class ArticleRepository
     }
 
     /**
-     * @param Article $article
+     * Cancella dal database l'articolo $article.
      *
+     * @param Article $article
      * @throws NotDeletedException
      * @throws \Exception
      */

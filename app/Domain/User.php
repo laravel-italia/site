@@ -10,27 +10,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-/**
- * Class User.
- */
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = ['password', 'remember_token'];
 
     public function confirm()
@@ -75,6 +61,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /* Relationships Utility Methods */
+
     public function isAdministrator()
     {
         return $this->role->name === 'administrator';

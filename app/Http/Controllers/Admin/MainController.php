@@ -4,24 +4,30 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use \Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Intervention\Image\Exception\NotFoundException;
-use JildertMiedema\LaravelTactician\DispatchesCommands;
-use LaravelItalia\Domain\Commands\RecoveryPasswordCommand;
-use LaravelItalia\Domain\Commands\ResetPasswordCommand;
-use LaravelItalia\Domain\Repositories\PasswordResetRepository;
-use LaravelItalia\Domain\Repositories\UserRepository;
 use LaravelItalia\Domain\User;
-use LaravelItalia\Exceptions\NotSavedException;
+use Illuminate\Support\Collection;
 use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Requests\UserLoginRequest;
-use LaravelItalia\Http\Requests\UserPasswordRecoveryRequest;
+use Intervention\Image\Exception\NotFoundException;
+use LaravelItalia\Domain\Repositories\UserRepository;
+use JildertMiedema\LaravelTactician\DispatchesCommands;
+use LaravelItalia\Domain\Commands\ResetPasswordCommand;
 use LaravelItalia\Http\Requests\UserPasswordResetRequest;
+use LaravelItalia\Domain\Commands\RecoveryPasswordCommand;
+use LaravelItalia\Http\Requests\UserPasswordRecoveryRequest;
 
+/**
+ * Class MainController
+ * @package LaravelItalia\Http\Controllers\Admin
+ */
 class MainController extends Controller
 {
     use DispatchesCommands;
 
+    /**
+     * MainController constructor.
+     */
     public function __construct()
     {
         $methods = ['getLogin', 'postLogin', 'getInvitation', 'postInvitation', 'getRecovery', 'postRecovery', 'getReset', 'postReset'];
@@ -30,21 +36,34 @@ class MainController extends Controller
         $this->middleware('role:editor,administrator', ['except' => $methods]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function getIndex()
     {
         return redirect('admin/dashboard');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getDashboard()
     {
         return view('admin.dashboard');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         return view('admin.login');
     }
 
+    /**
+     * @param UserLoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postLogin(UserLoginRequest $request)
     {
         if(Auth::attempt(array_merge($request->except('_token'), ['is_confirmed' => true, 'is_blocked' => false]), true)) {
@@ -54,12 +73,20 @@ class MainController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getLogout()
     {
         Auth::logout();
         return redirect('admin/login')->with('message', 'Logout effettuato. A presto!');
     }
 
+    /**
+     * @param UserRepository $userRepository
+     * @param $confirmationCode
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function getInvitation(UserRepository $userRepository, $confirmationCode)
     {
         if(!$userRepository->findByConfirmationCode($confirmationCode)){
@@ -69,6 +96,13 @@ class MainController extends Controller
         return view('admin.editor_signup', ['confirmationCode' => $confirmationCode]);
     }
 
+    /**
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param $confirmationCode
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function postInvitation(Request $request, UserRepository $userRepository, $confirmationCode)
     {
         /* @var User $user */
@@ -94,11 +128,19 @@ class MainController extends Controller
         return redirect('admin/login')->with('message', 'Editor registrato! Effettua l\'accesso inserendo le credenziali scelte.');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getRecovery()
     {
         return view('admin.recovery');
     }
 
+    /**
+     * @param UserPasswordRecoveryRequest $request
+     * @param UserRepository $userRepository
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postRecovery(UserPasswordRecoveryRequest $request, UserRepository $userRepository)
     {
         $user = $userRepository->findByEmail($request->get('email'));
@@ -112,6 +154,10 @@ class MainController extends Controller
         return redirect('admin/recovery')->with('message', 'Riceverai presto una mail con tutti i dettagli per scegliere una nuova password.');
     }
 
+    /**
+     * @param null $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function getReset($token = null)
     {
         if(!$token) {
@@ -121,6 +167,11 @@ class MainController extends Controller
         return view('admin.reset', compact('token'));
     }
 
+    /**
+     * @param UserPasswordResetRequest $request
+     * @param UserRepository $userRepository
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postReset(UserPasswordResetRequest $request, UserRepository $userRepository)
     {
         try {

@@ -5,6 +5,12 @@ namespace LaravelItalia\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Controlla l'associazione di un determinato utente ad un certo ruolo.
+ *
+ * Class RoleChecker
+ * @package LaravelItalia\Http\Middleware
+ */
 class RoleChecker
 {
     /**

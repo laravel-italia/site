@@ -5,22 +5,22 @@ namespace LaravelItalia\Http\Controllers\Admin;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use JildertMiedema\LaravelTactician\DispatchesCommands;
-use LaravelItalia\Domain\Series;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Http\Requests\ArticleSaveRequest;
+use LaravelItalia\Domain\Commands\SaveArticleCommand;
 use LaravelItalia\Http\Requests\ArticlePublishRequest;
+use JildertMiedema\LaravelTactician\DispatchesCommands;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
-use LaravelItalia\Domain\Commands\SaveArticleCommand;
 
 /**
- * Class ArticleController.
+ * Class ArticleController
+ * @package LaravelItalia\Http\Controllers\Admin
  */
 class ArticleController extends Controller
 {
@@ -37,10 +37,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param Request           $request
-     * @param ArticleRepository $articleRepository
+     * Mostra gli articoli attualmente presenti nel sistema.
      *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @param Request $request
+     * @param ArticleRepository $articleRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getIndex(Request $request, ArticleRepository $articleRepository)
     {
@@ -51,10 +52,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param CategoryRepository $categoryRepository
-     * @param SeriesRepository   $seriesRepository
+     * Mostra il form di aggiunta di un nuovo articolo.
      *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @param CategoryRepository $categoryRepository
+     * @param SeriesRepository $seriesRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
     {
@@ -65,16 +67,15 @@ class ArticleController extends Controller
     }
 
     /**
+     * Salva un nuovo articolo, i cui dati sono contenuti in $request.
+     *
      * @param ArticleSaveRequest $request
-     * @param ArticleRepository  $articleRepository
-     * @param SeriesRepository   $seriesRepository
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
      * @param CategoryRepository $categoryRepository
-     *
      * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Exception
      */
-    public function postAdd(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
+    public function postAdd(ArticleSaveRequest $request, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository)
     {
         $article = Article::createFromData(
             $request->get('title'),
@@ -104,12 +105,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param ArticleRepository  $articleRepository
-     * @param SeriesRepository   $seriesRepository
+     * Mostra il form di modifica di un articolo già presente sul sito.
+     *
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
      * @param CategoryRepository $categoryRepository
      * @param $articleId
-     *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View|mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
@@ -126,15 +128,14 @@ class ArticleController extends Controller
     }
 
     /**
+     * Salva le modifiche apportate ad un articolo i cui dati sono in $request, ed il cui id è $articleId.
+     *
      * @param ArticleSaveRequest $request
-     * @param ArticleRepository  $articleRepository
-     * @param SeriesRepository   $seriesRepository
+     * @param ArticleRepository $articleRepository
+     * @param SeriesRepository $seriesRepository
      * @param CategoryRepository $categoryRepository
      * @param $articleId
-     *
      * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Exception
      */
     public function postEdit(ArticleSaveRequest $request, ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
     {
@@ -156,7 +157,7 @@ class ArticleController extends Controller
         try {
             $this->dispatch(new SaveArticleCommand(
                 $article,
-                Auth::user(),
+                $article->user,
                 $categories,
                 $series
             ));
@@ -171,9 +172,10 @@ class ArticleController extends Controller
     }
 
     /**
+     * Rimuove dalla pubblicazione l'articolo di cui l'id è $articleId.
+     *
      * @param ArticleRepository $articleRepository
      * @param $articleId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getUnpublish(ArticleRepository $articleRepository, $articleId)
@@ -198,10 +200,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param ArticlePublishRequest $request
-     * @param ArticleRepository     $articleRepository
-     * @param $articleId
+     * Pubblica l'articolo il cui id è $articleId.
      *
+     * @param ArticlePublishRequest $request
+     * @param ArticleRepository $articleRepository
+     * @param $articleId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postPublish(ArticlePublishRequest $request, ArticleRepository $articleRepository, $articleId)
@@ -227,9 +230,10 @@ class ArticleController extends Controller
     }
 
     /**
+     * Cancella l'articolo il cui id è $articleId.
+     *
      * @param ArticleRepository $articleRepository
      * @param $articleId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(ArticleRepository $articleRepository, $articleId)

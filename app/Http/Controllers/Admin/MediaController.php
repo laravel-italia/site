@@ -12,7 +12,8 @@ use LaravelItalia\Http\Requests\MediaUploadRequest;
 use LaravelItalia\Domain\Repositories\MediaRepository;
 
 /**
- * Class MediaController.
+ * Class MediaController
+ * @package LaravelItalia\Http\Controllers\Admin
  */
 class MediaController extends Controller
 {
@@ -26,10 +27,11 @@ class MediaController extends Controller
     }
 
     /**
-     * @param MediaRepository $mediaRepository
-     * @param Request         $request
+     * Mostra i media attualmente caricati sul sito.
      *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @param MediaRepository $mediaRepository
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getIndex(MediaRepository $mediaRepository, Request $request)
     {
@@ -39,11 +41,11 @@ class MediaController extends Controller
     }
 
     /**
+     * Salva un nuovo file caricato sul sito.
+     *
      * @param MediaUploadRequest $request
-     * @param MediaRepository    $mediaRepository
-     *
+     * @param MediaRepository $mediaRepository
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \LaravelItalia\Exceptions\NotSavedException
      */
     public function postUpload(MediaUploadRequest $request, MediaRepository $mediaRepository)
@@ -61,9 +63,10 @@ class MediaController extends Controller
     }
 
     /**
+     * Cancella un media precedentemente caricato.
+     *
      * @param MediaRepository $mediaRepository
      * @param $mediaId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete(MediaRepository $mediaRepository, $mediaId)

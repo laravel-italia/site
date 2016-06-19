@@ -5,13 +5,13 @@ namespace LaravelItalia\Domain\Observers;
 use LaravelItalia\Domain\Series;
 
 /**
- * Class RemoveArticlesWhenDeletingSeries.
+ * Rimuove tutti gli articoli di una serie che sta per essere cancellata.
+ *
+ * Class RemoveArticlesWhenDeletingSeries
+ * @package LaravelItalia\Domain\Observers
  */
 class RemoveArticlesWhenDeletingSeries
 {
-    /**
-     * @param Series $series
-     */
     public function deleting(Series $series)
     {
         $articles = $series->articles()->get();

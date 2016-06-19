@@ -3,22 +3,20 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
-use JildertMiedema\LaravelTactician\DispatchesCommands;
-use LaravelItalia\Domain\Commands\AssignRoleToUserCommand;
-use LaravelItalia\Domain\Factories\UserFactory;
-use LaravelItalia\Domain\User;
 use LaravelItalia\Http\Controllers\Controller;
+use LaravelItalia\Domain\Factories\UserFactory;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
-use LaravelItalia\Domain\Services\AssignRoleToUser;
+use LaravelItalia\Http\Requests\UserInviteRequest;
 use LaravelItalia\Domain\Repositories\RoleRepository;
 use LaravelItalia\Domain\Repositories\UserRepository;
+use JildertMiedema\LaravelTactician\DispatchesCommands;
+use LaravelItalia\Domain\Commands\AssignRoleToUserCommand;
 use LaravelItalia\Http\Requests\ChangeProfilePictureRequest;
-use LaravelItalia\Http\Requests\UserInviteRequest;
 
 /**
- * Class UserController.
+ * Class UserController
+ * @package LaravelItalia\Http\Controllers\Admin
  */
 class UserController extends Controller
 {
@@ -34,37 +32,28 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request        $request
+     * Mostra l'elenco degli amministratori/editor registrati.
+     *
+     * @param Request $request
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
-     *
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getIndex(Request $request, UserRepository $userRepository, RoleRepository $roleRepository)
     {
-        $criteria = [];
-
-        if ($request->has('name')) {
-            $criteria['name'] = $request->get('name');
-        }
-
-        if ($request->has('email')) {
-            $criteria['email'] = $request->get('email');
-        }
-
-        if ($request->has('role') && $request->get('role') !== 'all') {
-            $criteria['role_id'] = $roleRepository->findByName($request->get('role'))->id;
-        }
-
-        $users = $userRepository->getAll($request->get('page', 1), $criteria);
+        $users = $userRepository->getAll(
+            $request->get('page', 1),
+            $this->getSearchCriteria($request, $roleRepository)
+        );
 
         return view('admin.user_index', compact('users'));
     }
 
     /**
+     * Blocca un certo utente, dato il suo id.
+     *
      * @param UserRepository $userRepository
      * @param $userId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getBlock(UserRepository $userRepository, $userId)
@@ -87,9 +76,10 @@ class UserController extends Controller
     }
 
     /**
+     * Sblocca un utente, dato il suo id.
+     *
      * @param UserRepository $userRepository
      * @param $userId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getUnblock(UserRepository $userRepository, $userId)
@@ -112,11 +102,12 @@ class UserController extends Controller
     }
 
     /**
+     * Cambia ruolo all'utente il cui id è $userId, dall'attuale a quello identificato con $roleName.
+     *
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
      * @param $userId
      * @param $roleName
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getSwitch(UserRepository $userRepository, RoleRepository $roleRepository, $userId, $roleName)
@@ -138,6 +129,14 @@ class UserController extends Controller
         return redirect('admin/users')->with('success_message', 'Ruolo assegnato correttamente.');
     }
 
+    /**
+     * Invita un nuovo editor creandone l'utente come editor.
+     *
+     * @param UserInviteRequest $request
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postInvite(UserInviteRequest $request, UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $user = UserFactory::createUser($request->get('name'), $request->get('email'), '');
@@ -150,7 +149,7 @@ class UserController extends Controller
 
         try {
             $role = $roleRepository->findByName('editor');
-            $this->dispatch(new AssignRoleToUser($role, $user));
+            $this->dispatch(new AssignRoleToUserCommand($role, $user));
         } catch (NotSavedException $e) {
             return redirect('admin/users')->with('error_message', 'Problemi in fase di assegnazione del ruolo. Riprovare.');
         }
@@ -158,6 +157,12 @@ class UserController extends Controller
         return redirect('admin/users')->with('success_message', 'Editor invitato correttamente.');
     }
 
+    /**
+     * Salva una nuova foto profilo per l'utente di cui viene passato l'id.
+     *
+     * @param ChangeProfilePictureRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangePicture(ChangeProfilePictureRequest $request)
     {
         $fileName = $request->get('user_id') . '.jpg';
@@ -170,5 +175,32 @@ class UserController extends Controller
         }
 
         return redirect('admin/users')->with('success_message', 'Immagine dell\'utente impostata correttamente.');
+    }
+
+
+    /**
+     * Metodo utility che ricava un array di criteri per la ricerca di utenti.
+     *
+     * @param Request $request
+     * @param RoleRepository $roleRepository
+     * @return array
+     */
+    private function getSearchCriteria(Request $request, RoleRepository $roleRepository)
+    {
+        $criteria = [];
+
+        if ($request->has('name')) {
+            $criteria['name'] = $request->get('name');
+        }
+
+        if ($request->has('email')) {
+            $criteria['email'] = $request->get('email');
+        }
+
+        if ($request->has('role') && $request->get('role') !== 'all') {
+            $criteria['role_id'] = $roleRepository->findByName($request->get('role'))->id;
+        }
+
+        return $criteria;
     }
 }

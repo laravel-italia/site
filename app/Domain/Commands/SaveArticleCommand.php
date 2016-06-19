@@ -3,11 +3,16 @@
 namespace LaravelItalia\Domain\Commands;
 
 
-use Illuminate\Database\Eloquent\Collection;
-use LaravelItalia\Domain\Article;
-use LaravelItalia\Domain\Series;
 use LaravelItalia\Domain\User;
+use LaravelItalia\Domain\Article;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Salva un articolo (sia nuovo che esistente) assegnando ad esso il giusto utente, categorie ed eventuale serie.
+ *
+ * Class SaveArticleCommand
+ * @package LaravelItalia\Domain\Commands
+ */
 class SaveArticleCommand
 {
     private $article;
@@ -15,13 +20,6 @@ class SaveArticleCommand
     private $categories;
     private $series;
 
-    /**
-     * SaveArticleCommand constructor.
-     * @param $article
-     * @param $user
-     * @param $categories
-     * @param null|Series $series
-     */
     public function __construct(Article $article, User $user, Collection $categories, $series)
     {
         $this->article = $article;
@@ -30,33 +28,21 @@ class SaveArticleCommand
         $this->series = $series;
     }
 
-    /**
-     * @return Article
-     */
     public function getArticle()
     {
         return $this->article;
     }
 
-    /**
-     * @return User
-     */
     public function getUser()
     {
         return $this->user;
     }
 
-    /**
-     * @return Collection
-     */
     public function getCategories()
     {
         return $this->categories;
     }
 
-    /**
-     * @return Series
-     */
     public function getSeries()
     {
         return $this->series;

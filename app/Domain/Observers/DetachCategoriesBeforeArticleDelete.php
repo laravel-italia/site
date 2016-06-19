@@ -5,13 +5,13 @@ namespace LaravelItalia\Domain\Observers;
 use LaravelItalia\Domain\Article;
 
 /**
- * Class DetachCategoriesBeforeArticleDelete.
+ * Dato un articolo che sta per essere cancellato, si occupa di rimuovere le associazioni alle categorie relative.
+ *
+ * Class DetachCategoriesBeforeArticleDelete
+ * @package LaravelItalia\Domain\Observers
  */
 class DetachCategoriesBeforeArticleDelete
 {
-    /**
-     * @param Article $article
-     */
     public function deleting(Article $article)
     {
         $article->categories()->detach();

@@ -3,13 +3,10 @@
 namespace LaravelItalia\Domain;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
 
-/**
- * Class Article.
- */
 class Article extends Model
 {
     public static function createFromData($title, $digest, $body, $metaDescription)
@@ -28,25 +25,16 @@ class Article extends Model
         return $article;
     }
 
-    /**
-     * @return bool
-     */
     public function isPublished()
     {
         return !is_null($this->published_at);
     }
 
-    /**
-     * @param $publicationDate
-     */
     public function publish($publicationDate)
     {
         $this->published_at = $publicationDate;
     }
 
-    /**
-     *
-     */
     public function unpublish()
     {
         $this->published_at = null;
@@ -54,21 +42,11 @@ class Article extends Model
 
     /* Eloquent Scopes */
 
-    /**
-     * @param $query
-     *
-     * @return mixed
-     */
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at');
     }
 
-    /**
-     * @param $query
-     *
-     * @return mixed
-     */
     public function scopeVisible($query)
     {
         return $query->where('published_at', '<=', Carbon::now());
@@ -76,12 +54,6 @@ class Article extends Model
 
     /* Mutators */
 
-    /**
-     * Sets the article slug everytime the title is changed.
-     *
-     * @param  string  $value
-     * @return string
-     */
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
@@ -90,27 +62,16 @@ class Article extends Model
 
     /* Relationship Utility Methods */
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user)
     {
         $this->user()->associate($user);
     }
 
-    /**
-     * @param Series|null $series
-     */
     public function setSeries($series)
     {
         $this->series()->associate($series);
     }
 
-    /**
-     * @param Collection $categories
-     *
-     * @throws \Exception
-     */
     public function syncCategories(Collection $categories)
     {
         if (!$this->exists) {
@@ -120,9 +81,6 @@ class Article extends Model
         $this->categories()->sync($categories);
     }
 
-    /**
-     * @return bool
-     */
     public function isPartOfSeries()
     {
         return $this->series_id !== null;
@@ -130,25 +88,16 @@ class Article extends Model
 
     /* Relationship Methods */
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function series()
     {
         return $this->belongsTo(Series::class);

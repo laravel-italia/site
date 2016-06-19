@@ -4,14 +4,12 @@ namespace LaravelItalia\Domain\Repositories;
 
 use LaravelItalia\Domain\Series;
 
-/**
- * Class SeriesRepository.
- */
 class SeriesRepository
 {
     /**
-     * @param bool|false $onlyPublished
+     * Restituisce tutte le serie salvate, o solo quelle pubblicate se $onlyPublished è true.
      *
+     * @param bool $onlyPublished
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAll($onlyPublished = false)
@@ -26,10 +24,12 @@ class SeriesRepository
     }
 
     /**
-     * @param $id
-     * @param bool|false $onlyPublished
+     * Restituisce una serie partendo dal suo id. Se $onlyPublished è true la restituisce solo
+     * se è stata già pubblicata.
      *
-     * @return Series|null
+     * @param $id
+     * @param bool $onlyPublished
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
     public function findByid($id, $onlyPublished = false)
     {
@@ -43,10 +43,12 @@ class SeriesRepository
     }
 
     /**
-     * @param $slug
-     * @param bool|false $onlyPublished
+     * Restituisce una serie dato il suo slug. Se $onlyPublished è true, la restituisce solo se
+     * già pubblicata.
      *
-     * @return Series|null
+     * @param $slug
+     * @param bool $onlyPublished
+     * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public function findBySlug($slug, $onlyPublished = false)
     {
@@ -60,6 +62,8 @@ class SeriesRepository
     }
 
     /**
+     * Salva su database la serie $series passata.
+     *
      * @param Series $series
      */
     public function save(Series $series)
@@ -68,8 +72,9 @@ class SeriesRepository
     }
 
     /**
-     * @param Series $series
+     * Rimuove dal database la serie $series passata.
      *
+     * @param Series $series
      * @throws \Exception
      */
     public function delete(Series $series)

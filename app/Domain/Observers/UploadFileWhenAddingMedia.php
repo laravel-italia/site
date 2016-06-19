@@ -6,28 +6,20 @@ use Illuminate\Http\Request;
 use LaravelItalia\Domain\Media;
 
 /**
- * Class UploadFileWhenAddingMedia.
+ * Si occupa di gestire il caricamento e salvataggio di un file durante l'upload di un nuovo media.
+ *
+ * Class UploadFileWhenAddingMedia
+ * @package LaravelItalia\Domain\Observers
  */
 class UploadFileWhenAddingMedia
 {
-    /**
-     * @var Request
-     */
     private $request;
 
-    /**
-     * MediaObserver constructor.
-     *
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    /**
-     * @param Media $media
-     */
     public function creating(Media $media)
     {
         $uploadedFile = $this->request->file('media');

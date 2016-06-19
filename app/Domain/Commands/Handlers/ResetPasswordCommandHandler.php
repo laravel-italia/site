@@ -1,28 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: francesco
- * Date: 6/18/16
- * Time: 4:07 PM
- */
 
 namespace LaravelItalia\Domain\Commands\Handlers;
 
 
+use LaravelItalia\Domain\Repositories\UserRepository;
 use LaravelItalia\Domain\Commands\ResetPasswordCommand;
 use LaravelItalia\Domain\Repositories\PasswordResetRepository;
-use LaravelItalia\Domain\Repositories\UserRepository;
 
+/**
+ * Cambia la password dell'utente specificato con una nuova, appena scelta.
+ *
+ * Class ResetPasswordCommandHandler
+ * @package LaravelItalia\Domain\Commands\Handlers
+ */
 class ResetPasswordCommandHandler
 {
     private $passwordResetRepository;
     private $userRepository;
 
-    /**
-     * ResetPasswordCommandHandler constructor.
-     * @param UserRepository $userRepository
-     * @param PasswordResetRepository $passwordResetRepository
-     */
     public function __construct(PasswordResetRepository $passwordResetRepository, UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;

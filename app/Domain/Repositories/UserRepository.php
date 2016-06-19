@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
+    /**
+     * Ritorna l'elenco degli utenti presenti, eventualmente filtrandoli per nome, email e ruolo.
+     *
+     * @param $page
+     * @param array $criteria
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getAll($page, array $criteria)
     {
         $query = User::with(['role']);
@@ -31,16 +38,35 @@ class UserRepository
         );
     }
 
+    /**
+     * Restituisce un utente dato il suo id.
+     *
+     * @param $id
+     * @return mixed
+     */
     public function findById($id)
     {
         return User::find($id);
     }
 
+    /**
+     * Restituisce un utente dato il suo indirizzo email.
+     *
+     * @param $emailAddress
+     * @return mixed
+     */
     public function findByEmail($emailAddress)
     {
         return User::where('email', '=', $emailAddress)->first();
     }
 
+    /**
+     * Restituisce un utente dato il suo indirizzo email e password.
+     *
+     * @param $emailAddress
+     * @param $password
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
     public function findByEmailAndPassword($emailAddress, $password)
     {
         $user = $this->findBy([
@@ -51,6 +77,12 @@ class UserRepository
         return ($user && Hash::check($password, $user->password)) ? $user : null;
     }
 
+    /**
+     * Restituisce un utente a partire dal suo codice di conferma.
+     *
+     * @param $confirmationCode
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
     public function findByConfirmationCode($confirmationCode)
     {
         return $this->findBy([
@@ -58,6 +90,12 @@ class UserRepository
         ]);
     }
 
+    /**
+     * Restituisce un utente in base a criteri variabili, specificati in $criteria.
+     *
+     * @param array $criteria
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
     private function findBy(array $criteria)
     {
         $users = User::query();
@@ -69,6 +107,11 @@ class UserRepository
         return $users->first();
     }
 
+    /**
+     * Salva l'utente $user nel database.
+     *
+     * @param User $user
+     */
     public function save(User $user)
     {
         $user->save();

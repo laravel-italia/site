@@ -8,14 +8,12 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
-/**
- * Class MediaRepository.
- */
 class MediaRepository
 {
     /**
-     * @param $page
+     * Restituisce un elenco dei media esistenti, paginati.
      *
+     * @param $page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAll($page)
@@ -30,10 +28,10 @@ class MediaRepository
     }
 
     /**
+     * Restituisce un media dato il suo id.
+     *
      * @param $id
-     *
-     * @return Media|null
-     *
+     * @return mixed
      * @throws NotFoundException
      */
     public function findById($id)
@@ -48,8 +46,9 @@ class MediaRepository
     }
 
     /**
-     * @param Media $media
+     * Salva un nuovo media $media su database.
      *
+     * @param Media $media
      * @throws NotSavedException
      */
     public function save(Media $media)
@@ -60,8 +59,9 @@ class MediaRepository
     }
 
     /**
-     * @param Media $media
+     * Cancella il media $media dal database.
      *
+     * @param Media $media
      * @throws NotDeletedException
      * @throws \Exception
      */

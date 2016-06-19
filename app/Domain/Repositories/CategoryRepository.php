@@ -2,19 +2,18 @@
 
 namespace LaravelItalia\Domain\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
 use LaravelItalia\Domain\Category;
+use Illuminate\Database\Eloquent\Collection;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
 
-/**
- * Class CategoryRepository.
- */
 class CategoryRepository
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * Restituisce le categorie salvate sul database.
+     *
+     * @return Collection|static[]
      */
     public function getAll()
     {
@@ -22,9 +21,10 @@ class CategoryRepository
     }
 
     /**
-     * @param array $ids
+     * Restituisce un set di categorie a partire dai loro id.
      *
-     * @return Collection|static[]
+     * @param array $ids
+     * @return mixed
      */
     public function getByIds(array $ids)
     {
@@ -32,10 +32,10 @@ class CategoryRepository
     }
 
     /**
+     * Restituisce una categoria a partire dal suo id.
+     *
      * @param $id
-     *
-     * @return Category|null
-     *
+     * @return mixed
      * @throws NotFoundException
      */
     public function findById($id)
@@ -50,10 +50,10 @@ class CategoryRepository
     }
 
     /**
+     * Restituisce una categoria a partire dal suo slug.
+     *
      * @param $slug
-     *
-     * @return Category|null
-     *
+     * @return mixed
      * @throws NotFoundException
      */
     public function findBySlug($slug)
@@ -68,8 +68,9 @@ class CategoryRepository
     }
 
     /**
-     * @param Category $category
+     * Salva una categoria $category su database.
      *
+     * @param Category $category
      * @throws NotSavedException
      */
     public function save(Category $category)
@@ -80,8 +81,9 @@ class CategoryRepository
     }
 
     /**
-     * @param Category $category
+     * Rimuove dal database la categoria $category.
      *
+     * @param Category $category
      * @throws NotDeletedException
      * @throws \Exception
      */
