@@ -46,7 +46,7 @@ class RoleChecker
         }
 
         if ($user->role->name === 'user') {
-            return redirect('access-denied');
+            return redirect('admin/access-denied');
         }
 
         return redirect('admin/dashboard')->with('error_message', 'Non hai i permessi per effettuare questa operazione.');

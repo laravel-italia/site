@@ -192,4 +192,15 @@ class MainController extends Controller
             return redirect('admin/reset/' . $request->get('token'))->with('errors', Collection::make(['Problemi in fase di salvataggio della nuova password. Riprovare.']));
         }
     }
+
+    /**
+     * Mostra la schermata di "accesso negato", in caso un editor tenti di accedere a pagine riservate
+     * agli amministratori.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getAccessDenied()
+    {
+        return view('admin.access_denied');
+    }
 }
