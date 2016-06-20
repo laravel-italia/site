@@ -91,7 +91,7 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->findBySlug('i_dont_exist_lol');
     }
 
-    public function testFindByIdIsOk()
+    public function testFindById()
     {
         $expectedArticle = $this->saveTestArticle();
 

@@ -90,19 +90,12 @@ class ArticleRepository
      * Restituisce un articolo a partire dal suo id.
      *
      * @param $id
-     * @param bool $onlyPublished
      * @return Collection|Model|null
      * @throws NotFoundException
      */
-    public function findById($id, $onlyPublished = false)
+    public function findById($id)
     {
-        $query = Article::with(['user', 'categories']);
-
-        if ($onlyPublished) {
-            $query->published();
-        }
-
-        $result = $query->find($id);
+        $result = Article::with(['user', 'categories'])->find($id);
 
         if (!$result) {
             throw new NotFoundException();
