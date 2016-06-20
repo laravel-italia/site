@@ -1,6 +1,5 @@
 <?php
 
-use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Article;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
@@ -53,18 +52,6 @@ class ArticleRepositoryTest extends TestCase
 
         $this->assertCount(1, $this->repository->getByCategory($category, 1, true));
         $this->assertCount(2, $this->repository->getByCategory($category, 1, false));
-    }
-
-    public function testGetByUser()
-    {
-        $user = User::fromNameAndEmailAndPassword('Francesco', 'email', 'password');
-        $user->save();
-
-        $this->saveTestArticle(false, false, $user);
-        $this->saveTestArticle(true, false, $user);
-
-        $this->assertCount(1, $this->repository->getByUser($user, 1, true));
-        $this->assertCount(2, $this->repository->getByUser($user, 1, false));
     }
 
     public function testCanSave()

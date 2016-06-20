@@ -3,7 +3,6 @@
 namespace LaravelItalia\Domain\Repositories;
 
 use Config;
-use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
 use Illuminate\Database\Eloquent\Model;
@@ -70,33 +69,6 @@ class ArticleRepository
     public function getByCategory(Category $category, $page, $onlyPublished = false, $onlyVisible = false)
     {
         $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
-
-        if ($onlyPublished) {
-            $query->published();
-        }
-
-        if ($onlyVisible) {
-            $query->visible();
-        }
-
-        return $query->paginate(
-            Config::get('publications.articles_per_page'),
-            ['*'],
-            'page',
-            $page
-        );
-    }
-
-    /**
-     * @param User $user
-     * @param $page
-     * @param bool $onlyPublished
-     * @param bool $onlyVisible
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function getByUser(User $user, $page, $onlyPublished = false, $onlyVisible = false)
-    {
-        $query = $user->articles()->getQuery()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
