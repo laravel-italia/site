@@ -3,6 +3,8 @@
 namespace LaravelItalia\Domain\Commands;
 
 
+use LaravelItalia\Domain\User;
+
 /**
  * Rappresenta il recupero delle credenziali di accesso per l'utente $user.
  *
@@ -13,7 +15,7 @@ class RecoveryPasswordCommand
 {
     private $user;
 
-    public function __construct($user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }

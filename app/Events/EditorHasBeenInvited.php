@@ -3,8 +3,8 @@
 namespace LaravelItalia\Events;
 
 
-use Illuminate\Queue\SerializesModels;
 use LaravelItalia\Domain\User;
+use Illuminate\Queue\SerializesModels;
 
 class EditorHasBeenInvited extends Event
 {

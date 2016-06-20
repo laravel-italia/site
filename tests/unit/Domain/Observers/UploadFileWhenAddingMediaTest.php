@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use LaravelItalia\Domain\Media;
-use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
 
 class UploadFileWhenAddingMediaTest extends TestCase
 {
