@@ -1,5 +1,6 @@
 <?php
 
+use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Article;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
@@ -56,7 +57,7 @@ class ArticleRepositoryTest extends TestCase
 
     public function testGetByUser()
     {
-        $user = \LaravelItalia\Domain\Factories\UserFactory::createUser('Francesco', 'email', 'password');
+        $user = User::fromNameAndEmailAndPassword('Francesco', 'email', 'password');
         $user->save();
 
         $this->saveTestArticle(false, false, $user);

@@ -140,7 +140,6 @@ return [
         /*
          * Other Service Providers...
          */
-        Laravel\Socialite\SocialiteServiceProvider::class,
         JildertMiedema\LaravelTactician\TacticianServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -204,7 +203,6 @@ return [
         /*
          * Other Packages Aliases...
          */
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Image' => Intervention\Image\Facades\Image::class
     ],

@@ -3,8 +3,8 @@
 namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use LaravelItalia\Domain\User;
 use LaravelItalia\Http\Controllers\Controller;
-use LaravelItalia\Domain\Factories\UserFactory;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Http\Requests\UserInviteRequest;
@@ -139,7 +139,7 @@ class UserController extends Controller
      */
     public function postInvite(UserInviteRequest $request, UserRepository $userRepository, RoleRepository $roleRepository)
     {
-        $user = UserFactory::createUser($request->get('name'), $request->get('email'), '');
+        $user = User::fromNameAndEmailAndPassword($request->get('name'), $request->get('email'), '');
 
         try {
             $userRepository->save($user);

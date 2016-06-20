@@ -19,6 +19,22 @@ class User extends Model implements AuthenticatableContract,
     protected $table = 'users';
     protected $hidden = ['password', 'remember_token'];
 
+    public static function fromNameAndEmailAndPassword($fullName, $emailAddress, $password)
+    {
+        $user = new self;
+
+        $user->name = $fullName;
+        $user->email = $emailAddress;
+        $user->password = bcrypt($password);
+
+        $user->is_confirmed = false;
+        $user->confirmation_code = sha1(microtime().$user->email);
+
+        $user->is_blocked = false;
+
+        return $user;
+    }
+
     public function confirm()
     {
         if ($this->is_confirmed) {
@@ -31,11 +47,6 @@ class User extends Model implements AuthenticatableContract,
     public function getEmail()
     {
         return $this->email;
-    }
-
-    public function getAuthenticationProvider()
-    {
-        return $this->provider;
     }
 
     public function setNewPassword($newPassword)

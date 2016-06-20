@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use LaravelItalia\Domain\Factories\UserFactory;
+use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Repositories\RoleRepository;
 use LaravelItalia\Domain\Repositories\UserRepository;
 
@@ -14,9 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         $userRepository = new UserRepository();
         $roleRepository = new RoleRepository();
-        $user = UserFactory::createUser('Francesco Malatesta', 'hey@hellofrancesco.com', '123456');
-
-        $user->slug = '1-francesco-malatesta';
+        $user = User::fromNameAndEmailAndPassword('Francesco Malatesta', 'hey@hellofrancesco.com', '123456');
 
         $user->role()->associate($roleRepository->findByName('administrator'));
         $user->confirm();
