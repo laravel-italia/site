@@ -2,7 +2,9 @@
 
 cp .env.example .env
 composer install
+npm install
 bower install
 php artisan migrate --force --seed
+gulp
 
-echo "Successfully completed the install procedure! Have fun."
+echo "Installazione completata! Buon divertimento ;)"
