@@ -22,7 +22,7 @@
                         <h5 class="text-center">Laravel ti permette di creare applicazioni fantastiche in poco tempo.</h5>
 
                         <div class="jumbut">
-                            <a class="btn btn-primary" href="#" role="button">Vuoi saperne di più? Inizia subito!</a>
+                            <a class="btn btn-primary" href="{{ url('articoli/la-prima-applicazione-con-laravel-52-task-list') }}" role="button">Vuoi saperne di più? Inizia subito!</a>
                             <a class="btn btn-primary" href="{{ env('FORUM_URL') }}" target="_blank" role="button">Serve una mano? Accedi al Forum</a>
                         </div>
                     </section>
