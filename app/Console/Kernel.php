@@ -3,6 +3,7 @@
 namespace LaravelItalia\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use LaravelItalia\Console\Commands\ImportOldSiteData;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -12,7 +13,9 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [];
+    protected $commands = [
+        ImportOldSiteData::class
+    ];
 
     /**
      * Define the application's command schedule.
