@@ -11,8 +11,6 @@ var elixir = require('laravel-elixir');
  |
  */
 
-console.log(__dirname);
-
 elixir(function(mix) {
     mix.less('variables.less', __dirname + '/resources/assets/css/bootstrap.css');
     mix.styles([

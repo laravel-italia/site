@@ -11,6 +11,8 @@
     <meta property="og:image" content="{{ url('images/fb_post_image.png') }}" />
 
     <meta name="twitter:card" value="summary" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css" />
 @endsection
 
 @section('contents')
@@ -74,4 +76,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ url('js/highlight.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            hljs.initHighlightingOnLoad();
+        });
+    </script>
 @endsection
