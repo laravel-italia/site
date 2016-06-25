@@ -19,9 +19,26 @@ class PasswordResetRepositoryTest extends TestCase
         parent::setUp();
     }
 
-    public function testCanSaveNewReset()
+    public function testCanFindByEmailAndToken()
     {
-        $this->addTestAttempt();
+        $this->saveTestPasswordReset();
+
+        $passwordReset = $this->repository->findByEmailAndToken('test@test.com', 'test_token_yo');
+
+        $this->assertEquals($passwordReset->email, 'test@test.com');
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByEmailAndTokenThrowsException()
+    {
+        $this->repository->findByEmailAndToken('test@test.com', 'test_token_yo');
+    }
+
+    public function testCanSave()
+    {
+        $this->repository->add('test@test.com', 'test_token_yo');
 
         $this->seeInDatabase('password_resets', [
             'email' => 'test@test.com',
@@ -29,20 +46,9 @@ class PasswordResetRepositoryTest extends TestCase
         ]);
     }
 
-    public function testSuccessfulResetSearch()
-    {
-        $this->addTestAttempt();
-        $this->assertTrue($this->repository->exists('test@test.com', 'test_token_yo'));
-    }
-
-    public function testUnsuccessfulResetSearch()
-    {
-        $this->assertFalse($this->repository->exists('test@test.com', 'test_token_yo'));
-    }
-
     public function testCanRemoveAttemptsByEmail()
     {
-        $this->addTestAttempt();
+        $this->saveTestPasswordReset();
 
         $this->seeInDatabase('password_resets', [
             'email' => 'test@test.com',
@@ -57,7 +63,7 @@ class PasswordResetRepositoryTest extends TestCase
         ]);
     }
 
-    private function addTestAttempt()
+    private function saveTestPasswordReset()
     {
         $this->repository->add('test@test.com', 'test_token_yo');
     }

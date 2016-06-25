@@ -84,7 +84,12 @@ class ArticleController extends Controller
             $request->get('metadescription')
         );
 
-        $series = ($request->get('series_id') != 0) ? $seriesRepository->findByid($request->get('series_id')) : null;
+        try {
+            $series = $seriesRepository->findByid($request->get('series_id'));
+        } catch (NotFoundException $e) {
+            $series = null;
+        }
+
         $categories = $categoryRepository->getByIds($request->get('categories'));
 
         try {
@@ -151,8 +156,13 @@ class ArticleController extends Controller
         $article->digest = $request->get('digest');
         $article->metadescription = $request->get('metadescription');
 
+        try {
+            $series = $seriesRepository->findByid($request->get('series_id'));
+        } catch (NotFoundException $e) {
+            $series = null;
+        }
+
         $categories = $categoryRepository->getByIds($request->get('categories'));
-        $series = ($request->has('series_id')) ? $seriesRepository->findByid($request->get('series_id')) : null;
 
         try {
             $this->dispatch(new SaveArticleCommand(

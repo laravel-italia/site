@@ -94,7 +94,7 @@ class SeriesController extends Controller
 
         try {
             $seriesRepository->save($series);
-        } catch (\Exception $e) {
+        } catch (NotSavedException $e) {
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 
@@ -121,7 +121,7 @@ class SeriesController extends Controller
 
         try {
             $seriesRepository->save($series);
-        } catch (\Exception $e) {
+        } catch (NotSavedException $e) {
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 
@@ -148,7 +148,7 @@ class SeriesController extends Controller
 
         try {
             $seriesRepository->save($series);
-        } catch (\Exception $e) {
+        } catch (NotSavedException $e) {
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 
@@ -175,7 +175,7 @@ class SeriesController extends Controller
 
         try {
             $seriesRepository->save($series);
-        } catch (\Exception $e) {
+        } catch (NotSavedException $e) {
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 
@@ -224,7 +224,7 @@ class SeriesController extends Controller
 
         try {
             $seriesRepository->save($series);
-        } catch (\Exception $e) {
+        } catch (NotSavedException $e) {
             return redirect('admin/series')->with('error_message', 'Errori in fase di modifica. Riprovare.');
         }
 

@@ -3,6 +3,7 @@
 namespace LaravelItalia\Domain\Repositories;
 
 use LaravelItalia\Domain\Series;
+use LaravelItalia\Exceptions\NotFoundException;
 
 class SeriesRepository
 {
@@ -24,31 +25,31 @@ class SeriesRepository
     }
 
     /**
-     * Restituisce una serie partendo dal suo id. Se $onlyPublished è true la restituisce solo
-     * se è stata già pubblicata.
+     * Restituisce la serie il cui id è $id.
      *
      * @param $id
-     * @param bool $onlyPublished
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @throws NotFoundException
      */
-    public function findByid($id, $onlyPublished = false)
+    public function findByid($id)
     {
-        $query = Series::with('articles');
+        $series = Series::with('articles')->find($id);
 
-        if ($onlyPublished) {
-            $query->published();
+        if(!$series) {
+            throw new NotFoundException;
         }
 
-        return $query->find($id);
+        return $series;
     }
 
     /**
-     * Restituisce una serie dato il suo slug. Se $onlyPublished è true, la restituisce solo se
-     * già pubblicata.
+     * Restituisce la serie il cui slug è $slug. Se $onlyPublished è true, allora la serie verrà restituita solo se
+     * marcata come pubblicata.
      *
      * @param $slug
      * @param bool $onlyPublished
      * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @throws NotFoundException
      */
     public function findBySlug($slug, $onlyPublished = false)
     {
@@ -58,7 +59,13 @@ class SeriesRepository
             $query->published();
         }
 
-        return $query->where('slug', '=', $slug)->first();
+        $series = $query->where('slug', '=', $slug)->first();
+
+        if(!$series) {
+            throw new NotFoundException;
+        }
+
+        return $series;
     }
 
     /**

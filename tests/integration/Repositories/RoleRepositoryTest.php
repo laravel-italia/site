@@ -20,18 +20,22 @@ class RoleRepositoryTest extends TestCase
 
     public function testCanFindByName()
     {
-        $this->prepareTestRoleSeed();
+        $this->saveTestRole();
 
         $existingRole = $this->repository->findByName('administrator');
-        $notExistingRole = $this->repository->findByName('editor');
-
-        $this->assertNotNull($existingRole);
-        $this->assertNull($notExistingRole);
 
         $this->assertEquals('administrator', $existingRole->name);
     }
 
-    private function prepareTestRoleSeed()
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByNameThrowsException()
+    {
+        $this->repository->findByName('king');
+    }
+
+    private function saveTestRole()
     {
         $role = new \LaravelItalia\Domain\Role();
         $role->name = 'administrator';

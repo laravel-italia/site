@@ -179,7 +179,7 @@ class MainController extends Controller
 
             $this->dispatch(new ResetPasswordCommand(
                 $user,
-                $request->get('tgit oken'),
+                $request->get('token'),
                 $request->get('password')
             ));
 
@@ -187,9 +187,7 @@ class MainController extends Controller
             return redirect('admin/dashboard');
 
         } catch (NotFoundException $e) {
-            return redirect('admin/reset/' . $request->get('token'))->with('errors', Collection::make(['Problemi in fase di ricerca dell\'utente specificato. Riprovare.']));
-        } catch (\Exception $e) {
-            return redirect('admin/reset/' . $request->get('token'))->with('errors', Collection::make(['Problemi in fase di salvataggio della nuova password. Riprovare.']));
+            return redirect('admin/reset/' . $request->get('token'))->with('errors', Collection::make(['Problemi in fase di validazione della combinazion e. Riprovare.']));
         }
     }
 

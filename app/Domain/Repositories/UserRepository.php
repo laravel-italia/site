@@ -4,6 +4,7 @@ namespace LaravelItalia\Domain\Repositories;
 
 use LaravelItalia\Domain\User;
 use Illuminate\Support\Facades\Hash;
+use LaravelItalia\Exceptions\NotFoundException;
 
 class UserRepository
 {
@@ -39,33 +40,48 @@ class UserRepository
     }
 
     /**
-     * Restituisce un utente dato il suo id.
+     * Restituisce l'utente il cui id è $id.
      *
      * @param $id
      * @return mixed
+     * @throws NotFoundException
      */
     public function findById($id)
     {
-        return User::find($id);
+        $user = User::find($id);
+
+        if(!$user) {
+            throw new NotFoundException;
+        }
+
+        return $user;
     }
 
     /**
-     * Restituisce un utente dato il suo indirizzo email.
+     * Restituisce l'utente il cui indirizzo email è $emailAddress.
      *
      * @param $emailAddress
      * @return mixed
+     * @throws NotFoundException
      */
     public function findByEmail($emailAddress)
     {
-        return User::where('email', '=', $emailAddress)->first();
+        $user = User::where('email', '=', $emailAddress)->first();
+
+        if(!$user) {
+            throw new NotFoundException;
+        }
+
+        return $user;
     }
 
     /**
-     * Restituisce un utente dato il suo indirizzo email e password.
+     * Restituisce l'utente il cui indirizzo email è $emailAddress e la password è $password.
      *
      * @param $emailAddress
      * @param $password
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return \Illuminate\Database\Eloquent\Model|UserRepository|null|static
+     * @throws NotFoundException
      */
     public function findByEmailAndPassword($emailAddress, $password)
     {
@@ -74,20 +90,31 @@ class UserRepository
             'is_confirmed' => true,
         ]);
 
-        return ($user && Hash::check($password, $user->password)) ? $user : null;
+        if(!$user || !Hash::check($password, $user->password)) {
+            throw new NotFoundException;
+        }
+
+        return $user;
     }
 
     /**
-     * Restituisce un utente a partire dal suo codice di conferma.
+     * Restituisce l'utente il cui codice di conferma è $confirmationCode.
      *
      * @param $confirmationCode
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return \Illuminate\Database\Eloquent\Model|UserRepository|null|static
+     * @throws NotFoundException
      */
     public function findByConfirmationCode($confirmationCode)
     {
-        return $this->findBy([
-            'confirmation_code' => $confirmationCode,
+        $user = $this->findBy([
+            'confirmation_code' => $confirmationCode
         ]);
+
+        if(!$user) {
+            throw new NotFoundException;
+        }
+
+        return $user;
     }
 
     /**

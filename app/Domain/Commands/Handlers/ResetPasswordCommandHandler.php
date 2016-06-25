@@ -26,9 +26,10 @@ class ResetPasswordCommandHandler
 
     public function handle(ResetPasswordCommand $command)
     {
-        if (!$this->passwordResetRepository->exists($command->getUser()->getEmail(), $command->getToken())) {
-            throw new \Exception('wrong_email_or_token');
-        }
+        $this->passwordResetRepository->findByEmailAndToken(
+            $command->getUser()->email,
+            $command->getToken()
+        );
 
         $user = $command->getUser();
         $user->setNewPassword($command->getNewPassword());

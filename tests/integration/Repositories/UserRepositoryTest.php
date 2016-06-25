@@ -37,6 +37,80 @@ class UserRepositoryTest extends TestCase
         $this->assertCount(0, $this->userRepository->getAll(1, ['name' => 'Lorenzo']));
     }
 
+    public function testCanFindById()
+    {
+        $expectedUser = $this->saveTestUser();
+
+        $user = $this->userRepository->findById($expectedUser->id);
+
+        $this->assertEquals($expectedUser->id, $user->id);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByIdThrowsException()
+    {
+        $this->userRepository->findById(999);
+    }
+
+    public function testCanFindByEmail()
+    {
+        $expectedUser = $this->saveTestUser();
+
+        $existingUser = $this->userRepository->findByEmail('hey@hellofrancesco.com');
+
+        $this->assertEquals($expectedUser->id, $existingUser->id);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByEmailThrowsException()
+    {
+        $this->userRepository->findByEmail('idontexist@gmail.com');
+    }
+
+    public function testCanFindByEmailAndPassword()
+    {
+        $this->saveTestUser();
+
+        $existingUser = $this->userRepository->findByEmailAndPassword(
+            'hey@hellofrancesco.com',
+            '123456'
+        );
+
+        $this->assertEquals('hey@hellofrancesco.com', $existingUser->email);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByEmailAndPasswordThrowsException()
+    {
+        $this->userRepository->findByEmailAndPassword(
+            'idont@exist.com',
+            'wololo'
+        );
+    }
+
+    public function testCanFindByConfirmationCode()
+    {
+        $this->saveTestUser();
+
+        $existingUser = $this->userRepository->findByConfirmationCode('confirmation_code');
+
+        $this->assertEquals('confirmation_code', $existingUser->confirmation_code);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByConfirmationCodeThrowsException()
+    {
+        $this->userRepository->findByConfirmationCode('wololooooooo');
+    }
+
     public function testCanSaveUser()
     {
         $this->dontSeeInDatabase('users', [
@@ -50,55 +124,6 @@ class UserRepositoryTest extends TestCase
             'name' => 'Francesco',
             'email' => 'hey@hellofrancesco.com',
         ]);
-    }
-
-    public function testCanGetById()
-    {
-        $expectedUser = $this->saveTestUser();
-
-        $user = $this->userRepository->findById($expectedUser->id);
-
-        $this->assertEquals($expectedUser->id, $user->id);
-    }
-
-    public function testCanFindByEmailAndPassword()
-    {
-        $this->saveTestUser();
-
-        $existingUser = $this->userRepository->findByEmailAndPassword(
-            'hey@hellofrancesco.com',
-            '123456'
-        );
-
-        $notExistingUser = $this->userRepository->findByEmailAndPassword(
-            'idont@exist.com',
-            'wololo'
-        );
-
-        $this->assertNotNull($existingUser);
-        $this->assertNull($notExistingUser);
-    }
-
-    public function testCanFindByEmail()
-    {
-        $this->saveTestUser();
-
-        $existingUser = $this->userRepository->findByEmail('hey@hellofrancesco.com');
-        $notExistingUser = $this->userRepository->findByEmail('idont@exist.com');
-
-        $this->assertNotNull($existingUser);
-        $this->assertNull($notExistingUser);
-    }
-
-    public function testCanFindByConfirmationCode()
-    {
-        $this->saveTestUser();
-
-        $existingUser = $this->userRepository->findByConfirmationCode('confirmation_code');
-        $notExistingUser = $this->userRepository->findByConfirmationCode('i_dont_exist_lol');
-
-        $this->assertNotNull($existingUser);
-        $this->assertNull($notExistingUser);
     }
 
     private function prepareTestUser()

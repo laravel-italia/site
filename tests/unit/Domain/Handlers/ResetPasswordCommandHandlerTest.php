@@ -38,8 +38,7 @@ class ResetPasswordCommandHandlerTest extends TestCase
     public function testCanResetPasswordCorrectly()
     {
         $this->passwordRepositoryMock->expects($this->once())
-            ->method('exists')
-            ->willReturn(true);
+            ->method('findByEmailAndToken');
 
         $this->userMock->expects($this->once())
             ->method('setNewPassword');
@@ -61,14 +60,13 @@ class ResetPasswordCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException     \Exception
-     * @expectedExceptionMessage wrong_email_or_token
+     * @expectedException     \LaravelItalia\Exceptions\NotFoundException
      */
     public function testThrowsExceptionIfResetNotFound()
     {
         $this->passwordRepositoryMock->expects($this->once())
-            ->method('exists')
-            ->willReturn(false);
+            ->method('findByEmailAndToken')
+            ->willThrowException(new \LaravelItalia\Exceptions\NotFoundException());
 
         $this->userMock->expects($this->never())
             ->method('setNewPassword');
