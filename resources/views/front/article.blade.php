@@ -31,7 +31,7 @@
                             </figure>
                             <div>
                                 <b class="author-name">{{ $article->user->name }}</b>
-                                <br/><span class="date">{{ date('d/m/Y', strtotime($article->published_at)) }} </span> in <em> {!! $article->categories->map(function($category) { return '<a href="' . url('categorie/' . $category->slug) . '">'.$category->name.'</a>'; })->implode(', ') !!}</em>
+                                <br/><span class="date">{{ date('d/m/Y', strtotime($article->published_at)) }} </span> in <em> {!! $article->categories->map(function($category) { return '<a href="' . url('articoli?categoria=' . $category->slug) . '">'.$category->name.'</a>'; })->implode(', ') !!}</em>
                             </div>
                         </div>
                     </div>
