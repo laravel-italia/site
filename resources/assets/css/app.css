@@ -720,6 +720,10 @@ article.cover .overlay {
     margin: 0 auto;
 }
 
+.single_article li {
+    line-height: 1.5em;
+}
+
 /* Archive */
 
 article.archive {
