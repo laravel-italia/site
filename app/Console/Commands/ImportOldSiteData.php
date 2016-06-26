@@ -47,9 +47,9 @@ class ImportOldSiteData extends Command
         $exportData = json_decode(file_get_contents($filePath), true);
 
         foreach($exportData as $singleArticle) {
-            $user = $this->createOrFindUserFor($singleArticle);
-            $series = $this->createOrFindSeriesFor($singleArticle);
-            $categories = $this->createOrFindCategoriesFor($singleArticle);
+            $user = $this->findOrCreateUserFor($singleArticle);
+            $series = $this->findOrCreateSeriesFor($singleArticle);
+            $categories = $this->findOrCreateCategoriesFor($singleArticle);
 
             $article = Article::createFromData(
                 $singleArticle['title'],
@@ -71,7 +71,7 @@ class ImportOldSiteData extends Command
         $this->info('Import procedure completed.');
     }
 
-    private function createOrFindUserFor($article)
+    private function findOrCreateUserFor($article)
     {
         /* @var UserRepository $userRepository */
         $userRepository = app(UserRepository::class);
@@ -80,9 +80,9 @@ class ImportOldSiteData extends Command
         $roleRepository = app(RoleRepository::class);
         $adminRole = $roleRepository->findByName('administrator');
 
-        $user = $userRepository->findByEmail($article['user']['email']);
-
-        if(!$user) {
+        try {
+            $user = $userRepository->findByEmail($article['user']['email']);
+        } catch (NotFoundException $e) {
             $user = User::fromNameAndEmailAndPassword(
                 $article['user']['first_name'] . ' ' . $article['user']['last_name'],
                 $article['user']['email'],
@@ -96,15 +96,13 @@ class ImportOldSiteData extends Command
                 $user
             ));
 
-            $this->info($article['user']['email']);
-
             $userRepository->save($user);
         }
 
         return $user;
     }
 
-    private function createOrFindSeriesFor($article)
+    private function findOrCreateSeriesFor($article)
     {
         // yes, I used the shitty name "serie" to play with the Eloquent singular/plural
         if(intval($article['serie_id']) === 0) {
@@ -114,27 +112,25 @@ class ImportOldSiteData extends Command
         /* @var SeriesRepository $seriesRepository */
         $seriesRepository = app(SeriesRepository::class);
 
-        $series = $seriesRepository->findBySlug($article['serie']['slug']);
+        try {
+            $series = $seriesRepository->findBySlug($article['serie']['slug']);
+        } catch (NotFoundException $e) {
+            $series = Series::createFromTitleAndDescriptionAndMetaDescription(
+                $article['serie']['title'],
+                $article['serie']['description'],
+                $article['serie']['metadescription']
+            );
 
-        if($series) {
-            return $series;
+            $series->is_published = boolval($article['serie']['is_visible']);
+            $series->is_completed = boolval($article['serie']['is_finished']);
+
+            $seriesRepository->save($series);
         }
-
-        $series = Series::createFromTitleAndDescriptionAndMetaDescription(
-            $article['serie']['title'],
-            $article['serie']['description'],
-            $article['serie']['metadescription']
-        );
-
-        $series->is_published = boolval($article['serie']['is_visible']);
-        $series->is_completed = boolval($article['serie']['is_finished']);
-
-        $seriesRepository->save($series);
 
         return $series;
     }
 
-    private function createOrFindCategoriesFor($article)
+    private function findOrCreateCategoriesFor($article)
     {
         $categories = new Collection();
 
