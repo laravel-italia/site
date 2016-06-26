@@ -71,6 +71,13 @@
 
                     <hr>
 
+                    <span class='st_sharethis_large' displayText='ShareThis'></span>
+                    <span class='st_facebook_large' displayText='Facebook'></span>
+                    <span class='st_twitter_large' displayText='Tweet'></span>
+                    <span class='st_linkedin_large' displayText='LinkedIn'></span>
+
+                    <hr>
+
                     <p>DISCOURSE INTEGRATION HERE</p>
                 </article>
             </div>
@@ -79,6 +86,10 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "f4be743d-c9b3-4324-b932-5d9fb791f092", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
     <script src="{{ url('js/highlight.min.js') }}"></script>
 
     <script type="text/javascript">
