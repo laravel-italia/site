@@ -70,7 +70,6 @@ class ArticleController extends Controller
      * Salva un nuovo articolo, i cui dati sono contenuti in $request.
      *
      * @param ArticleSaveRequest $request
-     * @param ArticleRepository $articleRepository
      * @param SeriesRepository $seriesRepository
      * @param CategoryRepository $categoryRepository
      * @return \Illuminate\Http\RedirectResponse
