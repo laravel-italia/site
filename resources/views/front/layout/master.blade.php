@@ -31,7 +31,9 @@
         <div class="container pb0 pt0">
             <div class="row">
                 <div class="col-md-12">
-                    <p style="text-align: center; color: #FFFFFF;"><b>Laravel-Italia.it</b> :: Made by <a href="http://hellofrancesco.com" target="_blank">Francesco Malatesta</a></p>
+                    <p>
+                        <b>Laravel-Italia.it</b> :: Made by <a href="http://hellofrancesco.com" target="_blank"><i>Francesco Malatesta</i></a> - <a href="{{ url('privacy') }}"><i>Privacy & Cookie Policy</i></a>
+                    </p>
                 </div>
             </div>
         </div>

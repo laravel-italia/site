@@ -101,4 +101,15 @@ class FrontController extends Controller
             return view('front.404');
         }
     }
+
+
+    /**
+     * Mostra la privacy policy del sito.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getPrivacyPolicy()
+    {
+        return view('front.privacy');
+    }
 }
