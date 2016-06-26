@@ -69,29 +69,35 @@
 
                     {!! Markdown::convertToHtml($article->body) !!}
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class='st_sharethis_large' displayText='ShareThis'></span>
+                            <span class='st_facebook_large' displayText='Facebook'></span>
+                            <span class='st_twitter_large' displayText='Tweet'></span>
+                            <span class='st_linkedin_large' displayText='LinkedIn'></span>
+                        </div>
+                    </div>
+
                     <hr>
 
-                    <span class='st_sharethis_large' displayText='ShareThis'></span>
-                    <span class='st_facebook_large' displayText='Facebook'></span>
-                    <span class='st_twitter_large' displayText='Tweet'></span>
-                    <span class='st_linkedin_large' displayText='LinkedIn'></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id='discourse-comments'></div>
 
-                    <hr>
+                            <script type="text/javascript">
+                                DiscourseEmbed = {
+                                    discourseUrl: 'http://discourse-test.laravel-italia.it/',
+                                    discourseEmbedUrl: '{{ url('articoli/' . $article->slug) }}'
+                                };
 
-                    <div id='discourse-comments'></div>
-
-                    <script type="text/javascript">
-                        DiscourseEmbed = {
-                            discourseUrl: 'http://discourse-test.laravel-italia.it/',
-                            discourseEmbedUrl: '{{ url('articoli/' . $article->slug) }}'
-                        };
-
-                        (function() {
-                            var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
-                            d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
-                        })();
-                    </script>
+                                (function() {
+                                    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                                    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                                })();
+                            </script>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>
