@@ -109,7 +109,7 @@
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "f4be743d-c9b3-4324-b932-5d9fb791f092", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
-    <script src="{{ url('js/highlight.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
