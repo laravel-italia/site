@@ -1,7 +1,7 @@
 @extends('front.layout.master')
 
 @section('head')
-    <title>{{ $article->title }} :: Laravel-Italia.it</title>
+    <title>{{ $article->title }}</title>
     <meta name=”description” content="{{ $article->metadescription }}" />
 
     <meta property="og:title" content="{{ $article->title }} :: Laravel-Italia.it" />
