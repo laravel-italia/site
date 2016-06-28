@@ -86,7 +86,7 @@
 
                             <script type="text/javascript">
                                 DiscourseEmbed = {
-                                    discourseUrl: 'http://discourse-test.laravel-italia.it/',
+                                    discourseUrl: 'http://forum.laravel-italia.it/',
                                     discourseEmbedUrl: '{{ url('articoli/' . $article->slug) }}'
                                 };
 
