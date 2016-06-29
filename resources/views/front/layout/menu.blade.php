@@ -11,7 +11,9 @@
         </a>
 
         <div class="user_buttons">
-            <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+            @if(Auth::check())
+                <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+            @endif
         </div>
 
         <nav class="navbar navbar-default">
