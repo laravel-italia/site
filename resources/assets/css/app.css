@@ -886,9 +886,6 @@ article.archive .author-block {
     .jumbut a:first-child + a {
         margin-top: 20px;
     }
-    .jumbut a {
-        width: 60%;
-    }
     .navbar-nav .open .dropdown-menu {
         background-color: #f5f5f5;
         text-align: center;
