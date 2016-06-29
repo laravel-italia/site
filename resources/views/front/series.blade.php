@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.master.layout')
 
 @section('head')
     <title>Serie :: Laravel-Italia.it</title>

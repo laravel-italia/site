@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.master.layout')
 
 @section('head')
     <title>Pagina non Trovata :: Laravel-Italia.it</title>

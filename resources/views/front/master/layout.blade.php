@@ -18,7 +18,7 @@
     </head>
 
     <div class="container">
-        @include('front.layout.menu')
+        @include('front.master.menu')
     </div>
     <div class="separator"></div>
 

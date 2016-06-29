@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.master.layout')
 
 @section('head')
     <title>@if($article->series) {{ $article->series->title }} :: @endif {{ $article->title }}</title>
