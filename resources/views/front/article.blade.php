@@ -57,7 +57,7 @@
                                                 @if($article->slug === $siblingArticle->slug)
                                                     <li><b>{{ $siblingArticle->title }}</b></li>
                                                 @else
-                                                    <li><a href="{{ url('articoli/' . $siblingArticle->slug) }}">{{ $siblingArticle->title }}</a></li>
+                                                    <li><a href="{{ url('articoli/' . $article->series->slug . '/' . $siblingArticle->slug) }}">{{ $siblingArticle->title }}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>

@@ -45,7 +45,11 @@
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <article class="archive">
-                            <a href="{{ url('articoli/' . $article->slug) }}" class="article-link">
+                            @if($article->isPartOfSeries())
+                                <a href="{{ url('articoli/' . $article->series->slug . '/' . $article->slug) }}" class="article-link">
+                            @else
+                                <a href="{{ url('articoli/' . $article->slug) }}" class="article-link">
+                            @endif
                                 <div class="status">{{ date('d/m/Y', strtotime($article->published_at)) }}</div>
                                 <h6>{{ $article->title }}</h6>
                                 <span><em>di <strong>{{ $article->user->name }}</strong></em></span>

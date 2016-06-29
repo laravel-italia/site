@@ -4,6 +4,8 @@ namespace LaravelItalia\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use LaravelItalia\Domain\Article;
+use LaravelItalia\Domain\Series;
 use LaravelItalia\Http\Requests;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
@@ -56,10 +58,25 @@ class FrontController extends Controller
      *
      * @param ArticleRepository $articleRepository
      * @param $slug
+     * @param $slug2
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getArticle(ArticleRepository $articleRepository, $slug)
+    public function getArticle(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, $slug, $slug2 = null)
     {
+        if($slug2) {
+            try {
+                /* @var Series $series */
+                $series = $seriesRepository->findBySlug($slug, true);
+
+                /* @var Article $article */
+                $article = $articleRepository->findBySeriesAndSlug($series, $slug2);
+
+                return view('front.article', compact('article'));
+            } catch (NotFoundException $e) {
+                return view('front.404');
+            }
+        }
+
         try {
             $article = $articleRepository->findBySlug($slug, true, true);
             return view('front.article', compact('article'));

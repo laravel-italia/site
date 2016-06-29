@@ -1,5 +1,6 @@
 <?php
 
+use LaravelItalia\Domain\Series;
 use LaravelItalia\Domain\Article;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
@@ -108,6 +109,31 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->findById(999);
     }
 
+    public function testFindBySeriesAndSlug()
+    {
+        $series = $this->saveTestSeries('My Series');
+        $expectedArticle = $this->saveTestArticle(true, true);
+        $anotherArticle = $this->saveTestArticle(true, true);
+
+        $this->assignTestSeriesToArticle($series, $expectedArticle);
+
+        $article = $this->repository->findBySeriesAndSlug($series, 'test-title');
+
+        $this->assertEquals($expectedArticle->id, $article->id);
+        $this->assertNotEquals($anotherArticle->id, $article->id);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testFindBySeriesAndSlugThrowsExceptionIfNotFound()
+    {
+        $series = $this->saveTestSeries('My Series');
+        $this->saveTestArticle(true, true);
+
+        $this->repository->findBySeriesAndSlug($series, 'test-title');
+    }
+
     public function prepareTestArticle($published = false, $visible = false)
     {
         $article = new Article();
@@ -148,5 +174,26 @@ class ArticleRepositoryTest extends TestCase
         }
 
         return $article;
+    }
+
+    public function saveTestSeries($title)
+    {
+        $series = new Series();
+
+        $series->title = $title;
+        $series->slug = \Illuminate\Support\Str::slug($title);
+
+        $series->is_published = true;
+        $series->is_completed = true;
+
+        $series->save();
+
+        return $series;
+    }
+
+    public function assignTestSeriesToArticle(Series $series, Article $article)
+    {
+        $article->series()->associate($series);
+        $article->save();
     }
 }

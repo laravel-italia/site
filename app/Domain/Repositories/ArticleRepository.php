@@ -7,6 +7,7 @@ use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use LaravelItalia\Domain\Series;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
 use LaravelItalia\Exceptions\NotDeletedException;
@@ -117,6 +118,39 @@ class ArticleRepository
     public function findBySlug($slug, $onlyPublished = false, $onlyVisible = false)
     {
         $query = Article::with(['user', 'categories', 'series']);
+
+        if ($onlyPublished) {
+            $query->published();
+        }
+
+        if ($onlyVisible) {
+            $query->visible();
+        }
+
+        $result = $query->where('slug', '=', $slug)->first();
+
+        if (!$result) {
+            throw new NotFoundException();
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Restituisce un articolo a partire dal suo slug e dalla sua appartenenza alla serie $series. Se $onlyPublished è
+     * true, solo se mandato in pubblicazione. Se $onlyVisible è true, solo se già pubblicato e visibile.
+     *
+     * @param Series $series
+     * @param $slug
+     * @param bool $onlyPublished
+     * @param bool $onlyVisible
+     * @return mixed
+     * @throws NotFoundException
+     */
+    public function findBySeriesAndSlug(Series $series, $slug, $onlyPublished = false, $onlyVisible = false)
+    {
+        $query = $series->articles()->with(['user', 'categories', 'series']);
 
         if ($onlyPublished) {
             $query->published();
