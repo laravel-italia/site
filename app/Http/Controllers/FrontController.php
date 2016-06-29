@@ -113,7 +113,7 @@ class FrontController extends Controller
         try {
             $series = $seriesRepository->findBySlug($slug, true);
             $firstArticle = $series->articles->first();
-            return redirect('articoli/' . $firstArticle->slug);
+            return redirect('articoli/' . $series->slug . '/' . $firstArticle->slug);
         } catch (NotFoundException $e) {
             return view('front.404');
         }
