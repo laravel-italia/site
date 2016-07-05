@@ -105,7 +105,7 @@ class ArticleController extends Controller
                 ->with('error_message', 'Problemi in fase di aggiunta. Riprovare.');
         }
 
-        return redirect('admin/articles')->with('success_message', 'Articolo aggiunto correttamente.');
+        return redirect('admin/articles/edit/' . $article->id)->with('success_message', 'Articolo aggiunto correttamente.');
     }
 
     /**
