@@ -24,9 +24,14 @@
                 <textarea id="editor" cols="30" rows="10"></textarea>
             </div>
             <div class="col-md-4">
-                <p>
-                    <button id="save_button" class="btn btn-success form-control">Salva Articolo</button>
-                </p>
+                <div class="row">
+                    <div class="col-md-8">
+                        <button id="save_button" class="btn btn-success form-control">Salva Articolo</button>
+                    </div>
+                    <div class="col-md-4">
+                        <a target="_blank" href="{{ url('admin/articles/preview/' . $article->id) }}" class="btn btn-info form-control">Anteprima</a>
+                    </div>
+                </div>
 
                 <hr>
 

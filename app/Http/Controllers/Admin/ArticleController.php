@@ -32,8 +32,8 @@ class ArticleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:editor,administrator', ['except' => ['postPublish', 'getUnpublish', 'getDelete']]);
-        $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish', 'getDelete']]);
+        $this->middleware('role:editor,administrator', ['except' => ['postPublish', 'getUnpublish', 'getDelete', 'getPreview']]);
+        $this->middleware('role:administrator', ['only' => ['postPublish', 'getUnpublish', 'getDelete', 'getPreview']]);
     }
 
     /**
@@ -261,5 +261,24 @@ class ArticleController extends Controller
         }
 
         return redirect('admin/articles')->with('success_message', 'Articolo cancellato correttamente.');
+    }
+
+    /**
+     * Renderizza una preview dell'articolo il cui id è $articleId, esattamente come apparirebbe al lettore.
+     *
+     * @param ArticleRepository $articleRepository
+     * @param $articleId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function getPreview(ArticleRepository $articleRepository, $articleId)
+    {
+        try {
+            /* @var $article Article */
+            $article = $articleRepository->findById($articleId);
+        } catch (NotFoundException $e) {
+            return redirect('admin/articles')->with('error_message', 'L\'articolo scelto non esiste o non è disponibile.');
+        }
+
+        return view('admin.article_preview', compact('article'));
     }
 }
