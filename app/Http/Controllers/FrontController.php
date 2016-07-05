@@ -11,6 +11,7 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class FrontController
@@ -73,7 +74,7 @@ class FrontController extends Controller
 
                 return view('front.article', compact('article'));
             } catch (NotFoundException $e) {
-                return view('front.404');
+                throw new NotFoundHttpException;
             }
         }
 
@@ -81,7 +82,7 @@ class FrontController extends Controller
             $article = $articleRepository->findBySlug($slug, true, true);
             return view('front.article', compact('article'));
         } catch (NotFoundException $e) {
-            return view('front.404');
+            throw new NotFoundHttpException;
         }
     }
 
@@ -97,7 +98,7 @@ class FrontController extends Controller
             $series = $seriesRepository->getAll(true);
             return view('front.series', compact('series'));
         } catch (NotFoundException $e) {
-            return view('front.404');
+            throw new NotFoundHttpException;
         }
     }
 
@@ -115,7 +116,7 @@ class FrontController extends Controller
             $firstArticle = $series->articles->first();
             return redirect('articoli/' . $series->slug . '/' . $firstArticle->slug);
         } catch (NotFoundException $e) {
-            return view('front.404');
+            throw new NotFoundHttpException;
         }
     }
 
