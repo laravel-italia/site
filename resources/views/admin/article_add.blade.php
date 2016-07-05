@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-4">
                 <p>
-                    <button id="save_button" class="btn btn-success form-control">Salva Articolo</button>
+                    <button id="save_button" class="btn btn-success form-control"><span class="glyphicon glyphicon-floppy-disk"></span> Salva Articolo</button>
                 </p>
 
                 <hr>
