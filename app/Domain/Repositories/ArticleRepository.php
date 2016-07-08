@@ -69,7 +69,7 @@ class ArticleRepository
      */
     public function getByCategory(Category $category, $page, $onlyPublished = false, $onlyVisible = false)
     {
-        $query = $category->articles()->getQuery()->with(['user', 'categories', 'series']);
+        $query = $category->articles()->getQuery()->with(['user', 'categories', 'series'])->orderBy('published_at', 'desc');
 
         if ($onlyPublished) {
             $query->published();
