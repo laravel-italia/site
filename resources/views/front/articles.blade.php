@@ -73,7 +73,11 @@
 
             <div class="row">
                 <div class="col-md-12 pagination-container">
-                    {!! $articles->appends(['categoria'])->render() !!}
+                    @if(Request::has('categoria'))
+                        {!! $articles->appends(['categoria' => Request::get('categoria')])->render() !!}
+                    @else
+                        {!! $articles->render() !!}
+                    @endif
                 </div>
             </div>
         </div>
