@@ -67,7 +67,13 @@
             @forelse($publishedArticles as $article)
                 <tr>
                     <td>{{ $article->id }}</td>
-                    <td>{{ $article->title }}</td>
+                    <td>
+                        @if($article->isPartOfSeries())
+                        <a href="{{ url('articoli/' . $article->series->slug . '/' . $article->slug) }}" target="_blank">{{ $article->title }}</a>
+                        @else
+                        <a href="{{ url('articoli/' . $article->slug) }}" target="_blank">{{ $article->title }}</a>
+                        @endif
+                    </td>
                     <td>{{ $article->user->name }}</td>
                     <td>@if($article->isPartOfSeries()) {{ $article->series->title }} @else Nessuna @endif</td>
                     <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
