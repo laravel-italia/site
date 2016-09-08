@@ -7,10 +7,10 @@
 
     <hr>
 
-    @if(count($unpublishedArticles) > 0 && Auth::user()->isAdministrator())
-        <h3>Coda di Revisione</h3>
+    @if(count($unpublishedArticles) > 0)
+        <h3>Articoli Non Pubblicati</h3>
 
-        <p>Ci sono degli articoli da controllare!</p>
+        <p>Gli articoli qui di seguito sono bozze e/o hanno bisogno di essere revisionati.</p>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -27,6 +27,7 @@
                 </thead>
                 <tbody>
                 @foreach($unpublishedArticles as $article)
+                    @if(Auth::user()->isAdministrator() or Auth::user()->id == $article->user->id)
                     <tr>
                         <td>{{ $article->id }}</td>
                         <td>{{ $article->title }}</td>
@@ -35,11 +36,15 @@
                         <td>{{ $article->categories()->get()->pluck('name')->implode(', ') }}</td>
                         <td>@if($article->isPublished()) Pubblicato ({{ date('d/m/Y, H:i', strtotime($article->published_at)) }}) @else Non Pubblicato @endif</td>
                         <td>
-                            <button data-id="{{ $article->id }}" class="btn btn-sm btn-success publish_button"><span class="fa fa-check"></span> Pubblica</button>
+                            @if(Auth::user()->isAdministrator())
+                                <button data-id="{{ $article->id }}" class="btn btn-sm btn-success publish_button"><span class="fa fa-check"></span> Pubblica</button>
+                            @endif
+
                             <a href="{{ url('admin/articles/edit/' . $article->id) }}" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span> Modifica</a>
                             <button type="button" class="btn btn-sm btn-danger delete_button" data-id="{{ $article->id }}"><span class="fa fa-remove"></span> Cancella</button>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
@@ -109,6 +114,7 @@
 
     {!! $publishedArticles->render() !!}
 
+    @if(Auth::user()->isAdministrator())
     <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -130,6 +136,7 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 
 @section('scripts')
