@@ -2,7 +2,7 @@
   "name": "Laravel-Italia.it",
   "version": "3.0.0",
   "dependencies": {
-    "startbootstrap-sb-admin-2": "*",
+    "startbootstrap-sb-admin-2": "BlackrockDigital/startbootstrap-sb-admin-2#^3.3.7",
     "simplemde": "~1.9.0"
   }
 }
