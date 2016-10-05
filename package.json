@@ -7,6 +7,8 @@
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.0.0",
     "jquery": "^2.2.4",
-    "laravel-elixir": "^3.0.0"
+    "laravel-elixir": "^3.0.0",
+    "sb-admin-2": "^3.0.0",
+    "simplemde": "^1.0.0"
   }
 }
