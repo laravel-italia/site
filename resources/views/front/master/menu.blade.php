@@ -38,6 +38,9 @@
                         <li>
                             <a href="{{ env('FORUM_URL') }}" target="_blank">Forum</a>
                         </li>
+                        <li>
+                            <a href="{{ env('SLACK_URL') }}">Slack</a>
+                        </li>
                     </ul>
                 </div>
             </div>
