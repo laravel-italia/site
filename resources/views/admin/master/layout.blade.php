@@ -9,10 +9,9 @@
 
         <title>@yield('title') :: Amministrazione :: Laravel-Italia.it</title>
 
-        <link href="{{ url('assets') }}/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ url('assets') }}/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-        <link href="{{ url('assets') }}/startbootstrap-sb-admin-2/dist/css/timeline.css" rel="stylesheet">
-        <link href="{{ url('assets') }}/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
+        <link href="{{ url('assets') }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ url('assets') }}/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <link href="{{ url('assets') }}/sb-admin-2/sb-admin-2.min.css" rel="stylesheet">
         <link href="{{ url('assets') }}/morrisjs/morris.css" rel="stylesheet">
         <link href="{{ url('assets') }}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -48,15 +47,15 @@
             </div>
         </div>
 
-        <script src="{{ url('assets') }}/jquery/dist/jquery.min.js"></script>
-        <script src="{{ url('assets') }}/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="{{ url('assets') }}/metisMenu/dist/metisMenu.min.js"></script>
-        <script src="{{ url('assets') }}/raphael/raphael-min.js"></script>
+        <script src="{{ url('assets') }}/jquery/jquery.min.js"></script>
+        <script src="{{ url('assets') }}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="{{ url('assets') }}/metisMenu/metisMenu.min.js"></script>
+        <script src="{{ url('assets') }}/raphael/raphael.min.js"></script>
         <script src="{{ url('assets') }}/morrisjs/morris.min.js"></script>
 
         @yield('scripts')
 
-        <script src="{{ url('assets') }}/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js"></script>
+        <script src="{{ url('assets') }}/sb-admin-2/sb-admin-2.min.js"></script>
 
     </body>
 </html>

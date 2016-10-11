@@ -65,7 +65,7 @@
 @endsection
 
 @section('stylesheets')
-<link rel="stylesheet" href="{{ url('assets') }}/simplemde/dist/simplemde.min.css" />
+<link rel="stylesheet" href="{{ url('assets') }}/simplemde/simplemde.min.css" />
 
 <style>
     .categories-list label {
@@ -79,7 +79,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{ url('assets') }}/simplemde/dist/simplemde.min.js"></script>
+<script src="{{ url('assets') }}/simplemde/simplemde.min.js"></script>
 
 <script>
     $(document).ready(function(){

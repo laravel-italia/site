@@ -164,7 +164,7 @@
                 $('.user-picture').html('<img src="' + pictureUrl + '" id="user_picture" />');
 
                 $('#user_picture').attr('src', '{{ url('profile-pictures') }}/' + $(this).data('id') + '.jpg');
-                $('#user_picture').error(function(){
+                $('#user_picture').on('error', function(){
                    $(this).parent().text('Nessuna foto presente per l\'utente.');
                 });
             });
