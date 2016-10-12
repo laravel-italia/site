@@ -6,6 +6,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use LaravelItalia\Domain\Article;
+use LaravelItalia\Domain\Repositories\TemplateRepository;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
@@ -56,13 +57,15 @@ class ArticleController extends Controller
      *
      * @param CategoryRepository $categoryRepository
      * @param SeriesRepository $seriesRepository
+     * @param TemplateRepository $templateRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository)
+    public function getAdd(CategoryRepository $categoryRepository, SeriesRepository $seriesRepository, TemplateRepository $templateRepository)
     {
         return view('admin.article_add', [
             'categories' => $categoryRepository->getAll(),
             'series' => $seriesRepository->getAll(),
+            'templates' => $templateRepository->getAll()
         ]);
     }
 
@@ -114,10 +117,16 @@ class ArticleController extends Controller
      * @param ArticleRepository $articleRepository
      * @param SeriesRepository $seriesRepository
      * @param CategoryRepository $categoryRepository
+     * @param TemplateRepository $templateRepository
      * @param $articleId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function getEdit(ArticleRepository $articleRepository, SeriesRepository $seriesRepository, CategoryRepository $categoryRepository, $articleId)
+    public function getEdit(
+        ArticleRepository $articleRepository,
+        SeriesRepository $seriesRepository,
+        CategoryRepository $categoryRepository,
+        TemplateRepository $templateRepository,
+        $articleId)
     {
         try {
             $article = $articleRepository->findById($articleId);
@@ -127,8 +136,9 @@ class ArticleController extends Controller
 
         $series = $seriesRepository->getAll();
         $categories = $categoryRepository->getAll();
+        $templates = $templateRepository->getAll();
 
-        return view('admin.article_edit', compact('article', 'series', 'categories'));
+        return view('admin.article_edit', compact('article', 'series', 'categories', 'templates'));
     }
 
     /**

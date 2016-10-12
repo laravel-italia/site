@@ -52,6 +52,17 @@
                     <option value="{{ $singleSeries->id }}">{{ $singleSeries->title }}</option>
                     @endforeach
                 </select>
+
+                <hr>
+
+                <p><b>Carica Template</b></p>
+
+                <select id="template_select" class="form-control">
+                    <option value="0">Scegli template...</option>
+                    @foreach($templates as $template)
+                        <option value="{{ $template->id }}">{{ $template->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
@@ -105,6 +116,27 @@
 
         $('#save_button').click(function(){
             $('#body').val(simplemde.value());
+        });
+
+        $('#template_select').change(function(){
+            if($(this).val() === 0) {
+                return;
+            }
+
+            if(simplemde.value() !== '' && !confirm('Sicuro? C\'è già del testo qui!')) {
+                $('#template_select').prop('disabled', false).val(0);
+                return;
+            }
+
+            $(this).prop('disabled', 'disabled');
+            $.get( "{{ url('admin/templates/find') }}/" + $(this).val(), function( data ) {
+                $('#body').val(data.body);
+                simplemde.value($('#body').val());
+            }).fail(function(){
+                alert('Errore, elemento non trovato. Ricaricare la pagina.');
+            }).always(function(){
+                $('#template_select').prop('disabled', false).val(0);
+            });
         });
     });
 </script>

@@ -9,6 +9,7 @@ use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotDeletedException;
 use LaravelItalia\Domain\Repositories\TemplateRepository;
 use LaravelItalia\Http\Requests\TemplateSaveRequest;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class TemplateController
@@ -144,5 +145,25 @@ class TemplateController extends Controller
         }
 
         return redirect('admin/templates')->with('success_message', 'Il template è stato cancellato correttamente.');
+    }
+
+    /**
+     * Restituisce in JSON i dettagli del template di cui è stato specificato l'id. Lancia una NotFoundHttpException
+     * in caso di elemento non trovato.
+     *
+     * @param TemplateRepository $templateRepository
+     * @param $templateId
+     * @return Template
+     */
+    public function getFind(TemplateRepository $templateRepository, $templateId)
+    {
+        try {
+            /* @var Template $template */
+            $template = $templateRepository->findByid($templateId);
+        } catch (NotFoundException $e) {
+            throw new NotFoundHttpException();
+        }
+
+        return $template;
     }
 }
