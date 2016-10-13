@@ -2,17 +2,16 @@
 
 namespace LaravelItalia\Providers;
 
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
 use LaravelItalia\Domain\Media;
+use LaravelItalia\Domain\Observers\DetachArticlesWhenDeletingCategory;
+use LaravelItalia\Domain\Observers\DetachCategoriesBeforeArticleDelete;
 use LaravelItalia\Domain\Observers\RemoveArticlesWhenDeletingSeries;
 use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
 use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
 use LaravelItalia\Domain\Series;
-use LaravelItalia\Domain\Observers\DetachArticlesWhenDeletingCategory;
-use LaravelItalia\Domain\Observers\DetachCategoriesBeforeArticleDelete;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,13 +31,13 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Register any other events for your application.
+     * Register any events for your application.
      *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
+     * @return void
      */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
+        parent::boot();
 
         Article::observe(DetachCategoriesBeforeArticleDelete::class);
 

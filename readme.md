@@ -5,6 +5,6 @@
 
 ---
 
-Terza versione (e stavolta andiamo open) del portale di Laravel-Italia.it.
+Terza versione (stavolta open) del portale di Laravel-Italia.it.
 
-Per maggiori informazioni, [dai uno sguardo alla Wiki!](https://github.com/laravel-italia/site/wiki)
+Per maggiori informazioni, [dai uno sguardo alla Wiki!](https://github.com/laravel-italia/site/wiki).

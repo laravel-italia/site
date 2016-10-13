@@ -103,6 +103,9 @@ class SeriesRepositoryTest extends TestCase
         $series->title = 'Title';
         $series->slug = 'title';
 
+        $series->description = '';
+        $series->metadescription = '';
+
         $series->is_published = $published;
         $series->is_completed = true;
 

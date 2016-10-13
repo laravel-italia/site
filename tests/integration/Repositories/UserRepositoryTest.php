@@ -134,7 +134,9 @@ class UserRepositoryTest extends TestCase
         $user->email = 'hey@hellofrancesco.com';
         $user->password = bcrypt('123456');
         $user->is_confirmed = true;
+        $user->is_blocked = false;
         $user->confirmation_code = 'confirmation_code';
+        $user->role_id = 0;
 
         return $user;
     }

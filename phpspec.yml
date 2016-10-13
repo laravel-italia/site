@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: LaravelItalia
-        psr4_prefix: LaravelItalia
-        src_path: app

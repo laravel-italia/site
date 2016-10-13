@@ -1,9 +1,8 @@
-/vendor
 /node_modules
-/public/assets
-/public/uploads
-/public/adminer.php
-export_data.json
-Homestead.yaml
+/public/storage
+/storage/*.key
+/vendor
+/.idea
 Homestead.json
+Homestead.yaml
 .env

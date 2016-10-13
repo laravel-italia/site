@@ -165,6 +165,8 @@ class ArticleRepositoryTest extends TestCase
 
         if($user) {
             $article->setUser($user);
+        } else {
+            $article->user_id = 0;
         }
 
         $article->save();
@@ -182,6 +184,9 @@ class ArticleRepositoryTest extends TestCase
 
         $series->title = $title;
         $series->slug = \Illuminate\Support\Str::slug($title);
+
+        $series->description = '';
+        $series->metadescription = '';
 
         $series->is_published = true;
         $series->is_completed = true;
