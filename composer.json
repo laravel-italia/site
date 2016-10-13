@@ -6,17 +6,20 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.2.*",
         "league/tactician": "^1.0",
         "jildertmiedema/laravel-tactician": "^0.2.2",
         "graham-campbell/markdown": "^6.1",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "laravelcollective/bus":"^5.2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "^5.1",
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "~2.1",
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0"
     },
     "autoload": {
         "classmap": [

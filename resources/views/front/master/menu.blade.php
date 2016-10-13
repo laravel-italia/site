@@ -36,10 +36,10 @@
                             <a href="{{ url('serie') }}">Serie</a>
                         </li>
                         <li>
-                            <a href="{{ env('FORUM_URL') }}" target="_blank">Forum</a>
+                            <a href="{{ Config::get('site.forum_url') }}" target="_blank">Forum</a>
                         </li>
                         <li>
-                            <a href="{{ env('SLACK_URL') }}">Slack</a>
+                            <a href="{{ Config::get('site.slack_url') }}">Slack</a>
                         </li>
                     </ul>
                 </div>
