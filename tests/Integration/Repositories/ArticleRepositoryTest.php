@@ -134,4 +134,24 @@ class ArticleRepositoryTest extends TestCase
 
         $this->repository->findBySeriesAndSlug($series, 'test-title');
     }
+
+    public function testGetTodayArticles()
+    {
+        $user = $this->saveTestUser();
+        $category = $this->saveTestCategory('My Category');
+
+        $this->saveTestArticle(true, true, $user, $category);
+        $this->saveTestArticle(true, true, $user, $category);
+        $this->saveTestArticle(true, false, $user, $category);
+
+        $results = $this->repository->getTodayArticles();
+
+        $this->assertCount(2, $results);
+        $this->assertGreaterThan($results[0]->id, $results[1]->id);
+    }
+
+    public function testGetTodayArticlesNoResults()
+    {
+        $this->assertCount(0, $this->repository->getTodayArticles());
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace LaravelItalia\Domain\Repositories;
 
+use Carbon\Carbon;
 use Config;
 use LaravelItalia\Domain\Article;
 use LaravelItalia\Domain\Category;
@@ -85,6 +86,19 @@ class ArticleRepository
             'page',
             $page
         );
+    }
+
+    /**
+     * Restituisce una collection contenente gli articoli pubblicati da mezzanotte di oggi, fino ad ora.
+     *
+     * @return mixed
+     */
+    public function getTodayArticles()
+    {
+        return Article::whereBetween('published_at', [Carbon::today(), Carbon::now()])
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->get();
     }
 
     /**
