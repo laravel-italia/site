@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Domain\Observers;
+
+use Tests\TestCase;
 use Illuminate\Http\Request;
 use LaravelItalia\Domain\Media;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -8,17 +11,17 @@ use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
 class UploadFileWhenAddingMediaTest extends TestCase
 {
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|Media
+     * @var \PHPUnit_Framework_MockObject_MockObject|Media
      */
     private $mediaMock;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|Request
+     * @var \PHPUnit_Framework_MockObject_MockObject|Request
      */
     private $requestMock;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|UploadedFile
+     * @var \PHPUnit_Framework_MockObject_MockObject|UploadedFile
      */
     private $uploadedFileMock;
 

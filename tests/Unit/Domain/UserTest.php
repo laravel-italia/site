@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Unit\Domain;
+
+use Hash;
+use Tests\TestCase;
 use LaravelItalia\Domain\User;
 
 class UserTest extends TestCase

@@ -1,13 +1,15 @@
 <?php
 
-use LaravelItalia\Domain\Series;
-use LaravelItalia\Domain\Article;
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 
 class ArticleRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var ArticleRepository
@@ -45,8 +47,7 @@ class ArticleRepositoryTest extends TestCase
 
     public function testGetByCategory()
     {
-        $category = \LaravelItalia\Domain\Category::createFromName('Category');
-        $category->save();
+        $category = $this->saveTestCategory('Category');
 
         $this->saveTestArticle(false, false, null, $category);
         $this->saveTestArticle(true, false, null, $category);
@@ -85,7 +86,7 @@ class ArticleRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testFindBySlugThrowExceptionIfNotFound()
     {
@@ -102,7 +103,7 @@ class ArticleRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testFindByIdThrowsExceptionIfNotFound()
     {
@@ -111,7 +112,7 @@ class ArticleRepositoryTest extends TestCase
 
     public function testFindBySeriesAndSlug()
     {
-        $series = $this->saveTestSeries('My Series');
+        $series = $this->saveTestSeries(true);
         $expectedArticle = $this->saveTestArticle(true, true);
         $anotherArticle = $this->saveTestArticle(true, true);
 
@@ -124,81 +125,13 @@ class ArticleRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testFindBySeriesAndSlugThrowsExceptionIfNotFound()
     {
-        $series = $this->saveTestSeries('My Series');
+        $series = $this->saveTestSeries(true);
         $this->saveTestArticle(true, true);
 
         $this->repository->findBySeriesAndSlug($series, 'test-title');
-    }
-
-    public function prepareTestArticle($published = false, $visible = false)
-    {
-        $article = new Article();
-
-        $article->title = 'Test title';
-        $article->slug = \Illuminate\Support\Str::slug($article->title);
-
-        $article->digest = 'digest test...';
-        $article->body = 'body test...';
-
-        $article->metadescription = '...';
-
-        if ($published) {
-            if($visible) {
-                $article->publish(\Carbon\Carbon::now());
-            } else {
-                $article->publish(\Carbon\Carbon::now()->addDays(1));
-            }
-        } else {
-            $article->unpublish();
-        }
-
-        return $article;
-    }
-
-    public function saveTestArticle($published = false, $visible = false, \LaravelItalia\Domain\User $user = null, \LaravelItalia\Domain\Category $category = null)
-    {
-        $article = $this->prepareTestArticle($published, $visible);
-
-        if($user) {
-            $article->setUser($user);
-        } else {
-            $article->user_id = 0;
-        }
-
-        $article->save();
-
-        if($category) {
-            $article->syncCategories(new \Illuminate\Database\Eloquent\Collection([$category]));
-        }
-
-        return $article;
-    }
-
-    public function saveTestSeries($title)
-    {
-        $series = new Series();
-
-        $series->title = $title;
-        $series->slug = \Illuminate\Support\Str::slug($title);
-
-        $series->description = '';
-        $series->metadescription = '';
-
-        $series->is_published = true;
-        $series->is_completed = true;
-
-        $series->save();
-
-        return $series;
-    }
-
-    public function assignTestSeriesToArticle(Series $series, Article $article)
-    {
-        $article->series()->associate($series);
-        $article->save();
     }
 }

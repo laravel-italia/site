@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Domain\Observers;
+
+use Tests\TestCase;
 use Illuminate\Http\Request;
 use LaravelItalia\Domain\Media;
 use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
@@ -7,12 +10,12 @@ use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
 class RemoveFileWhenDeletingMediaTest extends TestCase
 {
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|Media
+     * @var \PHPUnit_Framework_MockObject_MockObject|Media
      */
     private $mediaMock;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|Request
+     * @var \PHPUnit_Framework_MockObject_MockObject|Request
      */
     private $requestMock;
 

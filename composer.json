@@ -24,7 +24,8 @@
             "database"
         ],
         "psr-4": {
-            "LaravelItalia\\": "app/"
+            "LaravelItalia\\": "app/",
+            "Tests\\": "tests/"
         }
     },
     "autoload-dev": {

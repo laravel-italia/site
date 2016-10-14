@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Listeners;
+
+use Tests\TestCase;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Events\EditorHasBeenInvited;
 use LaravelItalia\Listeners\SendEditorInvitationEmail;

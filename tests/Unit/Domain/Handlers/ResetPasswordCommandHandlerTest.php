@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Domain\Handlers;
+
+use Tests\TestCase;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Domain\Repositories\UserRepository;
 use LaravelItalia\Domain\Commands\ResetPasswordCommand;
@@ -9,17 +12,17 @@ use LaravelItalia\Domain\Commands\Handlers\ResetPasswordCommandHandler;
 class ResetPasswordCommandHandlerTest extends TestCase
 {
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|User
+     * @var \PHPUnit_Framework_MockObject_MockObject|User
      */
     private $userMock;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|PasswordResetRepository
+     * @var \PHPUnit_Framework_MockObject_MockObject|PasswordResetRepository
      */
     private $passwordRepositoryMock;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|UserRepository
+     * @var \PHPUnit_Framework_MockObject_MockObject|UserRepository
      */
     private $userRepositoryMock;
 
@@ -60,7 +63,7 @@ class ResetPasswordCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException     \LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testThrowsExceptionIfResetNotFound()
     {

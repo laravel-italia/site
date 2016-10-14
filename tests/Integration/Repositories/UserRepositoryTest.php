@@ -1,11 +1,15 @@
 <?php
 
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\UserRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 
 class UserRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var UserRepository
@@ -96,11 +100,11 @@ class UserRepositoryTest extends TestCase
 
     public function testCanFindByConfirmationCode()
     {
-        $this->saveTestUser();
+        $expectedUser = $this->saveTestUser();
 
-        $existingUser = $this->userRepository->findByConfirmationCode('confirmation_code');
+        $resultingUser = $this->userRepository->findByConfirmationCode($expectedUser->confirmation_code);
 
-        $this->assertEquals('confirmation_code', $existingUser->confirmation_code);
+        $this->assertEquals($expectedUser->id, $resultingUser->id);
     }
 
     /**
@@ -124,28 +128,5 @@ class UserRepositoryTest extends TestCase
             'name' => 'Francesco',
             'email' => 'hey@hellofrancesco.com',
         ]);
-    }
-
-    private function prepareTestUser()
-    {
-        $user = new \LaravelItalia\Domain\User();
-
-        $user->name = 'Francesco';
-        $user->email = 'hey@hellofrancesco.com';
-        $user->password = bcrypt('123456');
-        $user->is_confirmed = true;
-        $user->is_blocked = false;
-        $user->confirmation_code = 'confirmation_code';
-        $user->role_id = 0;
-
-        return $user;
-    }
-
-    private function saveTestUser()
-    {
-        $user = $this->prepareTestUser();
-        $user->save();
-
-        return $user;
     }
 }

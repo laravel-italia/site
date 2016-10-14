@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Listeners;
+
+use Tests\TestCase;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Events\UserHasRecoveredPassword;
 use LaravelItalia\Listeners\SendPasswordRecoveryEmail;

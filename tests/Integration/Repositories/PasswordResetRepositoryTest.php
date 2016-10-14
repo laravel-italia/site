@@ -1,11 +1,15 @@
 <?php
 
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 use LaravelItalia\Domain\Repositories\PasswordResetRepository;
 
 class PasswordResetRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var PasswordResetRepository
@@ -61,10 +65,5 @@ class PasswordResetRepositoryTest extends TestCase
             'email' => 'test@test.com',
             'token' => 'test_token_yo',
         ]);
-    }
-
-    private function saveTestPasswordReset()
-    {
-        $this->repository->add('test@test.com', 'test_token_yo');
     }
 }

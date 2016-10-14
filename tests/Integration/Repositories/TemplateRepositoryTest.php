@@ -1,12 +1,15 @@
 <?php
 
-use LaravelItalia\Domain\Template;
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\TemplateRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 
 class TemplateRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var TemplateRepository
@@ -41,6 +44,14 @@ class TemplateRepositoryTest extends TestCase
         $this->assertEquals($expectedTemplate->id, $template->id);
     }
 
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testFindByIdThrowsException()
+    {
+        $this->repository->findById(9);
+    }
+
     public function testCanSave()
     {
         $template = $this->prepareTestTemplate();
@@ -65,21 +76,5 @@ class TemplateRepositoryTest extends TestCase
         $this->dontSeeInDatabase('templates', [
             'name' => 'my test template',
         ]);
-    }
-
-    public function prepareTestTemplate()
-    {
-        return Template::fromNameAndBody(
-            'my test template',
-            'my test template body'
-        );
-    }
-
-    public function saveTestTemplate()
-    {
-        $template = $this->prepareTestTemplate();
-        $template->save();
-
-        return $template;
     }
 }

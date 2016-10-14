@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit\Domain;
+
+use Tests\TestCase;
 use LaravelItalia\Domain\Article;
 
 class ArticleTest extends TestCase

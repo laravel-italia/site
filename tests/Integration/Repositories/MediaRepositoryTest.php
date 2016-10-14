@@ -1,14 +1,17 @@
 <?php
 
-use LaravelItalia\Domain\Media;
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\MediaRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 use LaravelItalia\Domain\Observers\UploadFileWhenAddingMedia;
 use LaravelItalia\Domain\Observers\RemoveFileWhenDeletingMedia;
 
 class MediaRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var MediaRepository
@@ -99,23 +102,5 @@ class MediaRepositoryTest extends TestCase
         $this->dontSeeInDatabase('media', [
             'url' => 'test_url_lmao.jpg',
         ]);
-    }
-
-    public function prepareTestMedia()
-    {
-        $media = new Media();
-
-        $media->url = 'test_url_lmao.jpg';
-        $media->user_id = 1;
-
-        return $media;
-    }
-
-    public function saveTestMedia()
-    {
-        $media = $this->prepareTestMedia();
-        $media->save();
-
-        return $media;
     }
 }

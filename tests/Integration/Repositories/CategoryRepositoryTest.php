@@ -1,12 +1,15 @@
 <?php
 
-use LaravelItalia\Domain\Category;
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\CategoryRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 
 class CategoryRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var CategoryRepository
@@ -39,7 +42,7 @@ class CategoryRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testCanFindByIdThrowsException()
     {
@@ -56,7 +59,7 @@ class CategoryRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException           LaravelItalia\Exceptions\NotFoundException
+     * @expectedException   \LaravelItalia\Exceptions\NotFoundException
      */
     public function testCanFindBySlugThrowsException()
     {
@@ -92,19 +95,5 @@ class CategoryRepositoryTest extends TestCase
             'name' => 'Test Category',
             'slug' => 'test-category',
         ]);
-    }
-
-    private function prepareTestCategory($name)
-    {
-        $category = Category::createFromName($name);
-        return $category;
-    }
-
-    private function saveTestCategory($name = 'Test Category')
-    {
-        $testCategory = $this->prepareTestCategory($name);
-        $testCategory->save();
-
-        return $testCategory;
     }
 }

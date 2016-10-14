@@ -1,12 +1,15 @@
 <?php
 
-use LaravelItalia\Domain\Series;
+namespace Tests\Integration\Repositories;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\SeriesRepository;
+use Tests\Integration\Repositories\Support\EntitiesPreparer;
 
 class SeriesRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, EntitiesPreparer;
 
     /**
      * @var SeriesRepository
@@ -94,29 +97,5 @@ class SeriesRepositoryTest extends TestCase
             'title' => 'Title',
             'slug' => 'title',
         ]);
-    }
-
-    private function prepareTestSeries($published = false)
-    {
-        $series = new Series();
-
-        $series->title = 'Title';
-        $series->slug = 'title';
-
-        $series->description = '';
-        $series->metadescription = '';
-
-        $series->is_published = $published;
-        $series->is_completed = true;
-
-        return $series;
-    }
-
-    private function saveTestSeries($published = false)
-    {
-        $testSeries = $this->prepareTestSeries($published);
-        $testSeries->save();
-
-        return $testSeries;
     }
 }

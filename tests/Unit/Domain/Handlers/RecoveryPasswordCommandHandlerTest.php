@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Unit\Domain\Handlers;
+
+use Mockery;
+use Tests\TestCase;
 use LaravelItalia\Domain\User;
 use LaravelItalia\Events\UserHasRecoveredPassword;
 use LaravelItalia\Domain\Commands\RecoveryPasswordCommand;
