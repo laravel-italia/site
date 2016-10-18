@@ -27,7 +27,7 @@
                     <div class="author">
                         <div class="auth_cont pt30 pb30">
                             <figure>
-                                <img src="{{ url('profile-pictures/' . $article->user->id . '.jpg') }}" alt="francesco" />
+                                <img src="{{ url('profile-pictures/' . $article->user->id . '.jpg') }}" alt="{{ $article->user->name }}" />
                             </figure>
                             <div>
                                 <b class="author-name">{{ $article->user->name }}</b>
