@@ -89,13 +89,18 @@ class ArticleRepository
     }
 
     /**
-     * Restituisce una collection contenente gli articoli pubblicati da mezzanotte di oggi, fino ad ora.
+     * Restituisce una collection contenente gli articoli in pubblicazione nella giornata odierna. Se il parametro
+     * $alreadyPublishedOnly è true, restituisce solo gli articoli pubblicati da mezzanotte ad ora.
+     *
+     * @param $alreadyPublishedOnly
      *
      * @return mixed
      */
-    public function getTodayArticles()
+    public function getTodayArticles($alreadyPublishedOnly = true)
     {
-        return Article::whereBetween('published_at', [Carbon::today(), Carbon::now()])
+        $endDate = ($alreadyPublishedOnly) ? Carbon::now() : Carbon::today()->addDay(1);
+
+        return Article::whereBetween('published_at', [Carbon::today(), $endDate])
             ->published()
             ->orderBy('published_at', 'desc')
             ->get();

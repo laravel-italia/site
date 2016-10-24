@@ -2,6 +2,7 @@
 
 namespace Tests\Integration\Repositories;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LaravelItalia\Domain\Repositories\ArticleRepository;
@@ -148,6 +149,23 @@ class ArticleRepositoryTest extends TestCase
 
         $this->assertCount(2, $results);
         $this->assertGreaterThan($results[0]->id, $results[1]->id);
+    }
+
+    public function testGetTodayArticlesWithUnpublished()
+    {
+        $user = $this->saveTestUser();
+        $category = $this->saveTestCategory('My Category');
+
+        $this->saveTestArticle(true, true, $user, $category);
+
+        $nextArticle = $this->saveTestArticle(true, true, $user, $category);
+        $nextArticle->publish(Carbon::now()->addHour());
+        $nextArticle->save();
+
+        $results = $this->repository->getTodayArticles(false);
+
+        $this->assertCount(2, $results);
+        $this->assertGreaterThan($results[1]->id, $results[0]->id);
     }
 
     public function testGetTodayArticlesNoResults()
