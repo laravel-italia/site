@@ -29,7 +29,7 @@ class TodayArticlesToSlack extends Notification
     {
         $slackMessage = (new SlackMessage())
             ->to('#general')
-            ->content('Ehi, gente! Prima di andare in pausa pranzo, ecco cosa è stato pubblicato oggi sul sito!');
+            ->content('<!here> Ehi, gente! Prima di andare in pausa pranzo, ecco cosa è stato pubblicato oggi sul sito!');
 
         foreach($this->todayArticles as $article) {
             $slackMessage->attachment(function (SlackAttachment $attachment) use ($article) {
