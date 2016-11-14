@@ -142,16 +142,10 @@ class UserController extends Controller
         $user = User::fromNameAndEmailAndPassword($request->get('name'), $request->get('email'), '');
 
         try {
-            $userRepository->save($user);
-        } catch (NotSavedException $e) {
-            return redirect('admin/users')->with('error_message', 'Problemi durante la creazione dell\'utente. Riprovare.');
-        }
-
-        try {
             $role = $roleRepository->findByName('editor');
             $this->dispatch(new AssignRoleToUserCommand($role, $user));
         } catch (NotSavedException $e) {
-            return redirect('admin/users')->with('error_message', 'Problemi in fase di assegnazione del ruolo. Riprovare.');
+            return redirect('admin/users')->with('error_message', 'Problemi durante la creazione dell\'utente. Riprovare.');
         }
 
         return redirect('admin/users')->with('success_message', 'Editor invitato correttamente.');
