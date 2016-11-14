@@ -4,6 +4,7 @@ namespace LaravelItalia\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use LaravelItalia\Domain\User;
+use LaravelItalia\Events\EditorHasBeenInvited;
 use LaravelItalia\Http\Controllers\Controller;
 use LaravelItalia\Exceptions\NotFoundException;
 use LaravelItalia\Exceptions\NotSavedException;
@@ -147,6 +148,8 @@ class UserController extends Controller
         } catch (NotSavedException $e) {
             return redirect('admin/users')->with('error_message', 'Problemi durante la creazione dell\'utente. Riprovare.');
         }
+
+        event(new EditorHasBeenInvited($user));
 
         return redirect('admin/users')->with('success_message', 'Editor invitato correttamente.');
     }
