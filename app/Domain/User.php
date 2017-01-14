@@ -35,6 +35,22 @@ class User extends Model implements AuthenticatableContract,
         return $user;
     }
 
+    public static function fromDiscourseUserNameAndEmail($fullName, $emailAddress)
+    {
+        $user = new self;
+
+        $user->name = $fullName;
+        $user->email = $emailAddress;
+        $user->password = '';
+
+        $user->is_confirmed = true;
+        $user->confirmation_code = '';
+
+        $user->is_blocked = false;
+
+        return $user;
+    }
+
     public function confirm()
     {
         if ($this->is_confirmed) {
