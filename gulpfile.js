@@ -24,5 +24,6 @@ elixir(function(mix) {
     mix.copy('node_modules/sb-admin-2/dist/js/sb-admin-2.min.js', 'public/assets/sb-admin-2/sb-admin-2.min.js');
     mix.copy('node_modules/sb-admin-2/dist/css/sb-admin-2.min.css', 'public/assets/sb-admin-2/sb-admin-2.min.css');
     mix.copy('node_modules/sb-admin-2/vendor', 'public/assets');
+    mix.copy('node_modules/bootstrap/fonts', 'public/fonts');
     mix.copy('node_modules/simplemde/dist/', 'public/assets/simplemde');
 });
