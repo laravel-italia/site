@@ -85,6 +85,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'MainController@getIndex');
 });
 
+Route::get('sso/redirect', 'DiscourseSSOController@getRedirect');
+Route::get('sso/callback', 'DiscourseSSOController@getCallback');
+Route::get('sso/logout', 'DiscourseSSOController@getLogout');
+
 Route::get('articoli/{slug}/{slug2?}', 'FrontController@getArticle');
 Route::get('articoli', 'FrontController@getArticles');
 Route::get('serie/{slug}', 'FrontController@getSeriesFirstArticle');

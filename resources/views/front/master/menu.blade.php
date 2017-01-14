@@ -12,7 +12,13 @@
 
         <div class="user_buttons">
             @if(Auth::check())
-                <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+                @if(Auth::user()->role->name != 'user')
+                    <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+                @else
+                     <a href="sso/logout">Esci da <b>{{ Auth::user()->name }}</b></a>
+                @endif
+            @else
+                <a href="{{ url('sso/redirect') }}">Accedi / Registrati</a>
             @endif
         </div>
 
