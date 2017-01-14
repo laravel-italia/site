@@ -16,5 +16,9 @@ class RolesTableSeeder extends Seeder
         $editorRole = new \LaravelItalia\Domain\Role();
         $editorRole->name = 'editor';
         $editorRole->save();
+
+        $userRole = new \LaravelItalia\Domain\Role();
+        $userRole->name = 'user';
+        $userRole->save();
     }
 }
