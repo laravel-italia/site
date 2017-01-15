@@ -34,12 +34,7 @@
                 </div>
 
                 <div class="col-md-9">
-                    <iframe
-                            class="map"
-                            frameborder="0" style="border:0"
-                            src="https://www.google.com/maps/embed/v1/place?q=Italy&key=AIzaSyA6cXuOpvM91gJZ-1ckW_l6hTdSIUrUQSA"
-                            allowfullscreen>
-                    </iframe>
+                    <div id="map" class="map"></div>
                 </div>
             </div>
         </div>
@@ -154,6 +149,26 @@
 @endsection
 
 @section('scripts')
+    <script>
+        function initMap() {
+            var startCoordinates = {lat: 43.30, lng: 11.30};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: startCoordinates
+            });
+
+            @foreach($mapEntries as $mapEntry)
+                new google.maps.Marker({
+                    title: '{{ $mapEntry->name }}',
+                    animation: google.maps.Animation.DROP,
+                    position: {lat: {{ $mapEntry->latitude }}, lng: {{ $mapEntry->longitude }}},
+                    map: map
+                });
+            @endforeach
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6zvKJv8iAr8hNCSs0HA78cAKxmU42330&callback=initMap"></script>
+
     <script>
         $(document).ready(function(){
             $('#type').val('{{ Request::get('type', 'all') }}');
