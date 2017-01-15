@@ -12,7 +12,13 @@
 
         <div class="user_buttons">
             @if(Auth::check())
-                <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+                @if(Auth::user()->role->name != 'user')
+                    <a href="{{ url('admin/dashboard') }}" class="login">Amministrazione</a>
+                @else
+                     <a href="{{ url('sso/logout') }}">Esci da <b>{{ Auth::user()->name }}</b></a>
+                @endif
+            @else
+                <a href="{{ url('sso/redirect') }}">Accedi / Registrati</a>
             @endif
         </div>
 
@@ -33,13 +39,13 @@
                             <a href="{{ url('articoli') }}">Articoli</a>
                         </li>
                         <li>
-                            <a href="{{ url('serie') }}">Serie</a>
-                        </li>
-                        <li>
                             <a href="{{ Config::get('site.forum_url') }}" target="_blank">Forum</a>
                         </li>
                         <li>
                             <a href="{{ Config::get('site.slack_url') }}">Slack</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('mappa') }}">Mappa</a>
                         </li>
                     </ul>
                 </div>

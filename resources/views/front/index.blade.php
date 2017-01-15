@@ -24,6 +24,7 @@
                         <div class="jumbut">
                             <a class="btn btn-primary" href="{{ url('articoli/la-prima-applicazione-con-laravel-52-task-list') }}" role="button">Vuoi saperne di più? Inizia subito!</a>
                             <a class="btn btn-primary" href="{{ env('FORUM_URL') }}" target="_blank" role="button">Serve una mano? Accedi al Forum</a>
+                            <a class="btn btn-primary" href="{{ url('mappa') }}">Scopri chi usa Laravel!</a>
                         </div>
                     </section>
                 </div>

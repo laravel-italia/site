@@ -27,6 +27,10 @@ class EventServiceProvider extends ServiceProvider
 
         'LaravelItalia\Events\EditorHasBeenInvited' => [
             'LaravelItalia\Listeners\SendEditorInvitationEmail'
+        ],
+
+        'LaravelItalia\Events\MapEntryHasBeenRegistered' => [
+            'LaravelItalia\Listeners\SendMapEntryConfirmationEmail'
         ]
     ];
 
