@@ -48,6 +48,7 @@ class MapController extends Controller
 
         try {
             $mapEntryRepository->save($mapEntry);
+            event(new MapEntryHasBeenRegistered($mapEntry));
             return view('front.map_thanks');
         } catch (NotSavedException $e) {
             return redirect('mappa/aggiungi')->with('error_message', 'Problemi in fase di invio della richiesta. Riprova tra poco!');
