@@ -4,6 +4,7 @@ namespace LaravelItalia\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 use JildertMiedema\LaravelTactician\DispatchesCommands;
 use LaravelItalia\Domain\Commands\AssignRoleToUserCommand;
 use LaravelItalia\Domain\Repositories\RoleRepository;
@@ -31,13 +32,15 @@ class DiscourseSSOController extends Controller
      * nuovamente ma verrà effettuato soltanto il login.
      *
      * @param Request $request
+     * @param Store $session
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function getCallback(Request $request, UserRepository $userRepository, RoleRepository $roleRepository)
+    public function getCallback(Request $request, Store $session, UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $userData = $this->getDiscourseUserData($request);
+        $intended = $session->pull('intended', '/');
 
         try {
             $user = $userRepository->findByEmail($userData['email']);
@@ -45,7 +48,7 @@ class DiscourseSSOController extends Controller
                 Auth::login($user);
             }
 
-            return redirect('/');
+            return redirect($intended);
 
         } catch (NotFoundException $e) {
             $user = User::fromDiscourseUserNameAndEmail(
@@ -58,7 +61,7 @@ class DiscourseSSOController extends Controller
                 $this->dispatch(new AssignRoleToUserCommand($role, $user));
                 $userRepository->save($user);
                 Auth::login($user);
-                return redirect('/');
+                return redirect($intended);
 
             } catch (\Exception $e) {
                 return view('errors.500');
