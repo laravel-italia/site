@@ -90,7 +90,7 @@
                 @endif
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                    <a href="#" class="article-link">
+                    <a class="article-link">
                         <article class="archive">
                             <div class="status">
                                 @if($mapEntry->type == 'company')
