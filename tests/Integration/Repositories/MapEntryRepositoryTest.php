@@ -41,6 +41,29 @@ class MapEntryRepositoryTest extends TestCase
         $this->assertCount(1, $mapEntries);
     }
 
+    public function testCanGetPublishedEntriesWithRegionFilter()
+    {
+        $user = $this->saveTestUser();
+        $mapEntry = $this->prepareTestMapEntry();
+        $mapEntry->region = 'Abruzzo';
+        $mapEntry->confirm();
+        $mapEntry->user()->associate($user);
+        $mapEntry->save();
+
+        $this->assertCount(1, $this->repository->getPublishedEntries(1, 'all', 'Abruzzo'));
+        $this->assertCount(0, $this->repository->getPublishedEntries(1, 'all', 'Marche'));
+    }
+
+    public function testCanGetPublishedEntriesWithTypeFilter()
+    {
+        $mapEntry = $this->saveTestMapEntry();
+        $mapEntry->confirm();
+        $mapEntry->save();
+
+        $this->assertCount(1, $this->repository->getPublishedEntries(1, 'company', 'all'));
+        $this->assertCount(0, $this->repository->getPublishedEntries(1, 'developer', 'all'));
+    }
+
     public function testCanFindByConfirmationToken()
     {
         $mapEntry = $this->saveTestMapEntry();

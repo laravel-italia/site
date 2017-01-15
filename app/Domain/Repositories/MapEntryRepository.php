@@ -8,9 +8,19 @@ use LaravelItalia\Exceptions\NotSavedException;
 
 class MapEntryRepository
 {
-    public function getPublishedEntries($page)
+    public function getPublishedEntries($page, $type = 'all', $region = 'all')
     {
-        return MapEntry::where('is_confirmed', '=', true)
+        $query = MapEntry::where('is_confirmed', '=', true);
+
+        if($type !== 'all') {
+            $query->where('type', '=', $type);
+        }
+
+        if($region != 'all') {
+            $query->where('region', '=', $region);
+        }
+
+        return $query
             ->orderBy('created_at', 'desc')
             ->paginate(
                 12,
