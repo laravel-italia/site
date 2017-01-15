@@ -49,35 +49,46 @@
     <section class="fw_block latest_articles lightgreybg">
         <div class="container">
             <div class="row pb30">
-                <div class="col-md-5">
-                    <select name="" id="" class="form-control select-filter">
-                        <option value="">Tutte le Regioni</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                        <option value="">Abruzzo</option>
-                    </select>
-                </div>
-                <div class="col-md-5">
-                    <select name="" id="" class="form-control select-filter">
-                        <option value="">Sviluppatori e Agenzie / Aziende</option>
-                        <option value="">Solo Sviluppatori</option>
-                        <option value="">Solo Agenzie / Aziende</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-danger btn-filter">Filtra <i style="font-size:14px;" class="glyphicon glyphicon-search"></i></button>
-                </div>
+                <form action="{{ url('mappa') }}" method="get" style="margin-top:0px;">
+                    <div class="col-md-5">
+                        <select name="region" id="region" class="form-control select-filter">
+                            <option value="all">Tutte le Regioni</option>
+                            <option value="Abruzzo">Abruzzo</option>
+                            <option value="Basilicata">Basilicata</option>
+                            <option value="Calabria">Calabria</option>
+                            <option value="Campania">Campania</option>
+                            <option value="Emilia-Romagna">Emilia-Romagna</option>
+                            <option value="Friuli-Venezia Giulia">Friuli-Venezia Giulia</option>
+                            <option value="Lazio">Lazio</option>
+                            <option value="Liguria">Liguria</option>
+                            <option value="Lombardia">Lombardia</option>
+                            <option value="Marche">Marche</option>
+                            <option value="Molise">Molise</option>
+                            <option value="Piemonte">Piemonte</option>
+                            <option value="Puglia">Puglia</option>
+                            <option value="Sardegna">Sardegna</option>
+                            <option value="Sicilia">Sicilia</option>
+                            <option value="Toscana">Toscana</option>
+                            <option value="Trentino-Alto Adige">Trentino-Alto Adige</option>
+                            <option value="Umbria">Umbria</option>
+                            <option value="Valle d'Aosta">Valle d'Aosta</option>
+                            <option value="Veneto">Veneto</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select name="type" id="type" class="form-control select-filter">
+                            <option value="all">Sviluppatori e Agenzie / Aziende</option>
+                            <option value="developer">Solo Sviluppatori</option>
+                            <option value="company">Solo Agenzie / Aziende</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-danger btn-filter" type="submit">Filtra <i style="font-size:14px;" class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </form>
             </div>
             <div class="row">
-            @foreach($mapEntries as $index => $mapEntry)
+            @forelse($mapEntries as $index => $mapEntry)
                 @if($index % 4 === 0)
                 </div>
                 <div class="row">
@@ -127,12 +138,14 @@
                         </article>
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <h3 class="pt30">Nessun elemento per questi criteri! :(</h3>
+            @endforelse
             </div>
 
             <div class="row">
                 <div class="col-md-12 pagination-container">
-                    {!! $mapEntries->render() !!}
+                    {!! $mapEntries->appends(['type' => Request::get('type', 'all'), 'region' => Request::get('region', 'all')])->render() !!}
                 </div>
             </div>
         </div>
@@ -189,4 +202,13 @@
             float: right;
         }
     </style>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#type').val('{{ Request::get('type', 'all') }}');
+            $('#region').val('{{ Request::get('region', 'all') }}');
+        });
+    </script>
 @endsection

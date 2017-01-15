@@ -27,7 +27,7 @@ class MapController extends Controller
 
     public function getMap(Request $request, MapEntryRepository $mapEntryRepository)
     {
-        $mapEntries = $mapEntryRepository->getPublishedEntries($request->get('page', 1));
+        $mapEntries = $mapEntryRepository->getPublishedEntries($request->get('page', 1), $request->get('type', 'all'), $request->get('region', 'all'));
         return view('front.map', ['mapEntries' => $mapEntries]);
     }
 
