@@ -4,6 +4,7 @@ namespace LaravelItalia\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use LaravelItalia\Http\Middleware\Authenticate;
+use LaravelItalia\Http\Middleware\AuthenticateOnSiteFrontend;
 use LaravelItalia\Http\Middleware\RoleChecker;
 
 class Kernel extends HttpKernel
@@ -49,6 +50,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => Authenticate::class,
+        'auth.front' => AuthenticateOnSiteFrontend::class,
         'role' => RoleChecker::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
