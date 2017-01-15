@@ -23,6 +23,24 @@ class MapEntryRepositoryTest extends TestCase
         parent::setUp();
     }
 
+    public function testCanFindByConfirmationToken()
+    {
+        $mapEntry = $this->saveTestMapEntry();
+        $token = $mapEntry->confirmation_token;
+
+        $result = $this->repository->findByConfirmationToken($token);
+
+        $this->assertEquals($token, $result->confirmation_token);
+    }
+
+    /**
+     * @expectedException \LaravelItalia\Exceptions\NotFoundException
+     */
+    public function testCanFindByConfirmationTokenThrowsException()
+    {
+        $this->repository->findByConfirmationToken('123456');
+    }
+
     public function testCanSave()
     {
         $mapEntry = $this->prepareTestMapEntry();
@@ -53,5 +71,15 @@ class MapEntryRepositoryTest extends TestCase
             'facebook_url' => '',
             'twitter_url' => ''
         ]);
+    }
+
+    private function saveTestMapEntry()
+    {
+        $mapEntry = $this->prepareTestMapEntry();
+        $user = $this->saveTestUser();
+        $mapEntry->user()->associate($user);
+        $mapEntry->save();
+
+        return $mapEntry;
     }
 }
