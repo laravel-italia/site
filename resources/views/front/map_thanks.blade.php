@@ -31,18 +31,4 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .btn-signup {
-            color: #FFFFFF;
-            height: 62px !important;
-            width: 100%;
-            background-color: #f4645f;
-        }
-
-        .btn-signup:hover {
-            color: #FFFFFF;
-            background-color: #f4645f;
-        }
-    </style>
 @endsection

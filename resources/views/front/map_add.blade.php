@@ -131,44 +131,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .map {
-            width: 100%;
-            height: 450px;
-        }
-
-        .btn-signup {
-            color: #FFFFFF;
-            height: 62px !important;
-            width: 100%;
-            background-color: #f4645f;
-        }
-
-        .btn-signup:hover {
-            color: #FFFFFF;
-            background-color: #f4645f;
-        }
-
-        .btn-filter {
-            width: 100%;
-            color: #FFFFFF;
-            padding: 0px 42px !important;
-            background-color: #f4645f;
-            font-size: 16px;
-            height: 30px;
-            margin-top: 7px;
-        }
-
-        .btn-filter:hover, .btn-filter:active {
-            color: #FFFFFF;
-            background-color: #f4645f;
-        }
-
-        select, select option, input, textarea {
-            color: #444444 !important;
-        }
-    </style>
 @endsection
 
 @section('scripts')
