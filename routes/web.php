@@ -89,6 +89,9 @@ Route::get('sso/redirect', 'DiscourseSSOController@getRedirect');
 Route::get('sso/callback', 'DiscourseSSOController@getCallback');
 Route::get('sso/logout', 'DiscourseSSOController@getLogout');
 
+Route::get('mappa/aggiungi', 'MapController@getAddEntry');
+Route::post('mappa/aggiungi', 'MapController@postAddEntry');
+
 Route::get('articoli/{slug}/{slug2?}', 'FrontController@getArticle');
 Route::get('articoli', 'FrontController@getArticles');
 Route::get('serie/{slug}', 'FrontController@getSeriesFirstArticle');
