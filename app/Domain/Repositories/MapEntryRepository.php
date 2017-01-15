@@ -8,6 +8,18 @@ use LaravelItalia\Exceptions\NotSavedException;
 
 class MapEntryRepository
 {
+    public function getPublishedEntries($page)
+    {
+        return MapEntry::where('is_confirmed', '=', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(
+                12,
+                ['*'],
+                'page',
+                $page
+            );
+    }
+
     public function findByConfirmationToken($token)
     {
         $mapEntry = MapEntry::where('confirmation_token', '=', $token)->first();

@@ -23,6 +23,24 @@ class MapEntryRepositoryTest extends TestCase
         parent::setUp();
     }
 
+    public function testCanGetPublishedEntries()
+    {
+        $user = $this->saveTestUser();
+        $publishedEntry = $this->prepareTestMapEntry();
+        $publishedEntry->confirm();
+        $unpublishedEntry = $this->prepareTestMapEntry();
+
+        $publishedEntry->user()->associate($user);
+        $unpublishedEntry->user()->associate($user);
+
+        $publishedEntry->save();
+        $unpublishedEntry->save();
+
+        $mapEntries = $this->repository->getPublishedEntries(1);
+
+        $this->assertCount(1, $mapEntries);
+    }
+
     public function testCanFindByConfirmationToken()
     {
         $mapEntry = $this->saveTestMapEntry();
