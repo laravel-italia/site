@@ -30,6 +30,11 @@ class MapEntry extends Model
         return $mapEntry;
     }
 
+    public function confirm()
+    {
+        $this->is_confirmed = true;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
