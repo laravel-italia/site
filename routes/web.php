@@ -92,6 +92,7 @@ Route::get('sso/logout', 'DiscourseSSOController@getLogout');
 Route::get('mappa/aggiungi', 'MapController@getAddEntry');
 Route::post('mappa/aggiungi', 'MapController@postAddEntry');
 Route::get('mappa/conferma/{token}', 'MapController@getConfirm');
+Route::get('mappa', 'MapController@getMap');
 
 Route::get('articoli/{slug}/{slug2?}', 'FrontController@getArticle');
 Route::get('articoli', 'FrontController@getArticles');

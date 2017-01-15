@@ -3,6 +3,7 @@
 namespace LaravelItalia\Http\Controllers;
 
 use Auth;
+use Illuminate\Http\Request;
 use LaravelItalia\Domain\MapEntry;
 use LaravelItalia\Domain\Repositories\MapEntryRepository;
 use LaravelItalia\Events\MapEntryHasBeenRegistered;
@@ -22,6 +23,12 @@ class MapController extends Controller
     public function __construct()
     {
         $this->middleware('auth.front', ['only' => 'getAddEntry', 'postAddEntry']);
+    }
+
+    public function getMap(Request $request, MapEntryRepository $mapEntryRepository)
+    {
+        $mapEntries = $mapEntryRepository->getPublishedEntries($request->get('page', 1));
+        return view('front.map', ['mapEntries' => $mapEntries]);
     }
 
     /**
