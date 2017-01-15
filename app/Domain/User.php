@@ -87,6 +87,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Media::class);
     }
 
+    public function mapEntries()
+    {
+        return $this->hasMany(MapEntry::class);
+    }
+
     /* Relationships Utility Methods */
 
     public function isAdministrator()
