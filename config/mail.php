@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'info@laravel-italia.com',
+        'address' => 'info@laravel-italia.it',
         'name' => 'Laravel-Italia',
     ],
 
